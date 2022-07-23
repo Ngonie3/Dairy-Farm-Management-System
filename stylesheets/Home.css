@@ -1,0 +1,33 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.root {
+    -fx-background-color: #1B1F61;
+}
+
+.logoutButton{
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #000000;
+    -fx-background-radius: 15px;
+    -fx-cursor: hand;
+}
+
+.logoutButton:hover{
+    -fx-background-color: #000000;
+    -fx-text-fill: #FFFFFF;
+    -fx-background-radius: 15px;
+}
+
+.normalButton{
+    -fx-background-color: #1B1F61;
+    -fx-text-fill: #FFFFFF;
+    -fx-cursor: hand;
+    -fx-text-alignment: left;
+}
+
+.normalButton:hover{
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #000000;
+    -fx-text-alignment: left;
+}

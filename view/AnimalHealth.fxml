@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1217.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AnimalHealthController">
+   <children>
+      <VBox prefHeight="718.0" prefWidth="392.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox prefHeight="39.0" prefWidth="392.0">
+               <children>
+                  <ComboBox fx:id="healthComboBox" focusTraversable="false" onShowing="#clearTable" onShown="#healthComboShown" prefHeight="30.0" prefWidth="166.0" promptText="Select Animal" style="-fx-font-size: 16px; -fx-font-family: Arial;">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </ComboBox>
+                  <Label fx:id="animalNumber" prefHeight="25.0" prefWidth="223.0" style="-fx-text-fill: #38B437;">
+                     <HBox.margin>
+                        <Insets left="10.0" top="4.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Calibri Bold" size="17.0" />
+                     </font>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </HBox>
+            <Button fx:id="loadDataBtn" mnemonicParsing="false" stylesheets="@../stylesheets/VBox.css" text="Show All Animals">
+               <VBox.margin>
+                  <Insets left="10.0" top="5.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="Calibri Bold" size="16.0" />
+               </font>
+            </Button>
+            <TextField fx:id="searchTextField" focusTraversable="false" promptText="Search...">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="10.0" top="20.0" />
+               </VBox.margin>
+            </TextField>
+            <TableView fx:id="animalHealthTable" focusTraversable="false" prefHeight="549.0" prefWidth="382.0">
+                <placeholder>
+                    <Label text="No Animals present in table" />
+                </placeholder>
+              <columns>
+                <TableColumn fx:id="animalIDColumn" prefWidth="104.0" style="-fx-font-size: 16px; -fx-font-family: Arial;" text="Animal ID" />
+                <TableColumn fx:id="animalNameColumn" prefWidth="149.0" style="-fx-font-size: 16px; -fx-font-family: Arial;" text="Animal Name" />
+                  <TableColumn fx:id="animalTypeColumn" prefWidth="75.0" style="-fx-font-size: 16px; -fx-font-family: Arial;" text="Animal Type" />
+              </columns>
+               <VBox.margin>
+                  <Insets left="10.0" top="10.0" />
+               </VBox.margin>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+         </children>
+      </VBox>
+      <VBox layoutX="392.0" prefHeight="718.0" prefWidth="730.0" AnchorPane.leftAnchor="392.0" AnchorPane.rightAnchor="-24.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="41.0" prefWidth="733.0" style="-fx-background-color: E2E1E1;">
+               <children>
+                  <Label text="Animal Profile">
+                     <font>
+                        <Font name="Calibri Bold" size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+            <Pane prefHeight="168.0" prefWidth="717.0">
+               <children>
+                  <GridPane layoutX="14.0" layoutY="26.0" prefHeight="137.0" prefWidth="297.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="153.0" minWidth="10.0" prefWidth="129.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="202.0" minWidth="10.0" prefWidth="157.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label text="Animal ID">
+                           <font>
+                              <Font name="Calibri Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label text="Animal Name" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="Calibri Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="animal_ID" editable="false" focusTraversable="false" prefHeight="39.0" prefWidth="157.0" GridPane.columnIndex="1">
+                           <font>
+                              <Font name="Calibri" size="17.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="animal_Name" editable="false" focusTraversable="false" prefHeight="39.0" prefWidth="157.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="Calibri" size="17.0" />
+                           </font>
+                        </TextField>
+                        <Label text="Animal Type" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="Calibri Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="animal_Type" editable="false" focusTraversable="false" prefHeight="39.0" prefWidth="157.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="Calibri" size="17.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </GridPane>
+                  <Button fx:id="printHealthBtn" focusTraversable="false" layoutX="367.0" layoutY="104.0" mnemonicParsing="false" onAction="#printHealthBtnPressed" prefHeight="50.0" prefWidth="150.0" stylesheets="@../stylesheets/VBox.css" text="Print Health Data">
+                     <font>
+                        <Font name="Calibri Bold" size="17.5" />
+                     </font>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Pane>
+            <Accordion prefHeight="455.0" prefWidth="977.0">
+              <panes>
+                <TitledPane animated="false" focusTraversable="false" prefHeight="421.0" prefWidth="721.0" text="Health Reports">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="386.0" prefWidth="832.0">
+                           <children>
+                              <ScrollPane layoutX="-2.0" prefHeight="386.0" prefWidth="839.0">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="383.0" prefWidth="858.0">
+                                       <children>
+                                          <GridPane layoutX="14.0" layoutY="14.0" prefHeight="345.0" prefWidth="448.0">
+                                            <columnConstraints>
+                                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                              <RowConstraints maxHeight="104.0" minHeight="10.0" prefHeight="98.0" vgrow="SOMETIMES" />
+                                              <RowConstraints maxHeight="101.0" minHeight="10.0" prefHeight="80.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="92.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="78.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="52.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                             <children>
+                                                <DatePicker fx:id="deleteHealthDate" editable="false" prefHeight="40.0" prefWidth="224.0" style="-fx-font-size: 15px;" GridPane.columnIndex="1" />
+                                                <TextArea fx:id="deleteSymptoms" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                   <GridPane.margin>
+                                                      <Insets bottom="5.0" top="5.0" />
+                                                   </GridPane.margin>
+                                                   <font>
+                                                      <Font name="Calibri" size="17.0" />
+                                                   </font>
+                                                </TextArea>
+                                                <TextArea fx:id="deleteDiagnosis" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                   <font>
+                                                      <Font name="Calibri" size="17.0" />
+                                                   </font>
+                                                </TextArea>
+                                                <TextField fx:id="deleteTreatment" prefHeight="38.0" prefWidth="224.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                                   <font>
+                                                      <Font name="Calibri" size="17.0" />
+                                                   </font>
+                                                </TextField>
+                                                <TextField fx:id="deleteCostOfTreatment" prefHeight="38.0" prefWidth="224.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                                   <GridPane.margin>
+                                                      <Insets bottom="3.0" />
+                                                   </GridPane.margin>
+                                                   <font>
+                                                      <Font name="Calibri" size="17.0" />
+                                                   </font>
+                                                </TextField>
+                                                <TextField fx:id="deleteNameOfVet" prefHeight="38.0" prefWidth="224.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                                   <font>
+                                                      <Font name="Calibri" size="17.0" />
+                                                   </font>
+                                                </TextField>
+                                                <Label text="Date">
+                                                   <font>
+                                                      <Font name="Calibri Bold" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label text="Symptoms" GridPane.rowIndex="1">
+                                                   <font>
+                                                      <Font name="Calibri Bold" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label text="Diagnosis" GridPane.rowIndex="2">
+                                                   <font>
+                                                      <Font name="Calibri Bold" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label text="Treatment" GridPane.rowIndex="3">
+                                                   <font>
+                                                      <Font name="Calibri Bold" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label text="Cost of Treatment" GridPane.rowIndex="4">
+                                                   <font>
+                                                      <Font name="Calibri Bold" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label text="Name of Vet " GridPane.rowIndex="5">
+                                                   <font>
+                                                      <Font name="Calibri Bold" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </GridPane>
+                                          <Button fx:id="saveEditedDetails" layoutX="485.0" layoutY="320.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="111.0" stylesheets="@../stylesheets/VBox.css" text="Save Record">
+                                             <font>
+                                                <Font name="Calibri Bold" size="16.0" />
+                                             </font>
+                                          </Button>
+                                          <Button fx:id="deleteHealth" layoutX="623.0" layoutY="320.0" mnemonicParsing="false" onAction="#deleteHealthPressed" prefHeight="39.0" prefWidth="118.0" styleClass="dangerButton" stylesheets="@../stylesheets/VBox.css" text="Delete Record">
+                                             <font>
+                                                <Font name="Calibri Bold" size="16.0" />
+                                             </font>
+                                          </Button>
+                                          <Button fx:id="editHealth" layoutX="639.0" layoutY="14.0" mnemonicParsing="false" onAction="#editHealthPressed" prefHeight="34.0" prefWidth="102.0" stylesheets="@../stylesheets/VBox.css" text="Edit">
+                                             <font>
+                                                <Font name="Calibri Bold" size="16.0" />
+                                             </font>
+                                          </Button>
+                                       </children>
+                                    </AnchorPane>
+                                </content>
+                              </ScrollPane>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                     <font>
+                        <Font name="Calibri" size="18.0" />
+                     </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                </TitledPane>
+                <TitledPane animated="false" focusTraversable="false" prefHeight="444.0" prefWidth="707.0" text="Add Health Report">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="413.0" prefWidth="705.0">
+                           <children>
+                              <GridPane layoutX="14.0" layoutY="14.0" prefHeight="368.0" prefWidth="466.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints maxHeight="108.0" minHeight="10.0" prefHeight="104.0" vgrow="SOMETIMES" />
+                                  <RowConstraints maxHeight="104.0" minHeight="10.0" prefHeight="99.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="55.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="62.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="44.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Label text="Date">
+                                       <font>
+                                          <Font name="Calibri Bold" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="Symptoms" GridPane.rowIndex="1">
+                                       <font>
+                                          <Font name="Calibri Bold" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="Diagnosis" GridPane.rowIndex="2">
+                                       <font>
+                                          <Font name="Calibri Bold" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="Treatment" GridPane.rowIndex="3">
+                                       <font>
+                                          <Font name="Calibri Bold" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="Cost of  Treatment" GridPane.rowIndex="4">
+                                       <font>
+                                          <Font name="Calibri Bold" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="Name of Vet" GridPane.rowIndex="5">
+                                       <font>
+                                          <Font name="Calibri Bold" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <DatePicker fx:id="saveDate" editable="false" focusTraversable="false" prefHeight="39.0" style="-fx-font-size: 15px; -fx-font-fmaily: Arial Black; -fx-background-color: E2E1E1;" GridPane.columnIndex="1" />
+                                    <TextArea fx:id="saveSymptoms" focusTraversable="false" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                       <GridPane.margin>
+                                          <Insets top="5.0" />
+                                       </GridPane.margin>
+                                       <font>
+                                          <Font name="Calibri" size="17.0" />
+                                       </font>
+                                    </TextArea>
+                                    <TextArea fx:id="saveDiagnosis" focusTraversable="false" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                       <GridPane.margin>
+                                          <Insets top="5.0" />
+                                       </GridPane.margin>
+                                       <font>
+                                          <Font name="Calibri" size="17.0" />
+                                       </font>
+                                    </TextArea>
+                                    <TextField fx:id="saveTreatment" focusTraversable="false" prefHeight="39.0" prefWidth="233.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                       <font>
+                                          <Font name="Calibri" size="17.0" />
+                                       </font>
+                                    </TextField>
+                                    <TextField fx:id="saveCostOfTreatment" focusTraversable="false" prefHeight="39.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                       <font>
+                                          <Font name="Calibri" size="17.0" />
+                                       </font>
+                                    </TextField>
+                                    <TextField fx:id="saveNameOfVet" focusTraversable="false" prefHeight="39.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                       <font>
+                                          <Font name="Calibri" size="17.0" />
+                                       </font>
+                                    </TextField>
+                                 </children>
+                              </GridPane>
+                              <Button fx:id="saveHealth" focusTraversable="false" layoutX="520.0" layoutY="312.0" mnemonicParsing="false" onAction="#saveHealthPressed" prefHeight="47.0" prefWidth="144.0" stylesheets="@../stylesheets/VBox.css" text="Save Record">
+                                 <font>
+                                    <Font name="Bookman Old Style Bold" size="14.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                     <font>
+                        <Font name="Calibri" size="18.0" />
+                     </font>
+                </TitledPane>
+              </panes>
+               <VBox.margin>
+                  <Insets left="10.0" top="10.0" />
+               </VBox.margin>
+               <effect>
+                  <InnerShadow />
+               </effect>
+            </Accordion>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

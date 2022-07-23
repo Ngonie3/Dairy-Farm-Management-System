@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="573.0" prefWidth="929.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SignUpController">
+   <children>
+      <GridPane layoutX="370.0" layoutY="51.0" prefHeight="379.0" prefWidth="406.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="44.0" minHeight="10.0" prefHeight="44.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="52.0" minHeight="10.0" prefHeight="52.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="58.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="58.0" minHeight="10.0" prefHeight="53.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="55.0" minHeight="10.0" prefHeight="54.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="51.0" minHeight="10.0" prefHeight="51.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="61.0" minHeight="10.0" prefHeight="61.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="User Type">
+               <font>
+                  <Font name="Calibri Bold" size="17.5" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="25.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="First Name" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Calibri Bold" size="17.5" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="25.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Last Name" GridPane.rowIndex="2">
+               <font>
+                  <Font name="Calibri Bold" size="17.5" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="25.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="User Name" GridPane.rowIndex="3">
+               <font>
+                  <Font name="Calibri Bold" size="17.5" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="25.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="E-mail Address" GridPane.rowIndex="4">
+               <font>
+                  <Font name="Calibri Bold" size="17.5" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="25.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Password" GridPane.rowIndex="5">
+               <font>
+                  <Font name="Calibri Bold" size="17.5" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="25.0" />
+               </GridPane.margin>
+            </Label>
+            <TextField fx:id="firstName" focusTraversable="false" prefHeight="33.0" prefWidth="193.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <font>
+                  <Font size="17.0" />
+               </font></TextField>
+            <TextField fx:id="lastName" focusTraversable="false" prefHeight="33.0" prefWidth="193.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <font>
+                  <Font size="17.0" />
+               </font></TextField>
+            <TextField fx:id="userName" focusTraversable="false" prefHeight="33.0" prefWidth="193.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <font>
+                  <Font size="17.0" />
+               </font></TextField>
+            <TextField fx:id="emailAddress" focusTraversable="false" prefHeight="33.0" prefWidth="193.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <font>
+                  <Font size="17.0" />
+               </font></TextField>
+            <ComboBox fx:id="userCombo" focusTraversable="false" onShown="#usersShown" prefHeight="33.0" prefWidth="150.0" promptText="Select User" style="-fx-font-size: 16px; -fx-font-family: Arial;" GridPane.columnIndex="1" />
+            <PasswordField fx:id="password" focusTraversable="false" prefHeight="33.0" prefWidth="193.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <font>
+                  <Font size="17.0" />
+               </font></PasswordField>
+            <Label text="Confirm Password" GridPane.rowIndex="6">
+               <font>
+                  <Font name="Calibri Bold" size="17.5" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="25.0" top="10.0" />
+               </GridPane.margin>
+            </Label>
+            <PasswordField fx:id="confirmPassword" focusTraversable="false" onKeyPressed="#enterButtonPressed" prefHeight="33.0" prefWidth="193.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+               <GridPane.margin>
+                  <Insets top="15.0" />
+               </GridPane.margin>
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </PasswordField>
+            <Label fx:id="passwordCheck" prefHeight="17.0" prefWidth="204.0" text="Passwords must match!" GridPane.columnIndex="1" GridPane.rowIndex="6">
+               <GridPane.margin>
+                  <Insets bottom="45.0" />
+               </GridPane.margin>
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+         </children>
+      </GridPane>
+      <VBox alignment="CENTER" prefHeight="573.0" prefWidth="365.0">
+         <children>
+            <ImageView fitHeight="400.0" fitWidth="380.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/Logo.PNG" />
+               </image>
+            </ImageView>
+         </children>
+      </VBox>
+      <Label layoutX="573.0" layoutY="493.0" text="Already a member?">
+         <font>
+            <Font name="Calibri" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="logIn" layoutX="744.0" layoutY="493.0" onMouseEntered="#showCursor" onMousePressed="#goToLogin" text="Log In" textFill="#4b3af7">
+         <font>
+            <Font name="Calibri Bold" size="18.0" />
+         </font>
+      </Label>
+      <Line endX="37.0" layoutX="755.0" layoutY="515.0" startX="-15.0" stroke="#4b3af7" />
+      <Button layoutX="573.0" layoutY="437.0" mnemonicParsing="false" onAction="#signUpBtnPressed" prefHeight="44.0" prefWidth="201.0" stylesheets="@../stylesheets/Login.css" text="Sign Up">
+         <font>
+            <Font name="Calibri Bold" size="18.0" />
+         </font>
+      </Button>
+      <Label fx:id="registrationSuccess" layoutX="573.0" layoutY="28.0" prefHeight="23.0" prefWidth="303.0" />
+      <Button layoutX="806.0" layoutY="440.0" mnemonicParsing="false" onAction="#clearSignUpDetails" prefHeight="38.0" prefWidth="70.0" styleClass="dangerButton" stylesheets="@../stylesheets/VBox.css" text="Clear">
+         <font>
+            <Font name="Calibri Bold" size="18.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
