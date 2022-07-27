@@ -147,6 +147,16 @@ public class AnimalHealthController implements Initializable {
         deleteNameOfVet.setStyle("-fx-control-inner-background: #FAF9F9");
     }
 
+    @FXML
+    void clearAnimalFields() {
+        animal_ID.clear();
+        animal_Name.clear();
+        animal_Type.clear();
+        animal_ID.setEditable(true);
+        animal_Name.setEditable(true);
+        animal_Type.setEditable(true);
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         healthComboBox.setItems(getHealthCombo);
@@ -166,8 +176,10 @@ public class AnimalHealthController implements Initializable {
         String treatment = saveTreatment.getText();
         String costOfTreatment = saveCostOfTreatment.getText();
         String nameOfVet = saveNameOfVet.getText();
-        String insertToDatabase = "INSERT INTO dairy_farm.animal_health(animalID, animalName, animalType, recordingDate, symptoms, diagnosis, treatment, costOfTreatment, nameOfVet)VALUES('";
-        String insertValues= ID+"', '"+name+"', '"+type+"', '"+recordingDate+"', '"+symptoms+"', '"+diagnosis+"', '"+treatment+"', '"+costOfTreatment+"', '"+nameOfVet+"')";
+        String insertToDatabase = "INSERT INTO dairy_farm.animal_health(animalID, animalName, animalType, recordingDate," +
+                " symptoms, diagnosis, treatment, costOfTreatment, nameOfVet)VALUES('";
+        String insertValues= ID+"', '"+name+"', '"+type+"', '"+recordingDate+"', '"+symptoms+"', '"+diagnosis+"', '"+
+                treatment+"', '"+costOfTreatment+"', '"+nameOfVet+"')";
         String databaseValues = insertToDatabase+insertValues;
         try {
             Statement statement = connection.createStatement();
@@ -372,7 +384,7 @@ public class AnimalHealthController implements Initializable {
         Connection connection = dbConnection.getConnection();
         String recordsQuery = "SELECT * FROM dairy_farm.animal_health";
         loadDataBtn.setOnAction(actionEvent -> {
-            if(!(animalHealthTable.getItems().isEmpty())){
+            if(!(animalHealthTable.getItems().isEmpty()) && animalNumber.getText().isEmpty()){
                 animalHealthSearchModelObservableList.clear();
                 animalNumber.setText("");
                 healthComboBox.getSelectionModel().select(-1);
@@ -455,6 +467,9 @@ public class AnimalHealthController implements Initializable {
         }
     }
     private void grayOutFields() {
+        animal_ID.setEditable(false);
+        animal_Name.setEditable(false);
+        animal_Type.setEditable(false);
         deleteHealthDate.setDisable(true);
         deleteSymptoms.setEditable(false);
         deleteDiagnosis.setEditable(false);

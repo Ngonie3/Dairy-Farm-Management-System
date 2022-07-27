@@ -34,6 +34,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.DatabaseConnection;
+import model.JavaMailUtil;
 import org.controlsfx.control.Notifications;
 
 /**
@@ -153,10 +154,9 @@ public class SignUpController implements Initializable {
                 Timeline timer = new Timeline(new KeyFrame(Duration.seconds(2)));
                 timer.setOnFinished(actionEvent -> {
                     Notifications notifications = Notifications.create()
-                            .text("Signup Successful. Proceed to Login")
+                            .text("Signup Successful. Proceed to Login and check your mailbox")
                             .position(Pos.TOP_RIGHT)
-                            .hideCloseButton()
-                            .hideAfter(Duration.seconds(3));
+                            .hideAfter(Duration.seconds(7));
                     notifications.darkStyle();
                     notifications.showInformation();
                 });
@@ -174,11 +174,12 @@ public class SignUpController implements Initializable {
             String firstname = firstName.getText();
             String lastname = lastName.getText();
             String username = userName.getText();
-            String emailaddress = emailAddress.getText();
+            String email_address = emailAddress.getText();
             String userPassword = password.getText();
             String insertFields = "INSERT INTO dairy_farm.user_signup(user_type, user_firstName, user_lastName, user_name, email_address, user_password) VALUES ('";
-            String insertValues = userType + "', '"+ firstname + "', '"+ lastname + "', '"+ username + "', '"+ emailaddress + "', '"+ userPassword + "')";
+            String insertValues = userType + "', '"+ firstname + "', '"+ lastname + "', '"+ username + "', '"+ email_address + "', '"+ userPassword + "')";
             String insertToDb = insertFields + insertValues;
+            JavaMailUtil.sendMail(email_address);
             try {
                 Statement statement = connectDB.createStatement();
                 statement.executeUpdate(insertToDb);

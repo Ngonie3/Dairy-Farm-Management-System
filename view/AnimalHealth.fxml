@@ -21,6 +21,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1217.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AnimalHealthController">
@@ -121,12 +122,12 @@
                               <Font name="Calibri Bold" size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="animal_ID" editable="false" focusTraversable="false" prefHeight="39.0" prefWidth="157.0" GridPane.columnIndex="1">
+                        <TextField fx:id="animal_ID" focusTraversable="false" prefHeight="39.0" prefWidth="157.0" GridPane.columnIndex="1">
                            <font>
                               <Font name="Calibri" size="17.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="animal_Name" editable="false" focusTraversable="false" prefHeight="39.0" prefWidth="157.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <TextField fx:id="animal_Name" focusTraversable="false" prefHeight="39.0" prefWidth="157.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <font>
                               <Font name="Calibri" size="17.0" />
                            </font>
@@ -136,7 +137,7 @@
                               <Font name="Calibri Bold" size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="animal_Type" editable="false" focusTraversable="false" prefHeight="39.0" prefWidth="157.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <TextField fx:id="animal_Type" focusTraversable="false" prefHeight="39.0" prefWidth="157.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <font>
                               <Font name="Calibri" size="17.0" />
                            </font>
@@ -148,6 +149,12 @@
                         <Font name="Calibri Bold" size="17.5" />
                      </font>
                   </Button>
+                  <Label layoutX="14.0" layoutY="6.0" prefHeight="17.0" prefWidth="476.0" text="To add Reocrd,enter ID, name, type and then proceed to enter rest of the details" textFill="#1ec6c6">
+                     <font>
+                        <Font name="Calibri Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Line endX="310.0" layoutX="180.0" layoutY="23.0" startX="-166.0" />
                </children>
                <VBox.margin>
                   <Insets bottom="10.0" />
@@ -270,7 +277,7 @@
                         <DropShadow />
                      </effect>
                 </TitledPane>
-                <TitledPane animated="false" focusTraversable="false" prefHeight="444.0" prefWidth="707.0" text="Add Health Report">
+                <TitledPane animated="false" focusTraversable="false" onMouseClicked="#clearAnimalFields" prefHeight="444.0" prefWidth="707.0" text="Add Health Report">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="413.0" prefWidth="705.0">
                            <children>

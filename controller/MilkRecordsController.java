@@ -239,6 +239,9 @@ public class MilkRecordsController implements Initializable {
             if(milkSearchModel.getName().toLowerCase().contains(searchResult)){
                 return true;
             }
+            if(milkSearchModel.getMilkingDate().toString().toLowerCase().contains(searchResult)){
+                return true;
+            }
             int numValue = milkSearchModel.getID();
             return String.valueOf(numValue).toLowerCase().contains(searchResult);
         }));
