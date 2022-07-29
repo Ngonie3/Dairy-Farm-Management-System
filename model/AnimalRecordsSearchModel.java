@@ -37,6 +37,12 @@ public class AnimalRecordsSearchModel {
         this.pasture = pasture;
     }
 
+    public AnimalRecordsSearchModel(int ID, String name, Date birthDate) {
+        this.ID = ID;
+        this.name = name;
+        this.birthDate = birthDate;
+    }
+
     public int getID() {
         return ID;
     }

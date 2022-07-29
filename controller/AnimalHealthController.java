@@ -146,7 +146,6 @@ public class AnimalHealthController implements Initializable {
         deleteCostOfTreatment.setStyle("-fx-control-inner-background: #FAF9F9");
         deleteNameOfVet.setStyle("-fx-control-inner-background: #FAF9F9");
     }
-
     @FXML
     void clearAnimalFields() {
         animal_ID.clear();
