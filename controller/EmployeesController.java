@@ -201,7 +201,6 @@ public class EmployeesController implements Initializable{
             }
         });
     }
-
     public void add_Employee(){
         DatabaseConnection dbConnection = new DatabaseConnection();
         Connection connectToDB = dbConnection.getConnection();
@@ -228,12 +227,12 @@ public class EmployeesController implements Initializable{
         try {
             Statement statement = connectToDB.createStatement();
             statement.executeUpdate(DBValues);
+            connectToDB.close();
         } catch (SQLException e) {
             e.printStackTrace();
             e.getCause();
         }
     }
-
     private void add_Last_Row(){
         DatabaseConnection databaseConnection = new DatabaseConnection();
         Connection connection = databaseConnection.getConnection();
@@ -247,11 +246,11 @@ public class EmployeesController implements Initializable{
             String salary = result.getString("salary");
             employeeSearchModelObservableList.add(new EmployeeSearchModel(employeeID, employeeName, salary));
             search();
+            connection.close();
         }catch(SQLException sqlException){
             sqlException.printStackTrace();
         }
     }
-
     private void setValueToTextField(){
         employeeTableView.setOnMouseClicked(mouseEvent -> {
             EmployeeSearchModel employeeSearchModel = employeeTableView.getItems().get(employeeTableView.getSelectionModel().getSelectedIndex());
@@ -260,7 +259,6 @@ public class EmployeesController implements Initializable{
             listEmpSalary.setText(employeeSearchModel.getEmployeeSalary());
         });
     }
-
     private void search(){
         employeeIDColumn.setCellValueFactory(new PropertyValueFactory<>("employeeID"));
         employeeNameColumn.setCellValueFactory(new PropertyValueFactory<>("employeeName"));

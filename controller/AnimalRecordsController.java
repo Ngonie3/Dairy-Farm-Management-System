@@ -160,10 +160,6 @@ public class AnimalRecordsController implements Initializable {
         profilePasture.clear();
     }
     @FXML
-    void selectImageBtnPressed() {
-
-    }
-    @FXML
     void updateDetailsPressed() {
         Notifications updateNotification = Notifications.create()
                    .text("Details successfully updated")
@@ -187,6 +183,7 @@ public class AnimalRecordsController implements Initializable {
         profileWeightAtBirth.clear();
         profileWightAtFirstService.clear();
     }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setCellValueToTextField();
@@ -223,6 +220,7 @@ public class AnimalRecordsController implements Initializable {
         try {
             Statement statement = connection.createStatement();
             statement.executeUpdate(dbValues);
+            connection.close();
         }catch (SQLException exception){
             exception.printStackTrace();
         }
@@ -232,6 +230,7 @@ public class AnimalRecordsController implements Initializable {
             AnimalRecordsSearchModel animal = animalRecordsTable.getItems().get(animalRecordsTable.getSelectionModel().getSelectedIndex());
             profileID.setText(String.valueOf(animal.getID()));
             profileName.setText(animal.getName());
+            System.out.println(profileName.getText());
             profileAnimalType.setText(animal.getAnimalType());
             profileEarTag.setText(animal.getEarTag());
             profileSireID.setText(String.valueOf(animal.getSireID()));
@@ -273,6 +272,7 @@ public class AnimalRecordsController implements Initializable {
             animalRecordsSearchModelObservableList.add(new AnimalRecordsSearchModel(animalID, animalName, animalType, dateOfBirth, currentAge,
                     earTag, sireID, damID, breed, color, weightAtBirth, ageAtFirstService, weightAtFirstService, pasture));
             search();
+            connection.close();
         }catch(SQLException sqlException){
             sqlException.printStackTrace();
         }
@@ -426,6 +426,7 @@ public class AnimalRecordsController implements Initializable {
                                 damID, breed, color, weightAtBirth, ageAtFirstService, weightAtFirstService,pasture));
                         search();
                     }
+                    connection.close();
                 }catch(SQLException sqlException){
                     sqlException.printStackTrace();
                 }
@@ -522,6 +523,7 @@ public class AnimalRecordsController implements Initializable {
                     }
                     search();
                 }
+                connect.close();
             } catch (SQLException exception) {
                 exception.printStackTrace();
             }

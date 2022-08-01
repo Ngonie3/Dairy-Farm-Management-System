@@ -11,7 +11,6 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.Date;
 import java.util.ResourceBundle;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -19,10 +18,11 @@ import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Duration;
-import model.AnimalHealthSearchModel;
 import model.AnimalRecordsSearchModel;
 import model.AnimalWeightSearchModel;
 import model.DatabaseConnection;
@@ -47,25 +47,25 @@ public class AnimalWeightController implements Initializable {
     @FXML
     private DatePicker weightDate;
     @FXML
-    private TableColumn<AnimalWeightSearchModel, String> ageAtWeighing;
-    @FXML
     private TableColumn<AnimalWeightSearchModel, String> animalNameColumn;
+    @FXML
+    private TableColumn<AnimalWeightSearchModel, String> ageAtWeighing;
     @FXML
     private TableColumn<AnimalWeightSearchModel, Date> dateRecordedColumn;
     @FXML
-    private TableView<AnimalRecordsSearchModel> retrieveAnimalsTable;
-    @FXML
-    private TableView<AnimalWeightSearchModel> displayWeightRecordsTable;
+    private TableColumn<AnimalWeightSearchModel, String> weightColumn;
     @FXML
     private TableColumn<AnimalRecordsSearchModel, Integer> retrieveAnimalID;
     @FXML
     private TableColumn<AnimalRecordsSearchModel, String> retrieveAnimalName;
     @FXML
-    private TableColumn<AnimalWeightSearchModel, String> weightColumn;
+    private TableView<AnimalRecordsSearchModel> retrieveAnimalsTable;
+    @FXML
+    private LineChart<String, Number> lineChart;
+    @FXML
+    private TableView<AnimalWeightSearchModel> displayWeightRecordsTable;
     @FXML
     private Button loadData;
-    @FXML
-    private Button deleteWeightRecord;
 
     ObservableList<AnimalWeightSearchModel> animalWeightSearchModelObservableList = FXCollections.observableArrayList();
     ObservableList<AnimalRecordsSearchModel> recordsSearchModelObservableList = FXCollections.observableArrayList();
@@ -89,17 +89,21 @@ public class AnimalWeightController implements Initializable {
             delete.showInformation();
         }
     }
-
     @FXML
     void saveWeight() {
         addWeightRecords();
-        Notifications weight = Notifications.create()
+        Notifications weightNotification = Notifications.create()
                 .text("Details successfully saved!")
                 .position(Pos.TOP_RIGHT)
                 .hideCloseButton()
                 .hideAfter(Duration.seconds(3));
-        weight.darkStyle();
-        weight.showInformation();
+        weightNotification.darkStyle();
+        weightNotification.showInformation();
+        animalNameTextField.clear();
+        animalIDTextField.clear();
+        animalDOBTextFiled.clear();
+        weightDate.setValue(null);
+        weightTextField.clear();
     }
 
     @Override
@@ -107,7 +111,6 @@ public class AnimalWeightController implements Initializable {
         retrieveAnimals();
         setCellValueToTextFields();
     }
-
     private void addWeightRecords(){
         DatabaseConnection databaseConnection = new DatabaseConnection();
         Connection connection = databaseConnection.getConnection();
@@ -117,8 +120,8 @@ public class AnimalWeightController implements Initializable {
         String weight = weightTextField.getText();
         LocalDate dateOfBirth = LocalDate.parse(animalDOBTextFiled.getText());
         LocalDate currentDate = LocalDate.now();
-        Period period = Period.between(currentDate, dateOfBirth);
-        String currentAge = period.getYears()+"Y"+ period.getMonths()+" M"+ period.getDays()+" D";
+        Period period = Period.between(dateOfBirth, currentDate);
+        String currentAge = period.getYears()+"Y "+ period.getMonths()+"M "+ period.getDays()+"D";
         String insertToDatabase = "INSERT INTO dairy_farm.animal_weight(animal_ID, animal_name, date_recorded,"+
                 "age_at_weighing, weight)VALUES('";
         String values = ID+"', '"+animalName+"', '"+recodingDate+"', '"+currentAge+"', '"+weight+"')";
@@ -126,11 +129,11 @@ public class AnimalWeightController implements Initializable {
         try {
             Statement statement = connection.createStatement();
             statement.executeUpdate(databaseValues);
+            connection.close();
         } catch(SQLException exception){
             exception.printStackTrace();
         }
     }
-
     private void retrieveAnimals(){
         DatabaseConnection databaseConnection = new DatabaseConnection();
         Connection connection = databaseConnection.getConnection();
@@ -166,12 +169,12 @@ public class AnimalWeightController implements Initializable {
                     }
                     search();
                 }
+                connection.close();
             }catch(SQLException exception){
                 exception.printStackTrace();
             }
         });
     }
-
     private void search(){
         retrieveAnimalID.setCellValueFactory(new PropertyValueFactory<>("ID"));
         retrieveAnimalName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -193,13 +196,44 @@ public class AnimalWeightController implements Initializable {
         searchModelSortedList.comparatorProperty().bind(retrieveAnimalsTable.comparatorProperty());
         retrieveAnimalsTable.setItems(searchModelSortedList);
     }
-
     private void setCellValueToTextFields(){
         retrieveAnimalsTable.setOnMouseClicked(mouseEvent -> {
+            DatabaseConnection databaseConnection = new DatabaseConnection();
+            Connection connect = databaseConnection.getConnection();
+            animalWeightSearchModelObservableList.clear();
             AnimalRecordsSearchModel animalRecordsSearchModel = retrieveAnimalsTable.getItems().get(retrieveAnimalsTable.getSelectionModel().getSelectedIndex());
             animalNameTextField.setText(animalRecordsSearchModel.getName());
+            String nameValue = animalNameTextField.getText();
             animalIDTextField.setText(String.valueOf(animalRecordsSearchModel.getID()));
             animalDOBTextFiled.setText(animalRecordsSearchModel.getBirthDate().toString());
+            retrieveAnimalsTable.getSelectionModel().getSelectedItems().stream().map(retrieveAnimalsTable ->
+                    new DatabaseConnection()).map(DatabaseConnection::getConnection).forEach(connection -> {
+                try {
+                    PreparedStatement ps = connect.prepareStatement("SELECT animal_name, date_recorded, age_at_weighing, weight FROM dairy_farm.animal_weight WHERE animal_name = ?");
+                    ps.setString(1, nameValue);
+                    ResultSet resultSet = ps.executeQuery();
+                    while (resultSet.next()) {
+                        String name = resultSet.getString("animal_name");
+                        Date recordingDate = resultSet.getDate("date_recorded");
+                        String weighingAge = resultSet.getString("age_at_weighing");
+                        int weight = resultSet.getInt("weight");
+                        animalWeightSearchModelObservableList.add(new AnimalWeightSearchModel(name, weighingAge, recordingDate, weight));
+                        dateRecordedColumn.setCellValueFactory(new PropertyValueFactory<>("recordingDate"));
+                        ageAtWeighing.setCellValueFactory(new PropertyValueFactory<>("ageAtWeighing"));
+                        animalNameColumn.setCellValueFactory(new PropertyValueFactory<>("animalName"));
+                        weightColumn.setCellValueFactory(new PropertyValueFactory<>("weight"));
+                        displayWeightRecordsTable.setItems(animalWeightSearchModelObservableList);
+                        lineChart.getData().clear();
+                        XYChart.Series<String, Number> series = new XYChart.Series<>();
+                        series.getData().add(new XYChart.Data<>(recordingDate.toString(), weight));
+                        series.setName("Weight Distribution");
+                        lineChart.getData().add(series);
+                    }
+                    connect.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            });
         });
     }
 }

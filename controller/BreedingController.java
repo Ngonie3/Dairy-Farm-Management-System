@@ -219,12 +219,12 @@ public class BreedingController implements Initializable {
         try {
             Statement statement = connect.createStatement();
             statement.executeUpdate(dataBaseValues);
+            connect.close();
         } catch (SQLException e) {
             e.printStackTrace();
             e.getCause();
         }
     }
-
     private void addLastRow(){
         DatabaseConnection databaseConnection = new DatabaseConnection();
         Connection connection = databaseConnection.getConnection();
@@ -249,11 +249,11 @@ public class BreedingController implements Initializable {
             breedingSearchModelObservableList.add(new BreedingSearchModel(ID, cowName, breedingDate, dateCalved, heatDate, bullName, bullID,
                     pregnancyDate, dueDateToCalve, ageOfCowAtCalving, calfName, calfID, calvingNotes));
             search();
+            connection.close();
         } catch(SQLException sqlException){
             sqlException.printStackTrace();
         }
     }
-
     private void selectCellValueToTextField(){
         animalTableView.setOnMouseClicked(mouseEvent -> {
             BreedingSearchModel breeding = animalTableView.getItems().get(animalTableView.getSelectionModel().getSelectedIndex());
@@ -271,7 +271,6 @@ public class BreedingController implements Initializable {
             detailsNotes.setText(breeding.getCalvingNotes());
         });
     }
-
     private void search(){
         animalIDColumn.setCellValueFactory(new PropertyValueFactory<>("cowID"));
         animalNameColumn.setCellValueFactory(new PropertyValueFactory<>("cowName"));
@@ -294,7 +293,6 @@ public class BreedingController implements Initializable {
         searchModelData.comparatorProperty().bind(animalTableView.comparatorProperty());
         animalTableView.setItems(searchModelData);
     }
-
     private void searchAddBreedingRecords(){
         addCowIDColumn.setCellValueFactory(new PropertyValueFactory<>("cowID"));
         addCowNameColumn.setCellValueFactory(new PropertyValueFactory<>("cowName"));
@@ -315,7 +313,6 @@ public class BreedingController implements Initializable {
         searchModel.comparatorProperty().bind(addRecordTable.comparatorProperty());
         addRecordTable.setItems(searchModel);
     }
-
     private void retrieveAnimals(){
         DatabaseConnection dbConnection = new DatabaseConnection();
         Connection connect = dbConnection.getConnection();
@@ -351,12 +348,12 @@ public class BreedingController implements Initializable {
                         }
                     }
                 }
+                connect.close();
             }catch (SQLException sqlException){
                 sqlException.printStackTrace();
             }
         });
     }
-
     private void addRecordSelectCellValueToTextField(){
         addRecordTable.setOnMouseClicked(mouseEvent -> {
             BreedingSearchModel breedingSearchModel = addRecordTable.getItems().get(addRecordTable.getSelectionModel().getSelectedIndex());

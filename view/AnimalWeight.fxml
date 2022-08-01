@@ -23,7 +23,7 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="807.0" prefWidth="1114.0">
                <children>
-                  <LineChart layoutX="391.0" layoutY="341.0" prefHeight="407.0" prefWidth="701.0" style="-fx-font-size: 16px; -fx-font-family: Arial;" title="Animal Weight Graph">
+                  <LineChart fx:id="lineChart" layoutX="391.0" layoutY="341.0" prefHeight="407.0" prefWidth="701.0" style="-fx-font-size: 16px; -fx-font-family: Arial;" title="Animal Weight Graph">
                     <xAxis>
                       <CategoryAxis label="Date" side="BOTTOM" style="-fx-font-family: Arial;" />
                     </xAxis>
@@ -106,7 +106,7 @@
                               <Font name="Arial Bold" size="14.0" />
                            </font>
                         </Button>
-                        <TextField fx:id="weightTextField" focusTraversable="false" layoutX="416.0" layoutY="5.0" prefHeight="40.0" prefWidth="169.0" promptText="Weight" style="-fx-font-size: 14px; -fx-font-family: Arial;" />
+                        <TextField fx:id="weightTextField" focusTraversable="false" layoutX="416.0" layoutY="5.0" prefHeight="40.0" prefWidth="169.0" promptText="Weight(kgs)" style="-fx-font-size: 14px; -fx-font-family: Arial;" />
                         <DatePicker fx:id="weightDate" editable="false" focusTraversable="false" layoutX="179.0" layoutY="5.0" prefHeight="40.0" prefWidth="207.0" promptText=" Recording Date" style="-fx-font-size: 16px; -fx-font-family: Arial Black; -fx-background-color: E2E1E1;" />
                         <TextField fx:id="animalDOBTextFiled" layoutX="1.0" layoutY="6.0" prefHeight="39.0" prefWidth="162.0" promptText="Animal D.O.B" stylesheets="@../stylesheets/Fields.css">
                            <font>

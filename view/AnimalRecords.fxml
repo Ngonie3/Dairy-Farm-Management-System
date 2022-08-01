@@ -11,8 +11,6 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -320,27 +318,7 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <HBox alignment="CENTER_LEFT" layoutX="1.0" layoutY="1.0" prefHeight="148.0" prefWidth="391.0">
-                                       <children>
-                                          <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../images/no-image-icon.png" />
-                                             </image>
-                                             <HBox.margin>
-                                                <Insets left="10.0" top="5.0" />
-                                             </HBox.margin>
-                                          </ImageView>
-                                          <Button fx:id="selectImage" focusTraversable="false" mnemonicParsing="false" onAction="#selectImageBtnPressed" prefHeight="56.0" prefWidth="117.0" stylesheets="@../stylesheets/VBox.css" text="Select Image">
-                                             <HBox.margin>
-                                                <Insets left="20.0" />
-                                             </HBox.margin>
-                                             <font>
-                                                <Font name="Calibri Bold" size="17.5" />
-                                             </font>
-                                          </Button>
-                                       </children>
-                                    </HBox>
-                                    <GridPane layoutX="14.0" layoutY="167.0" prefHeight="544.0" prefWidth="397.0">
+                                    <GridPane layoutX="15.0" layoutY="104.0" prefHeight="544.0" prefWidth="397.0">
                                       <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -477,7 +455,7 @@
                                              </font></TextField>
                                        </children>
                                     </GridPane>
-                                    <HBox alignment="CENTER" layoutX="213.0" layoutY="725.0" prefHeight="100.0" prefWidth="200.0">
+                                    <HBox alignment="CENTER" layoutX="214.0" layoutY="689.0" prefHeight="100.0" prefWidth="200.0">
                                        <children>
                                           <Button fx:id="saveAnimal" focusTraversable="false" mnemonicParsing="false" onAction="#saveAnimalPressed" prefHeight="57.0" prefWidth="121.0" stylesheets="@../stylesheets/VBox.css" text="Save Animal">
                                              <font>

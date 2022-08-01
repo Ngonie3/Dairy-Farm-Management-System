@@ -183,6 +183,7 @@ public class AnimalHealthController implements Initializable {
         try {
             Statement statement = connection.createStatement();
             statement.executeUpdate(databaseValues);
+            connection.close();
         }catch(SQLException sqlException){
             sqlException.printStackTrace();
         }
@@ -436,6 +437,7 @@ public class AnimalHealthController implements Initializable {
                     }
                     search();
                 }
+                connection.close();
             }catch(SQLException sqlException){
                 sqlException.printStackTrace();
             }
@@ -461,6 +463,7 @@ public class AnimalHealthController implements Initializable {
             String nameOfVet = resultSet.getString("nameOfVet");
             animalHealthSearchModelObservableList.add(new AnimalHealthSearchModel(ID, name, type, recordingDate, symptoms, diagnosis, treatment, costOfTreatment, nameOfVet));
             search();
+            connection.close();
         }catch (SQLException sqlException){
             sqlException.printStackTrace();
         }

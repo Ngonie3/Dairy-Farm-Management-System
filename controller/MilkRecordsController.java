@@ -87,7 +87,6 @@ public class MilkRecordsController implements Initializable {
             delete.showInformation();
         }
     }
-
     @FXML
     void milkSaveBtnPressed() {
         add_MilkRecord();
@@ -109,7 +108,6 @@ public class MilkRecordsController implements Initializable {
         eveningQuantity.clear();
         searchCow.clear();
     }
-
     @FXML
     void milkUpdatePressed() {
         Notifications update = Notifications.create()
@@ -167,7 +165,6 @@ public class MilkRecordsController implements Initializable {
             }
         });
     }
-
     private void add_MilkRecord(){
         DatabaseConnection connection = new DatabaseConnection();
         Connection dbConnection = connection.getConnection();
@@ -184,11 +181,11 @@ public class MilkRecordsController implements Initializable {
         try {
             Statement statement = dbConnection.createStatement();
             statement.executeUpdate(dataBase);
+            dbConnection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-
     private void addLastRow(){
         DatabaseConnection dbConnection = new DatabaseConnection();
         Connection connectToDB = dbConnection.getConnection();
@@ -205,11 +202,11 @@ public class MilkRecordsController implements Initializable {
             Date milkingDate = resultSet.getDate("milkingDate");
             milkSearchModelObservableList.add(new MilkSearchModel(cowID, cowName, morningQty, afternoonQty, eveningQty, milkingDate));
             search();
+            connectToDB.close();
         }catch(SQLException exception){
             exception.printStackTrace();
         }
     }
-
     private void setValueToTextField(){
         milkRecords.setOnMouseClicked(mouseEvent -> {
             MilkSearchModel milkSearchModel = milkRecords.getItems().get(milkRecords.getSelectionModel().getSelectedIndex());
@@ -221,7 +218,6 @@ public class MilkRecordsController implements Initializable {
             eveningQuantity.setText(String.valueOf(milkSearchModel.getEveningLitres()));
         });
     }
-
     private void search(){
         cowIDColumn.setCellValueFactory(new PropertyValueFactory<>("ID"));
         cowNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));

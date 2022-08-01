@@ -183,6 +183,7 @@ public class SignUpController implements Initializable {
             try {
                 Statement statement = connectDB.createStatement();
                 statement.executeUpdate(insertToDb);
+                connectDB.close();
             } catch (SQLException e) {
                 e.printStackTrace();
                 e.getCause();

@@ -7,10 +7,17 @@ public class AnimalWeightSearchModel {
     String animalName;
     String ageAtWeighing;
     Date recordingDate;
-    String weight;
+    int weight;
 
-    public AnimalWeightSearchModel(int animalID, String animalName, String ageAtWeighing, Date recordingDate, String weight) {
+    public AnimalWeightSearchModel(int animalID, String animalName, String ageAtWeighing, Date recordingDate, int weight) {
         this.animalID = animalID;
+        this.animalName = animalName;
+        this.ageAtWeighing = ageAtWeighing;
+        this.recordingDate = recordingDate;
+        this.weight = weight;
+    }
+
+    public AnimalWeightSearchModel(String animalName, String ageAtWeighing, Date recordingDate, int weight) {
         this.animalName = animalName;
         this.ageAtWeighing = ageAtWeighing;
         this.recordingDate = recordingDate;
@@ -33,7 +40,7 @@ public class AnimalWeightSearchModel {
         return recordingDate;
     }
 
-    public String getWeight() {
+    public int getWeight() {
         return weight;
     }
 }
