@@ -128,7 +128,7 @@
                                                       <Insets left="10.0" />
                                                    </GridPane.margin>
                                                 </Label>
-                                                <Label text="Bull ID" GridPane.rowIndex="4">
+                                                <Label text="Cow Name" GridPane.rowIndex="4">
                                                    <font>
                                                       <Font name="Calibri Bold" size="17.5" />
                                                    </font>
@@ -190,7 +190,7 @@
                                                    <font>
                                                       <Font name="Calibri" size="17.0" />
                                                    </font></TextField>
-                                                <TextField fx:id="detailsID" prefHeight="33.0" prefWidth="256.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                                <TextField fx:id="detailsCowName" prefHeight="33.0" prefWidth="256.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                                    <font>
                                                       <Font name="Calibri" size="17.0" />
                                                    </font></TextField>
@@ -213,7 +213,7 @@
                                                    <font>
                                                       <Font name="Calibri" size="17.0" />
                                                    </font></TextArea>
-                                                <Label text="Cow Name" GridPane.rowIndex="3">
+                                                <Label text="Bull ID" GridPane.rowIndex="3">
                                                    <font>
                                                       <Font name="Calibri Bold" size="17.5" />
                                                    </font>
@@ -221,7 +221,7 @@
                                                       <Insets left="10.0" />
                                                    </GridPane.margin>
                                                 </Label>
-                                                <TextField fx:id="detailsCowName" prefHeight="33.0" prefWidth="256.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                                <TextField fx:id="detailsID" prefHeight="33.0" prefWidth="256.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                                    <font>
                                                       <Font name="Calibri" size="17.0" />
                                                    </font></TextField>
@@ -232,12 +232,17 @@
                                           </GridPane>
                                        </children>
                                     </VBox>
-                                    <Button fx:id="updateBreeding" layoutX="779.0" layoutY="613.0" mnemonicParsing="false" onAction="#updateBreedingPressed" prefHeight="54.0" prefWidth="135.0" stylesheets="@../stylesheets/VBox.css" text="Update Details">
+                                    <Button fx:id="updateBreeding" layoutX="752.0" layoutY="614.0" mnemonicParsing="false" onAction="#updateBreedingPressed" prefHeight="44.0" prefWidth="130.0" stylesheets="@../stylesheets/VBox.css" text="Update Details">
                                        <font>
                                           <Font name="Calibri Bold" size="16.0" />
                                        </font>
                                     </Button>
                                     <Button fx:id="loadDataButton" layoutX="183.0" layoutY="607.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="91.0" stylesheets="@../stylesheets/VBox.css" text="Load Data">
+                                       <font>
+                                          <Font name="Calibri Bold" size="16.0" />
+                                       </font>
+                                    </Button>
+                                    <Button fx:id="editBreeding" layoutX="900.0" layoutY="612.0" mnemonicParsing="false" onAction="#editBreedingPressed" prefHeight="44.0" prefWidth="130.0" stylesheets="@../stylesheets/VBox.css" text="Edit Details">
                                        <font>
                                           <Font name="Calibri Bold" size="16.0" />
                                        </font>
@@ -252,7 +257,7 @@
                                  <children>
                                     <HBox alignment="CENTER_LEFT" layoutX="-2.0" prefHeight="61.0" prefWidth="335.0" AnchorPane.topAnchor="0.0">
                                        <children>
-                                          <TextField fx:id="cowNameTextField" editable="false" prefHeight="35.0" prefWidth="335.0" promptText="Search...">
+                                          <TextField fx:id="cowNameTextField" prefHeight="35.0" prefWidth="335.0" promptText="Search...">
                                              <font>
                                                 <Font name="Calibri" size="18.0" />
                                              </font>

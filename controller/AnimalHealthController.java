@@ -437,7 +437,7 @@ public class AnimalHealthController implements Initializable {
                     }
                     search();
                 }
-                connection.close();
+//                connection.close();
             }catch(SQLException sqlException){
                 sqlException.printStackTrace();
             }

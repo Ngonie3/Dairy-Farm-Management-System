@@ -7,21 +7,24 @@ public class AnimalWeightSearchModel {
     String animalName;
     String ageAtWeighing;
     Date recordingDate;
-    int weight;
+    double weight;
 
-    public AnimalWeightSearchModel(int animalID, String animalName, String ageAtWeighing, Date recordingDate, int weight) {
-        this.animalID = animalID;
+//    public AnimalWeightSearchModel(int animalID, String animalName, String ageAtWeighing, Date recordingDate, double weight) {
+//        this.animalID = animalID;
+//        this.animalName = animalName;
+//        this.ageAtWeighing = ageAtWeighing;
+//        this.recordingDate = recordingDate;
+//        this.weight = weight;
+//    }
+
+    public AnimalWeightSearchModel(String animalName, String ageAtWeighing, Date recordingDate, double weight) {
         this.animalName = animalName;
         this.ageAtWeighing = ageAtWeighing;
         this.recordingDate = recordingDate;
         this.weight = weight;
     }
 
-    public AnimalWeightSearchModel(String animalName, String ageAtWeighing, Date recordingDate, int weight) {
-        this.animalName = animalName;
-        this.ageAtWeighing = ageAtWeighing;
-        this.recordingDate = recordingDate;
-        this.weight = weight;
+    public AnimalWeightSearchModel() {
     }
 
     public int getAnimalID() {
@@ -40,7 +43,20 @@ public class AnimalWeightSearchModel {
         return recordingDate;
     }
 
-    public int getWeight() {
+    public double getWeight() {
         return weight;
+    }
+
+    public void setRecordingDate(Date recordingDate) {
+        this.recordingDate = recordingDate;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    @Override
+    public String toString() {
+        return "recordingDate=" + recordingDate + ", weight=" + weight;
     }
 }

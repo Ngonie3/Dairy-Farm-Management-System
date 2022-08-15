@@ -230,7 +230,6 @@ public class AnimalRecordsController implements Initializable {
             AnimalRecordsSearchModel animal = animalRecordsTable.getItems().get(animalRecordsTable.getSelectionModel().getSelectedIndex());
             profileID.setText(String.valueOf(animal.getID()));
             profileName.setText(animal.getName());
-            System.out.println(profileName.getText());
             profileAnimalType.setText(animal.getAnimalType());
             profileEarTag.setText(animal.getEarTag());
             profileSireID.setText(String.valueOf(animal.getSireID()));
@@ -523,7 +522,7 @@ public class AnimalRecordsController implements Initializable {
                     }
                     search();
                 }
-                connect.close();
+//                connect.close();
             } catch (SQLException exception) {
                 exception.printStackTrace();
             }

@@ -97,7 +97,7 @@ public class BreedingController implements Initializable {
         }
         Notifications save = Notifications.create()
               .text("Details successfully saved")
-              .position(Pos.BOTTOM_RIGHT)
+              .position(Pos.TOP_RIGHT)
               .hideCloseButton()
               .hideAfter(Duration.seconds(3));
         save.darkStyle();
@@ -136,6 +136,28 @@ public class BreedingController implements Initializable {
         detailsCowName.clear();
         detailsNotes.clear();
         detailsPregnancy.setValue(null);
+    }
+    @FXML
+    void editBreedingPressed() {
+        detailsHeat.setDisable(false);
+        detailsBreeding.setDisable(false);
+        detailsName.setEditable(true);
+        detailsID.setEditable(true);
+        detailsCowName.setEditable(true);
+        detailsPregnancy.setDisable(false);
+        detailsDueDate.setDisable(false);
+        detailsCalved.setDisable(false);
+        detailsAge.setEditable(true);
+        detailsCalf.setEditable(true);
+        detailsCalfID.setEditable(true);
+        detailsNotes.setEditable(true);
+        detailsName.setStyle("-fx-control-inner-background: #FAF9F9");
+        detailsID.setStyle("-fx-control-inner-background: #FAF9F9");
+        detailsCowName.setStyle("-fx-control-inner-background: #FAF9F9");
+        detailsAge.setStyle("-fx-control-inner-background: #FAF9F9");
+        detailsCalf.setStyle("-fx-control-inner-background: #FAF9F9");
+        detailsCalfID.setStyle("-fx-control-inner-background: #FAF9F9");
+        detailsNotes.setStyle("-fx-control-inner-background: #FAF9F9");
     }
 
     @Override
@@ -269,6 +291,7 @@ public class BreedingController implements Initializable {
             detailsCalf.setText(breeding.getCalfName());
             detailsCalfID.setText(String.valueOf(breeding.getCalfID()));
             detailsNotes.setText(breeding.getCalvingNotes());
+            grayOutFields();
         });
     }
     private void search(){
@@ -359,6 +382,27 @@ public class BreedingController implements Initializable {
             BreedingSearchModel breedingSearchModel = addRecordTable.getItems().get(addRecordTable.getSelectionModel().getSelectedIndex());
             cowName.setText(breedingSearchModel.getCowName());
         });
+    }
+    private void grayOutFields(){
+        detailsHeat.setDisable(true);
+        detailsBreeding.setDisable(true);
+        detailsName.setEditable(false);
+        detailsID.setEditable(false);
+        detailsCowName.setEditable(false);
+        detailsPregnancy.setDisable(true);
+        detailsDueDate.setDisable(true);
+        detailsCalved.setDisable(true);
+        detailsAge.setEditable(false);
+        detailsCalf.setEditable(false);
+        detailsCalfID.setEditable(false);
+        detailsNotes.setEditable(false);
+        detailsName.setStyle("-fx-control-inner-background: #E5E3E3");
+        detailsID.setStyle("-fx-control-inner-background: #E5E3E3");
+        detailsCowName.setStyle("-fx-control-inner-background: #E5E3E3");
+        detailsAge.setStyle("-fx-control-inner-background: #E5E3E3");
+        detailsCalf.setStyle("-fx-control-inner-background: #E5E3E3");
+        detailsCalfID.setStyle("-fx-control-inner-background: #E5E3E3");
+        detailsNotes.setStyle("-fx-control-inner-background: #E5E3E3");
     }
 }
 
