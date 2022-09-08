@@ -50,7 +50,7 @@ public class AnimalHealthController implements Initializable {
     @FXML
     private TableColumn<AnimalHealthSearchModel, String> animalTypeColumn;
     @FXML
-    private Button loadDataBtn;
+    private Button loadDataBtn, deleteHealth, editHealth, saveEditedDetails;
 
     @FXML
     private ComboBox<String> healthComboBox;
@@ -94,26 +94,37 @@ public class AnimalHealthController implements Initializable {
     }
     @FXML
     void saveHealthPressed() {
-        addAnimalHealthRecords();
-        if(!(animalHealthTable.getItems().isEmpty())){
-            addLastRow();
+        if(saveDate.getValue() == null || saveDiagnosis.getText().isEmpty() || saveSymptoms.getText().isEmpty() || saveNameOfVet.getText().isEmpty() ||
+            saveTreatment.getText().isEmpty()){
+            Notifications notifications = Notifications.create()
+                    .text("Please enter all details before saving")
+                    .position(Pos.TOP_RIGHT)
+                    .hideCloseButton()
+                    .hideAfter(Duration.seconds(3));
+            notifications.darkStyle();
+            notifications.showInformation();
+        }else{
+            addAnimalHealthRecords();
+            if(!(animalHealthTable.getItems().isEmpty())){
+                addLastRow();
+            }
+            animal_ID.clear();
+            animal_Name.clear();
+            animal_Type.clear();
+            saveCostOfTreatment.clear();
+            saveDate.setValue(null);
+            saveDiagnosis.clear();
+            saveSymptoms.clear();
+            saveNameOfVet.clear();
+            saveTreatment.clear();
+            Notifications saveHealth = Notifications.create()
+                    .text("Health Information saved")
+                    .position(Pos.TOP_RIGHT)
+                    .hideCloseButton()
+                    .hideAfter(Duration.seconds(3));
+            saveHealth.darkStyle();
+            saveHealth.showInformation();
         }
-        animal_ID.clear();
-        animal_Name.clear();
-        animal_Type.clear();
-        saveCostOfTreatment.clear();
-        saveDate.setValue(null);
-        saveDiagnosis.clear();
-        saveSymptoms.clear();
-        saveNameOfVet.clear();
-        saveTreatment.clear();
-        Notifications saveHealth = Notifications.create()
-                .text("Health Information saved")
-                .position(Pos.TOP_RIGHT)
-                .hideCloseButton()
-                .hideAfter(Duration.seconds(3));
-        saveHealth.darkStyle();
-        saveHealth.showInformation();
     }
     @FXML
     void healthComboShown() {
@@ -135,6 +146,7 @@ public class AnimalHealthController implements Initializable {
     }
     @FXML
     void editHealthPressed() {
+        saveEditedDetails.setDisable(false);
         final Callback<DatePicker, DateCell> dayCellFactory = new Callback<>() {
             @Override
             public DateCell call(DatePicker datePicker) {
@@ -169,6 +181,19 @@ public class AnimalHealthController implements Initializable {
         animal_Name.setEditable(true);
         animal_Type.setEditable(true);
     }
+    @FXML
+    void saveEditedDetailsPressed() {
+        if(deleteHealthDate.getValue() == null || deleteSymptoms.getText().isEmpty() || deleteDiagnosis.getText().isEmpty() || deleteTreatment.getText().isEmpty()
+            || deleteCostOfTreatment.getText().isEmpty() || deleteNameOfVet.getText().isEmpty()){
+            Notifications notifications = Notifications.create()
+                    .text("Please enter all details before saving.")
+                    .position(Pos.TOP_RIGHT)
+                    .hideCloseButton()
+                    .hideAfter(Duration.seconds(3));
+            notifications.darkStyle();
+            notifications.showInformation();
+        }
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -176,6 +201,9 @@ public class AnimalHealthController implements Initializable {
         setCellValueToTextField();
         retrieveAnimals();
         numberOfAnimals();
+        deleteHealth.setDisable(true);
+        editHealth.setDisable(true);
+        saveEditedDetails.setDisable(true);
     }
     private void addAnimalHealthRecords(){
         DatabaseConnection databaseConnection = new DatabaseConnection();
@@ -215,6 +243,8 @@ public class AnimalHealthController implements Initializable {
             deleteCostOfTreatment.setText(healthSearchModel.getCostOfTreatment());
             deleteNameOfVet.setText(healthSearchModel.getNameOfVet());
             grayOutFields();
+            editHealth.setDisable(false);
+            deleteHealth.setDisable(false);
         });
     }
     private void numberOfAnimals(){
