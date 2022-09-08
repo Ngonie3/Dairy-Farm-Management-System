@@ -287,22 +287,30 @@
                                              <font>
                                                 <Font size="17.0" />
                                              </font></TextField>
-                                          <DatePicker fx:id="profileBirthDate" editable="false" focusTraversable="false" prefHeight="33.0" prefWidth="172.0" style="-fx-background-color: E2E1E1; -fx-font-size: 16px; -fx-font-family: Calibri Bold;" GridPane.columnIndex="1" />
+                                          <DatePicker fx:id="profileBirthDate" editable="false" focusTraversable="false" prefHeight="33.0" prefWidth="172.0" showWeekNumbers="true" style="-fx-background-color: E2E1E1; -fx-font-size: 16px; -fx-font-family: Calibri Bold;" GridPane.columnIndex="1" />
                                        </children>
                                     </GridPane>
-                                    <HBox alignment="CENTER_LEFT" layoutX="159.0" layoutY="738.0" prefHeight="80.0" prefWidth="302.0">
+                                    <HBox alignment="CENTER_LEFT" layoutX="116.0" layoutY="747.0" prefHeight="69.0" prefWidth="331.0">
                                        <children>
-                                          <Button fx:id="deleteAnimal" focusTraversable="false" mnemonicParsing="false" onAction="#deleteAnimalPressed" prefHeight="52.0" prefWidth="120.0" styleClass="dangerButton" stylesheets="@../stylesheets/VBox.css" text="Delete Animal">
+                                          <Button fx:id="deleteAnimal" focusTraversable="false" mnemonicParsing="false" onAction="#deleteButtonPressed" prefHeight="39.0" prefWidth="97.0" styleClass="dangerButton" stylesheets="@../stylesheets/VBox.css" text="Delete">
                                              <font>
-                                                <Font name="Calibri Bold" size="16.0" />
+                                                <Font name="Calibri Bold" size="17.5" />
                                              </font>
                                              <HBox.margin>
                                                 <Insets left="10.0" />
                                              </HBox.margin>
                                           </Button>
-                                          <Button fx:id="updateDetails" focusTraversable="false" mnemonicParsing="false" onAction="#updateDetailsPressed" prefHeight="52.0" prefWidth="127.0" stylesheets="@../stylesheets/VBox.css" text="Update Details">
+                                          <Button fx:id="save" focusTraversable="false" mnemonicParsing="false" onAction="#saveButtonPressed" prefHeight="39.0" prefWidth="97.0" stylesheets="@../stylesheets/VBox.css" text="Save">
                                              <font>
-                                                <Font name="Calibri Bold" size="16.0" />
+                                                <Font name="Calibri Bold" size="17.5" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                          <Button fx:id="editDetails" focusTraversable="false" mnemonicParsing="false" onAction="#editDetailsPressed" prefHeight="39.0" prefWidth="97.0" stylesheets="@../stylesheets/VBox.css" text="Edit">
+                                             <font>
+                                                <Font name="Calibri Bold" size="17.5" />
                                              </font>
                                              <HBox.margin>
                                                 <Insets left="10.0" />
@@ -457,7 +465,7 @@
                                     </GridPane>
                                     <HBox alignment="CENTER" layoutX="214.0" layoutY="648.0" prefHeight="100.0" prefWidth="200.0">
                                        <children>
-                                          <Button fx:id="saveAnimal" focusTraversable="false" mnemonicParsing="false" onAction="#saveAnimalPressed" prefHeight="57.0" prefWidth="121.0" stylesheets="@../stylesheets/VBox.css" text="Save Animal">
+                                          <Button fx:id="saveAnimal" focusTraversable="false" mnemonicParsing="false" onAction="#saveAnimalPressed" prefHeight="45.0" prefWidth="109.0" stylesheets="@../stylesheets/VBox.css" text="Save">
                                              <font>
                                                 <Font name="Calibri Bold" size="17.5" />
                                              </font>

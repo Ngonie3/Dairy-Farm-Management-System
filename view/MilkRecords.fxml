@@ -73,12 +73,12 @@
                         <Font name="Calibri Bold" size="17.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="cowNameTextField" focusTraversable="false" prefHeight="41.0" prefWidth="246.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <TextField fx:id="cowNameTextField" editable="false" focusTraversable="false" prefHeight="41.0" prefWidth="246.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font name="Calibri" size="17.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="cowIDTextField" focusTraversable="false" prefHeight="41.0" prefWidth="246.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <TextField fx:id="cowIDTextField" editable="false" focusTraversable="false" prefHeight="41.0" prefWidth="246.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <font>
                         <Font name="Calibri" size="17.0" />
                      </font>
@@ -106,7 +106,7 @@
                         <Insets left="10.0" />
                      </GridPane.margin>
                   </Label>
-                  <DatePicker fx:id="milkingDate" editable="false" focusTraversable="false" prefHeight="35.0" style="-fx-font-size: 15px;" GridPane.columnIndex="1" />
+                  <DatePicker fx:id="milkingDate" editable="false" focusTraversable="false" prefHeight="35.0" showWeekNumbers="true" style="-fx-font-size: 15px;" GridPane.columnIndex="1" />
                </children>
                <VBox.margin>
                   <Insets bottom="50.0" left="10.0" />
@@ -129,8 +129,8 @@
                   <Label text="No milk records present in table" />
                </placeholder>
               <columns>
-                <TableColumn fx:id="milkingDateColumn" prefWidth="70.0" style="-fx-font-size: 14px; -fx-font-family: Arial;" text="Milking Date" />
-                <TableColumn fx:id="cowIDColumn" prefWidth="90.0" style="-fx-font-size: 14px; -fx-font-family: Arial;" text="Cow ID" />
+                <TableColumn fx:id="cowIDColumn" prefWidth="70.0" style="-fx-font-size: 14px; -fx-font-family: Arial;" text="Cow ID" />
+                <TableColumn fx:id="milkingDateColumn" prefWidth="90.0" style="-fx-font-size: 14px; -fx-font-family: Arial;" text="Milking Date" />
                   <TableColumn fx:id="cowNameColumn" prefWidth="112.0" style="-fx-font-size: 14px; -fx-font-family: Arial;" text="Cow Name" />
                   <TableColumn fx:id="amLitresColumn" prefWidth="140.0" style="-fx-font-size: 14px; -fx-font-family: Arial;" text="AM Litres" />
                   <TableColumn fx:id="noonLitresColumn" minWidth="0.0" prefWidth="89.0" style="-fx-font-size: 14px; -fx-font-family: Arial;" text="Noon Litres" />
@@ -148,11 +148,6 @@
             </TableView>
             <HBox alignment="CENTER" prefHeight="95.0" prefWidth="652.0">
                <children>
-                  <Button fx:id="milkUpdate" focusTraversable="false" mnemonicParsing="false" onAction="#milkUpdatePressed" prefHeight="47.0" prefWidth="97.0" stylesheets="@../stylesheets/VBox.css" text="Update">
-                     <font>
-                        <Font name="Calibri Bold" size="17.0" />
-                     </font>
-                  </Button>
                   <Button fx:id="milkDelete" focusTraversable="false" mnemonicParsing="false" onAction="#milkDeletePressed" prefHeight="47.0" prefWidth="97.0" styleClass="dangerButton" stylesheets="@../stylesheets/VBox.css" text="Delete">
                      <font>
                         <Font name="Calibri Bold" size="17.0" />
@@ -175,10 +170,26 @@
       </VBox>
       <HBox alignment="CENTER" layoutX="18.0" layoutY="500.0" prefHeight="96.0" prefWidth="400.0">
          <children>
+            <Button fx:id="edit" focusTraversable="false" mnemonicParsing="false" onAction="#editButtonPressed" prefHeight="47.0" prefWidth="97.0" stylesheets="@../stylesheets/VBox.css" text="Edit">
+               <font>
+                  <Font name="Calibri Bold" size="17.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </HBox.margin>
+            </Button>
             <Button fx:id="milkSave" focusTraversable="false" mnemonicParsing="false" onAction="#milkSaveBtnPressed" prefHeight="47.0" prefWidth="97.0" stylesheets="@../stylesheets/VBox.css" text="Save">
                <font>
                   <Font name="Calibri Bold" size="17.0" />
                </font>
+            </Button>
+            <Button fx:id="milkUpdate" focusTraversable="false" mnemonicParsing="false" onAction="#milkUpdatePressed" prefHeight="47.0" prefWidth="97.0" stylesheets="@../stylesheets/VBox.css" text="Update">
+               <font>
+                  <Font name="Calibri Bold" size="17.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
             </Button>
          </children>
       </HBox>

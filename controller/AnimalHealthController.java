@@ -19,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 import javafx.util.Duration;
 import model.AnimalHealthSearchModel;
 import model.DatabaseConnection;
@@ -134,7 +135,20 @@ public class AnimalHealthController implements Initializable {
     }
     @FXML
     void editHealthPressed() {
-        deleteHealthDate.setDisable(false);
+        final Callback<DatePicker, DateCell> dayCellFactory = new Callback<>() {
+            @Override
+            public DateCell call(DatePicker datePicker) {
+                return new DateCell() {
+                    public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item.isBefore(deleteHealthDate.getValue()) || item.isAfter(deleteHealthDate.getValue())) {
+                            setDisable(false);
+                        }
+                    }
+                };
+            }
+        };
+        deleteHealthDate.setDayCellFactory(dayCellFactory);
         deleteSymptoms.setEditable(true);
         deleteDiagnosis.setEditable(true);
         deleteTreatment.setEditable(true);
@@ -472,12 +486,29 @@ public class AnimalHealthController implements Initializable {
         animal_ID.setEditable(false);
         animal_Name.setEditable(false);
         animal_Type.setEditable(false);
-        deleteHealthDate.setDisable(true);
+        final Callback<DatePicker, DateCell> dayCellFactory = new Callback<>() {
+            @Override
+            public DateCell call(DatePicker datePicker) {
+                return new DateCell() {
+                    public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item.isBefore(deleteHealthDate.getValue()) || item.isAfter(deleteHealthDate.getValue())) {
+                            setDisable(true);
+                            setStyle("-fx-background-color: #ffc0cb");
+                        }
+                    }
+                };
+            }
+        };
+        deleteHealthDate.setDayCellFactory(dayCellFactory);
         deleteSymptoms.setEditable(false);
         deleteDiagnosis.setEditable(false);
         deleteTreatment.setEditable(false);
         deleteCostOfTreatment.setEditable(false);
         deleteNameOfVet.setEditable(false);
+        animal_ID.setStyle("-fx-control-inner-background: #E5E3E3");
+        animal_Name.setStyle("-fx-control-inner-background: #E5E3E3");
+        animal_Type.setStyle("-fx-control-inner-background: #E5E3E3");
         deleteSymptoms.setStyle("-fx-control-inner-background: #E5E3E3");
         deleteDiagnosis.setStyle("-fx-control-inner-background: #E5E3E3");
         deleteTreatment.setStyle("-fx-control-inner-background: #E5E3E3");

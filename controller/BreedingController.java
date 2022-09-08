@@ -19,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 import javafx.util.Duration;
 import model.BreedingSearchModel;
 import model.DatabaseConnection;
@@ -37,7 +38,7 @@ public class BreedingController implements Initializable {
     @FXML
     private TextArea calvingNotes, detailsNotes;
     @FXML
-    private Button loadDataButton, addLoadDataButton;
+    private Button loadDataButton, addLoadDataButton, editBreeding, updateBreeding;
     @FXML
     private TableView<BreedingSearchModel> animalTableView;
     @FXML
@@ -58,28 +59,6 @@ public class BreedingController implements Initializable {
     ObservableList<BreedingSearchModel> breedingSearchModelObservableList = FXCollections.observableArrayList();
     ObservableList<BreedingSearchModel> addBreedingSearchModelObservableList = FXCollections.observableArrayList();
     @FXML
-    void clearRecordPressed() {
-        ageOfCow.clear();
-        breedingDate.setValue(null);
-        bullID.clear();
-        bullName.clear();
-        cowName.clear();
-        calfID.clear();
-        calfName.clear();
-        calveDate.setValue(null);
-        calvingNotes.clear();
-        dateCalved.setValue(null);
-        heatDate.setValue(null);
-        pregnancyDate.setValue(null);
-        Notifications clear = Notifications.create()
-                .text("Information cleared")
-                .position(Pos.BOTTOM_RIGHT)
-                .hideCloseButton()
-                .hideAfter(Duration.seconds(3));
-        clear.darkStyle();
-        clear.showInformation();
-    }
-    @FXML
     void printBtnPressed() {
         Notifications print = Notifications.create()
                 .text("Breeding information printed")
@@ -91,29 +70,42 @@ public class BreedingController implements Initializable {
     }
     @FXML
     void saveBreedingPressed() {
-        add_breedingDetails();
-        if(!(animalTableView.getItems().isEmpty())){
-            addLastRow();
+        if (breedingDate.getValue() == null || ageOfCow.getText().isEmpty() || bullID.getText().isEmpty() || bullName.getText().isEmpty()
+            || calfID.getText().isEmpty() || calveDate.getValue() == null || calvingNotes.getText().isEmpty() || dateCalved.getValue() == null
+            || heatDate.getValue() == null || pregnancyDate.getValue() == null) {
+            Notifications notifications = Notifications.create()
+                    .text("Please enter all details before saving")
+                    .position(Pos.TOP_RIGHT)
+                    .hideCloseButton()
+                    .hideAfter(Duration.seconds(3));
+            notifications.darkStyle();
+            notifications.showInformation();
         }
-        Notifications save = Notifications.create()
-              .text("Details successfully saved")
-              .position(Pos.TOP_RIGHT)
-              .hideCloseButton()
-              .hideAfter(Duration.seconds(3));
-        save.darkStyle();
-        save.showInformation();
-        ageOfCow.clear();
-        breedingDate.setValue(null);
-        bullID.clear();
-        bullName.clear();
-        cowName.clear();
-        calfID.clear();
-        calfName.clear();
-        calveDate.setValue(null);
-        calvingNotes.clear();
-        dateCalved.setValue(null);
-        heatDate.setValue(null);
-        pregnancyDate.setValue(null);
+        else{
+            add_breedingDetails();
+            if(!(animalTableView.getItems().isEmpty())){
+                addLastRow();
+            }
+            Notifications save = Notifications.create()
+                    .text("Details successfully saved")
+                    .position(Pos.TOP_RIGHT)
+                    .hideCloseButton()
+                    .hideAfter(Duration.seconds(3));
+            save.darkStyle();
+            save.showInformation();
+            ageOfCow.clear();
+            breedingDate.setValue(null);
+            bullID.clear();
+            bullName.clear();
+            cowName.clear();
+            calfID.clear();
+            calfName.clear();
+            calveDate.setValue(null);
+            calvingNotes.clear();
+            dateCalved.setValue(null);
+            heatDate.setValue(null);
+            pregnancyDate.setValue(null);
+        }
     }
     @FXML
     void updateBreedingPressed() {
@@ -139,6 +131,8 @@ public class BreedingController implements Initializable {
     }
     @FXML
     void editBreedingPressed() {
+        enableCalendar();
+        updateBreeding.setDisable(false);
         detailsHeat.setDisable(false);
         detailsBreeding.setDisable(false);
         detailsName.setEditable(true);
@@ -162,6 +156,8 @@ public class BreedingController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        editBreeding.setDisable(true);
+        updateBreeding.setDisable(true);
         retrieveAnimals();
         addRecordSelectCellValueToTextField();
         searchAddBreedingRecords();
@@ -371,7 +367,6 @@ public class BreedingController implements Initializable {
                         }
                     }
                 }
-                connect.close();
             }catch (SQLException sqlException){
                 sqlException.printStackTrace();
             }
@@ -384,14 +379,11 @@ public class BreedingController implements Initializable {
         });
     }
     private void grayOutFields(){
-        detailsHeat.setDisable(true);
-        detailsBreeding.setDisable(true);
+        disableCalendar();
+        editBreeding.setDisable(false);
         detailsName.setEditable(false);
         detailsID.setEditable(false);
         detailsCowName.setEditable(false);
-        detailsPregnancy.setDisable(true);
-        detailsDueDate.setDisable(true);
-        detailsCalved.setDisable(true);
         detailsAge.setEditable(false);
         detailsCalf.setEditable(false);
         detailsCalfID.setEditable(false);
@@ -403,6 +395,75 @@ public class BreedingController implements Initializable {
         detailsCalf.setStyle("-fx-control-inner-background: #E5E3E3");
         detailsCalfID.setStyle("-fx-control-inner-background: #E5E3E3");
         detailsNotes.setStyle("-fx-control-inner-background: #E5E3E3");
+    }
+    private void disableCalendar(){
+        final Callback<DatePicker, DateCell> dayCellFactory = new Callback<>() {
+            @Override
+            public DateCell call(DatePicker datePicker) {
+                return new DateCell() {
+                    public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item.isBefore(detailsHeat.getValue()) || item.isAfter(detailsHeat.getValue())) {
+                            setDisable(true);
+                            setStyle("-fx-background-color: #ffc0cb");
+                        }
+                        if (item.isBefore(detailsBreeding.getValue()) || item.isAfter(detailsBreeding.getValue())) {
+                            setDisable(true);
+                            setStyle("-fx-background-color: #ffc0cb");
+                        }
+                        if (item.isBefore(detailsPregnancy.getValue()) || item.isAfter(detailsPregnancy.getValue())) {
+                            setDisable(true);
+                            setStyle("-fx-background-color: #ffc0cb");
+                        }
+                        if (item.isBefore(detailsDueDate.getValue()) || item.isAfter(detailsDueDate.getValue())) {
+                            setDisable(true);
+                            setStyle("-fx-background-color: #ffc0cb");
+                        }
+                        if (item.isBefore(detailsCalved.getValue()) || item.isAfter(detailsCalved.getValue())) {
+                            setDisable(true);
+                            setStyle("-fx-background-color: #ffc0cb");
+                        }
+                    }
+                };
+            }
+        };
+        detailsHeat.setDayCellFactory(dayCellFactory);
+        detailsBreeding.setDayCellFactory(dayCellFactory);
+        detailsPregnancy.setDayCellFactory(dayCellFactory);
+        detailsDueDate.setDayCellFactory(dayCellFactory);
+        detailsCalved.setDayCellFactory(dayCellFactory);
+    }
+    private void enableCalendar(){
+        final Callback<DatePicker, DateCell> dayCellFactory = new Callback<>() {
+            @Override
+            public DateCell call(DatePicker datePicker) {
+                return new DateCell() {
+                    public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item.isBefore(detailsHeat.getValue()) || item.isAfter(detailsHeat.getValue())) {
+                            setDisable(false);
+                        }
+                        if (item.isBefore(detailsBreeding.getValue()) || item.isAfter(detailsBreeding.getValue())) {
+                            setDisable(false);
+                        }
+                        if (item.isBefore(detailsPregnancy.getValue()) || item.isAfter(detailsPregnancy.getValue())) {
+                            setDisable(false);
+                        }
+                        if (item.isBefore(detailsDueDate.getValue()) || item.isAfter(detailsDueDate.getValue())) {
+                            setDisable(false);
+                        }
+                        if (item.isBefore(detailsCalved.getValue()) || item.isAfter(detailsCalved.getValue())) {
+                            setDisable(false);
+                        }
+                    }
+                };
+            }
+        };
+        detailsHeat.setDayCellFactory(dayCellFactory);
+        detailsBreeding.setDayCellFactory(dayCellFactory);
+        detailsPregnancy.setDayCellFactory(dayCellFactory);
+        detailsDueDate.setDayCellFactory(dayCellFactory);
+        detailsCalved.setDayCellFactory(dayCellFactory);
     }
 }
 

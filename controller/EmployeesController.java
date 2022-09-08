@@ -33,7 +33,7 @@ public class EmployeesController implements Initializable{
     @FXML
     private RadioButton amtRadioBtn, femaleRadioBtn, maleRadioBtn, percentageRadioBtn;
     @FXML
-    private TextField contactAddress, contactNumber, jobTitle, salary, empID, empName, nameTextField,listEmpSalary,listEmpName,listEmpID;
+    private TextField contactAddress, contactNumber, jobTitle, salary, empID, empName, nameTextField,listEmpSalary,listEmpName,listEmpID, amountTextField, percentageTextField;
     @FXML
     private DatePicker dateHired;
     @FXML
@@ -49,7 +49,8 @@ public class EmployeesController implements Initializable{
     @FXML
     private TableColumn<EmployeeSearchModel, String> employeeSalaryColumn;
     @FXML
-    private Button refreshButton;
+    private Button loadDataBtn, updateButton, deleteButton;
+
     ObservableList<EmployeeSearchModel> employeeSearchModelObservableList = FXCollections.observableArrayList();
     private final ToggleGroup buttons = new ToggleGroup();
     @FXML
@@ -90,60 +91,75 @@ public class EmployeesController implements Initializable{
         update.showInformation();
     }
     @FXML
-    void updateEmployee() {
-        //TODO
-        Notifications updateEmployee = Notifications.create()
-                .text("Details successfully updated")
-                .position(Pos.TOP_RIGHT)
-                .hideCloseButton()
-                .hideAfter(Duration.seconds(3));
-        updateEmployee.darkStyle();
-        updateEmployee.showInformation();
-    }
-    @FXML
     void updateSalary() {
-        //TODO
-        Notifications updateSalary = Notifications.create()
-                .text("Details successfully updated")
-                .position(Pos.TOP_RIGHT)
-                .hideCloseButton()
-                .hideAfter(Duration.seconds(3));
-        updateSalary.darkStyle();
-        updateSalary.showInformation();
+        if(percentageRadioBtn.getText().isEmpty() || amtRadioBtn.getText().isEmpty() || percentageTextField.getText().isEmpty() || amountTextField.getText().isEmpty()){
+            Notifications notifications = Notifications.create()
+                    .text("Please fill in all details before updating")
+                    .position(Pos.TOP_RIGHT)
+                    .hideCloseButton()
+                    .hideAfter(Duration.seconds(3));
+            notifications.darkStyle();
+            notifications.showInformation();
+        }else{
+            //TODO
+            Notifications updateSalary = Notifications.create()
+                    .text("Details successfully updated")
+                    .position(Pos.TOP_RIGHT)
+                    .hideCloseButton()
+                    .hideAfter(Duration.seconds(3));
+            updateSalary.darkStyle();
+            updateSalary.showInformation();
+        }
     }
     @FXML
     void addEmployee() {
-        add_Employee();
-        if(!(employeeTableView.getItems().isEmpty())){
-            add_Last_Row();
+        if(empID.getText().isEmpty() || empName.getText().isEmpty() || dateOfBirth.getValue() == null || maleRadioBtn.getText().isEmpty() ||
+            femaleRadioBtn.getText().isEmpty() || contactNumber.getText().isEmpty() || contactAddress.getText().isEmpty() ||
+            employeeComboBox.getValue() == null || dateHired.getValue() == null || salary.getText().isEmpty() || jobTitle.getText().isEmpty()||
+            loginPassword.getText().isEmpty()){
+            Notifications notifications = Notifications.create()
+                    .text("Please enter all details before saving")
+                    .position(Pos.TOP_RIGHT)
+                    .hideCloseButton()
+                    .hideAfter(Duration.seconds(3));
+            notifications.darkStyle();
+            notifications.showInformation();
+
+        }else{
+            add_Employee();
+            if(!(employeeTableView.getItems().isEmpty())){
+                add_Last_Row();
+            }
+            Notifications add = Notifications.create()
+                    .text("Details successfully saved")
+                    .position(Pos.TOP_RIGHT)
+                    .hideCloseButton()
+                    .hideAfter(Duration.seconds(3));
+            add.darkStyle();
+            add.showInformation();
+            empID.clear();
+            empName.clear();
+            dateOfBirth.setValue(null);
+            if(maleRadioBtn.isSelected()){
+                maleRadioBtn.setSelected(false);
+            }else if(femaleRadioBtn.isSelected()){
+                femaleRadioBtn.setSelected(false);
+            }
+            contactNumber.clear();
+            contactAddress.clear();
+            employeeComboBox.getSelectionModel().select(0);
+            dateHired.setValue(null);
+            salary.clear();
+            jobTitle.clear();
+            loginPassword.clear();
         }
-        Notifications add = Notifications.create()
-                .text("Details successfully saved")
-                .position(Pos.TOP_RIGHT)
-                .hideCloseButton()
-                .hideAfter(Duration.seconds(3));
-        add.darkStyle();
-        add.showInformation();
-        empID.clear();
-        empName.clear();
-        dateOfBirth.setValue(null);
-        if(maleRadioBtn.isSelected()){
-            maleRadioBtn.setSelected(false);
-        }else if(femaleRadioBtn.isSelected()){
-            femaleRadioBtn.setSelected(false);
-        }
-        contactNumber.clear();
-        contactAddress.clear();
-        employeeComboBox.getSelectionModel().select(0);
-        dateHired.setValue(null);
-        salary.clear();
-        jobTitle.clear();
-        loginPassword.clear();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setValueToTextField();
+        updateButton.setDisable(true);
+        deleteButton.setDisable(true);
         employeeComboBox.setItems(empList);
         buttons.getToggles().addAll(maleRadioBtn, femaleRadioBtn, percentageRadioBtn, amtRadioBtn);
         buttons.selectedToggleProperty().addListener((observableValue, oldValue, newValue) -> {
@@ -164,7 +180,7 @@ public class EmployeesController implements Initializable{
         DatabaseConnection databaseConnection = new DatabaseConnection();
         Connection connection = databaseConnection.getConnection();
         String employeeViewQuery = "SELECT employeeID, employeeName, salary FROM dairy_farm.employees";
-        refreshButton.setOnAction(actionEvent -> {
+        loadDataBtn.setOnAction(actionEvent -> {
             try{
                 Statement statement = connection.createStatement();
                 ResultSet queryOutput = statement.executeQuery(employeeViewQuery);
@@ -182,7 +198,7 @@ public class EmployeesController implements Initializable{
                     }
                     if(value>0){
                         if(!(employeeTableView.getColumns().isEmpty())){
-                            refreshButton.setOnAction(actionEvent1 -> {
+                            loadDataBtn.setOnAction(actionEvent1 -> {
                                 Notifications info = Notifications.create()
                                         .text("Data is up to date")
                                         .position(Pos.TOP_RIGHT)
@@ -257,6 +273,8 @@ public class EmployeesController implements Initializable{
             listEmpID.setText(String.valueOf(employeeSearchModel.getEmployeeID()));
             listEmpName.setText(employeeSearchModel.getEmployeeName());
             listEmpSalary.setText(employeeSearchModel.getEmployeeSalary());
+            updateButton.setDisable(false);
+            deleteButton.setDisable(false);
         });
     }
     private void search(){

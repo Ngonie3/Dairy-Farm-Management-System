@@ -19,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 import javafx.util.Duration;
 import model.DatabaseConnection;
 import model.MilkSearchModel;
@@ -33,19 +34,9 @@ public class MilkRecordsController implements Initializable {
     @FXML
     private DatePicker milkingDate;
     @FXML
-    private TextField afternoonQuantity;
+    private TextField afternoonQuantity, cowIDTextField, cowNameTextField, eveningQuantity, morningQuantity, searchCow;
     @FXML
-    private TextField cowIDTextField;
-    @FXML
-    private TextField cowNameTextField;
-    @FXML
-    private TextField eveningQuantity;
-    @FXML
-    private TextField morningQuantity;
-    @FXML
-    private TextField searchCow;
-    @FXML
-    private Button loadDataButton;
+    private Button loadDataButton, edit, milkUpdate, milkSave, milkDelete;
     @FXML
     private TableView<MilkSearchModel> milkRecords;
     @FXML
@@ -89,24 +80,37 @@ public class MilkRecordsController implements Initializable {
     }
     @FXML
     void milkSaveBtnPressed() {
-        add_MilkRecord();
-        if(!(milkRecords.getItems().isEmpty())){
-            addLastRow();
+        if(milkingDate.getValue() == null || cowNameTextField.getText().isEmpty() ||
+                cowIDTextField.getText().isEmpty() || morningQuantity.getText().isEmpty() ||
+                afternoonQuantity.getText().isEmpty() || eveningQuantity.getText().isEmpty()){
+            Notifications notifications = Notifications.create()
+                    .text("Please enter all details before saving.")
+                    .position(Pos.TOP_RIGHT)
+                    .hideCloseButton()
+                    .hideAfter(Duration.seconds(3));
+            notifications.darkStyle();
+            notifications.showInformation();
         }
-        Notifications milkNotification = Notifications.create()
-             .text("Details successfully saved")
-             .position(Pos.TOP_RIGHT)
-             .hideCloseButton()
-             .hideAfter(Duration.seconds(3));
-        milkNotification.darkStyle();
-        milkNotification.showInformation();
-        milkingDate.setValue(null);
-        cowNameTextField.clear();
-        cowIDTextField.clear();
-        morningQuantity.clear();
-        afternoonQuantity.clear();
-        eveningQuantity.clear();
-        searchCow.clear();
+        else{
+            add_MilkRecord();
+            if(!(milkRecords.getItems().isEmpty())){
+                addLastRow();
+            }
+            Notifications milkNotification = Notifications.create()
+                    .text("Details successfully saved")
+                    .position(Pos.TOP_RIGHT)
+                    .hideCloseButton()
+                    .hideAfter(Duration.seconds(3));
+            milkNotification.darkStyle();
+            milkNotification.showInformation();
+            milkingDate.setValue(null);
+            cowNameTextField.clear();
+            cowIDTextField.clear();
+            morningQuantity.clear();
+            afternoonQuantity.clear();
+            eveningQuantity.clear();
+            searchCow.clear();
+        }
     }
     @FXML
     void milkUpdatePressed() {
@@ -117,15 +121,63 @@ public class MilkRecordsController implements Initializable {
                 .hideAfter(Duration.seconds(3));
         update.darkStyle();
         update.showInformation();
+        DatabaseConnection databaseConnection = new DatabaseConnection();
+        Connection connection = databaseConnection.getConnection();
+        String updateQuery = "UPDATE dairy_farm.milking_records set morningQty = ?, afternoonQty = ?, eveningQty = ?, milkingDate = ? WHERE cowName = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(updateQuery);
+            preparedStatement.setString(1, cowNameTextField.getText());
+            preparedStatement.setString(2, cowNameTextField.getText());
+            preparedStatement.setString(3, cowNameTextField.getText());
+            preparedStatement.setString(4, cowNameTextField.getText());
+            preparedStatement.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    void editButtonPressed() {
+        final Callback<DatePicker, DateCell> dayCellFactory = new Callback<>() {
+            @Override
+            public DateCell call(DatePicker datePicker) {
+                return new DateCell() {
+                    public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item.isBefore(milkingDate.getValue()) || item.isAfter(milkingDate.getValue())) {
+                            setDisable(false);
+                        }
+                    }
+                };
+            }
+        };
+        milkingDate.setDayCellFactory(dayCellFactory);
+        cowNameTextField.setDisable(false);
+        cowIDTextField.setDisable(false);
+        morningQuantity.setDisable(false);
+        afternoonQuantity.setDisable(false);
+        eveningQuantity.setDisable(false);
+        cowIDTextField.setStyle("-fx-control-inner-background: #FAF9F9");
+        cowNameTextField.setStyle("-fx-control-inner-background: #FAF9F9");
+        morningQuantity.setStyle("-fx-control-inner-background: #FAF9F9");
+        afternoonQuantity.setStyle("-fx-control-inner-background: #FAF9F9");
+        eveningQuantity.setStyle("-fx-control-inner-background: #FAF9F9");
+        edit.setDisable(false);
+        milkUpdate.setDisable(false);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setValueToTextField();
+        if(milkSearchModelObservableList.isEmpty()){
+            edit.setDisable(true);
+            milkUpdate.setDisable(true);
+            milkDelete.setDisable(true);
+        }
         DatabaseConnection dbConnection = new DatabaseConnection();
         Connection connectToDB = dbConnection.getConnection();
         String milkRecordsQuery = "SELECT * FROM dairy_farm.milking_records ORDER BY cowID DESC LIMIT 1000 OFFSET 1";
         loadDataButton.setOnAction(actionEvent -> {
+            milkSave.setDisable(false);
             addLastRow();
             try {
                 Statement statement = connectToDB.createStatement();
@@ -209,6 +261,8 @@ public class MilkRecordsController implements Initializable {
     }
     private void setValueToTextField(){
         milkRecords.setOnMouseClicked(mouseEvent -> {
+            edit.setDisable(false);
+            milkDelete.setDisable(false);
             MilkSearchModel milkSearchModel = milkRecords.getItems().get(milkRecords.getSelectionModel().getSelectedIndex());
             milkingDate.setValue(LocalDate.parse(milkSearchModel.getMilkingDate().toString()));
             cowNameTextField.setText(milkSearchModel.getName());
@@ -216,6 +270,7 @@ public class MilkRecordsController implements Initializable {
             morningQuantity.setText(String.valueOf(milkSearchModel.getMorningLitres()));
             afternoonQuantity.setText(String.valueOf(milkSearchModel.getAfternoonLitres()));
             eveningQuantity.setText(String.valueOf(milkSearchModel.getEveningLitres()));
+            grayOutFields();
         });
     }
     private void search(){
@@ -244,5 +299,36 @@ public class MilkRecordsController implements Initializable {
         SortedList<MilkSearchModel> searchModelData = new SortedList<>(filteredList);
         searchModelData.comparatorProperty().bind(milkRecords.comparatorProperty());
         milkRecords.setItems(searchModelData);
+        milkRecords.getSortOrder().add(cowIDColumn);
+    }
+    private void grayOutFields(){
+        final Callback<DatePicker, DateCell> dayCellFactory = new Callback<>() {
+            @Override
+            public DateCell call(DatePicker datePicker) {
+                return new DateCell() {
+                    public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item.isBefore(milkingDate.getValue()) || item.isAfter(milkingDate.getValue())) {
+                            setDisable(true);
+                            setStyle("-fx-background-color: #ffc0cb");
+                        }
+                    }
+                };
+            }
+        };
+        milkingDate.setDayCellFactory(dayCellFactory);
+        cowNameTextField.setDisable(true);
+        cowIDTextField.setDisable(true);
+        morningQuantity.setDisable(true);
+        afternoonQuantity.setDisable(true);
+        eveningQuantity.setDisable(true);
+        cowIDTextField.setStyle("-fx-control-inner-background: #E5E3E3");
+        cowNameTextField.setStyle("-fx-control-inner-background: #E5E3E3");
+        morningQuantity.setStyle("-fx-control-inner-background: #E5E3E3");
+        afternoonQuantity.setStyle("-fx-control-inner-background: #E5E3E3");
+        eveningQuantity.setStyle("-fx-control-inner-background: #E5E3E3");
+        edit.setVisible(true);
+        milkUpdate.setDisable(true);
+        milkSave.setDisable(true);
     }
 }

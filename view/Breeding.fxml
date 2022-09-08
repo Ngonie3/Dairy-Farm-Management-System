@@ -184,8 +184,8 @@
                                                       <Insets left="10.0" />
                                                    </GridPane.margin>
                                                 </Label>
-                                                <DatePicker fx:id="detailsHeat" editable="false" prefHeight="33.0" prefWidth="220.0" style="-fx-background-color: E2E1E1; -fx-font-size: 15px; -fx-font-family: Calibri;" GridPane.columnIndex="1" />
-                                                <DatePicker fx:id="detailsBreeding" editable="false" prefHeight="33.0" prefWidth="220.0" style="-fx-background-color: E2E1E1; -fx-font-size: 15px; -fx-font-family: Calibri;" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.vgrow="NEVER" />
+                                                <DatePicker fx:id="detailsHeat" editable="false" focusTraversable="false" prefHeight="33.0" prefWidth="220.0" showWeekNumbers="true" style="-fx-background-color: E2E1E1; -fx-font-size: 15px; -fx-font-family: Calibri;" GridPane.columnIndex="1" />
+                                                <DatePicker fx:id="detailsBreeding" editable="false" focusTraversable="false" prefHeight="33.0" prefWidth="220.0" showWeekNumbers="true" style="-fx-background-color: E2E1E1; -fx-font-size: 15px; -fx-font-family: Calibri;" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.vgrow="NEVER" />
                                                 <TextField fx:id="detailsName" prefHeight="33.0" prefWidth="220.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                                    <font>
                                                       <Font name="Calibri" size="17.0" />
@@ -198,9 +198,9 @@
                                                    <font>
                                                       <Font name="Calibri" size="17.0" />
                                                    </font></TextField>
-                                                <DatePicker fx:id="detailsPregnancy" editable="false" prefHeight="33.0" prefWidth="220.0" style="-fx-background-color: E2E1E1; -fx-font-size: 15px; -fx-font-family: Calibri;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                                                <DatePicker fx:id="detailsDueDate" editable="false" prefHeight="33.0" prefWidth="220.0" style="-fx-background-color: E2E1E1; -fx-font-size: 15px; -fx-font-family: Calibri;" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                                                <DatePicker fx:id="detailsCalved" editable="false" prefHeight="33.0" prefWidth="220.0" style="-fx-background-color: E2E1E1; -fx-font-size: 15px; -fx-font-family: Calibri;" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                                <DatePicker fx:id="detailsPregnancy" editable="false" focusTraversable="false" prefHeight="33.0" prefWidth="220.0" showWeekNumbers="true" style="-fx-background-color: E2E1E1; -fx-font-size: 15px; -fx-font-family: Calibri;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                                <DatePicker fx:id="detailsDueDate" editable="false" focusTraversable="false" prefHeight="33.0" prefWidth="220.0" showWeekNumbers="true" style="-fx-background-color: E2E1E1; -fx-font-size: 15px; -fx-font-family: Calibri;" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                                <DatePicker fx:id="detailsCalved" editable="false" focusTraversable="false" prefHeight="33.0" prefWidth="220.0" showWeekNumbers="true" style="-fx-background-color: E2E1E1; -fx-font-size: 15px; -fx-font-family: Calibri;" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                                                 <TextField fx:id="detailsCalf" prefHeight="33.0" prefWidth="256.0" GridPane.columnIndex="1" GridPane.rowIndex="9">
                                                    <font>
                                                       <Font name="Calibri" size="17.0" />
@@ -232,9 +232,9 @@
                                           </GridPane>
                                        </children>
                                     </VBox>
-                                    <Button fx:id="updateBreeding" layoutX="752.0" layoutY="614.0" mnemonicParsing="false" onAction="#updateBreedingPressed" prefHeight="44.0" prefWidth="130.0" stylesheets="@../stylesheets/VBox.css" text="Update Details">
+                                    <Button fx:id="updateBreeding" layoutX="752.0" layoutY="614.0" mnemonicParsing="false" onAction="#updateBreedingPressed" prefHeight="34.0" prefWidth="118.0" stylesheets="@../stylesheets/VBox.css" text="Update">
                                        <font>
-                                          <Font name="Calibri Bold" size="16.0" />
+                                          <Font name="Calibri Bold" size="17.0" />
                                        </font>
                                     </Button>
                                     <Button fx:id="loadDataButton" layoutX="183.0" layoutY="607.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="91.0" stylesheets="@../stylesheets/VBox.css" text="Load Data">
@@ -242,9 +242,9 @@
                                           <Font name="Calibri Bold" size="16.0" />
                                        </font>
                                     </Button>
-                                    <Button fx:id="editBreeding" layoutX="900.0" layoutY="612.0" mnemonicParsing="false" onAction="#editBreedingPressed" prefHeight="44.0" prefWidth="130.0" stylesheets="@../stylesheets/VBox.css" text="Edit Details">
+                                    <Button fx:id="editBreeding" layoutX="900.0" layoutY="612.0" mnemonicParsing="false" onAction="#editBreedingPressed" prefHeight="37.0" prefWidth="106.0" stylesheets="@../stylesheets/VBox.css" text="Edit">
                                        <font>
-                                          <Font name="Calibri Bold" size="16.0" />
+                                          <Font name="Calibri Bold" size="17.0" />
                                        </font>
                                     </Button>
                                  </children>
@@ -363,8 +363,8 @@
                                                 <Font name="Calibri Bold" size="17.5" />
                                              </font>
                                           </Label>
-                                          <DatePicker fx:id="heatDate" editable="false" prefHeight="34.0" prefWidth="208.0" style="-fx-background-color: E2E1E1; -fx-font-size: 15px; -fx-font-family: Arial Black;" GridPane.columnIndex="1" />
-                                          <DatePicker fx:id="breedingDate" editable="false" prefHeight="34.0" prefWidth="208.0" style="-fx-background-color: E2E1E1; -fx-font-size: 15px; -fx-font-family: Arial Black;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <DatePicker fx:id="heatDate" editable="false" focusTraversable="false" prefHeight="34.0" prefWidth="208.0" showWeekNumbers="true" style="-fx-background-color: E2E1E1; -fx-font-size: 15px; -fx-font-family: Arial Black;" GridPane.columnIndex="1" />
+                                          <DatePicker fx:id="breedingDate" editable="false" focusTraversable="false" prefHeight="34.0" prefWidth="208.0" showWeekNumbers="true" style="-fx-background-color: E2E1E1; -fx-font-size: 15px; -fx-font-family: Arial Black;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                           <TextField fx:id="bullName" prefHeight="34.0" prefWidth="207.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                              <font>
                                                 <Font size="17.0" />
@@ -373,9 +373,9 @@
                                              <font>
                                                 <Font size="17.0" />
                                              </font></TextField>
-                                          <DatePicker fx:id="pregnancyDate" editable="false" prefHeight="34.0" prefWidth="208.0" style="-fx-background-color: E2E1E1; -fx-font-size: 15px; -fx-font-family: Arial Black;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                                          <DatePicker fx:id="calveDate" editable="false" prefHeight="34.0" prefWidth="208.0" style="-fx-background-color: E2E1E1; -fx-font-size: 15px; -fx-font-family: Arial Black;" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                                          <DatePicker fx:id="dateCalved" editable="false" prefHeight="34.0" prefWidth="208.0" style="-fx-background-color: E2E1E1; -fx-font-size: 15px; -fx-font-family: Arial Black;" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                          <DatePicker fx:id="pregnancyDate" editable="false" focusTraversable="false" prefHeight="34.0" prefWidth="208.0" showWeekNumbers="true" style="-fx-background-color: E2E1E1; -fx-font-size: 15px; -fx-font-family: Arial Black;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                          <DatePicker fx:id="calveDate" editable="false" focusTraversable="false" prefHeight="34.0" prefWidth="208.0" showWeekNumbers="true" style="-fx-background-color: E2E1E1; -fx-font-size: 15px; -fx-font-family: Arial Black;" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                          <DatePicker fx:id="dateCalved" editable="false" focusTraversable="false" prefHeight="34.0" prefWidth="208.0" showWeekNumbers="true" style="-fx-background-color: E2E1E1; -fx-font-size: 15px; -fx-font-family: Arial Black;" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                                           <TextField fx:id="ageOfCow" prefHeight="34.0" prefWidth="207.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
                                              <font>
                                                 <Font size="17.0" />
@@ -403,12 +403,7 @@
                                              </font></TextField>
                                        </children>
                                     </GridPane>
-                                    <Button fx:id="saveBreeding" layoutX="696.0" layoutY="605.0" mnemonicParsing="false" onAction="#saveBreedingPressed" prefHeight="51.0" prefWidth="89.0" stylesheets="@../stylesheets/VBox.css" text="Save ">
-                                       <font>
-                                          <Font name="Calibri Bold" size="17.5" />
-                                       </font>
-                                    </Button>
-                                    <Button fx:id="clearRecord" layoutX="809.0" layoutY="605.0" mnemonicParsing="false" onAction="#clearRecordPressed" prefHeight="51.0" prefWidth="89.0" styleClass="dangerButton" stylesheets="@../stylesheets/VBox.css" text="Clear">
+                                    <Button fx:id="saveBreeding" layoutX="777.0" layoutY="605.0" mnemonicParsing="false" onAction="#saveBreedingPressed" prefHeight="51.0" prefWidth="89.0" stylesheets="@../stylesheets/VBox.css" text="Save ">
                                        <font>
                                           <Font name="Calibri Bold" size="17.5" />
                                        </font>

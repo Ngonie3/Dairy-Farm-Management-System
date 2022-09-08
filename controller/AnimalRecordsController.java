@@ -19,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 import javafx.util.Duration;
 import model.AnimalRecordsSearchModel;
 import model.DatabaseConnection;
@@ -60,7 +61,7 @@ public class AnimalRecordsController implements Initializable {
     @FXML
     private TableColumn<AnimalRecordsSearchModel, String> animalTypeColumn;
     @FXML
-    private Button loadData;
+    private Button loadData, deleteAnimal, editDetails, save;
     @FXML
     private Label numOfAnimals;
     private final String identity = " Cow Found";
@@ -72,7 +73,7 @@ public class AnimalRecordsController implements Initializable {
     private final String calfIdentity = " Calf Found";
     private final String numOfCalves = " Calves Found";
     @FXML
-    void deleteAnimalPressed() {
+    void deleteButtonPressed() {
        Alert newAlert = new Alert(Alert.AlertType.CONFIRMATION);
         newAlert.setHeaderText("Do you wish to continue?");
         newAlert.setTitle("Confirm Deletion");
@@ -105,31 +106,44 @@ public class AnimalRecordsController implements Initializable {
     }
     @FXML
     void saveAnimalPressed() {
-        add_Animal_Records();
-        if(!(animalRecordsTable.getItems().isEmpty())){
-            addLastRow();
+        if(addAnimalComboBox.getValue() == null || addAnimalID.getText().isEmpty() || addAnimalName.getText().isEmpty()
+                ||addEarTag.getText().isEmpty() || addSireID.getText().isEmpty() || addDamID.getText().isEmpty() ||
+                addBreed.getText().isEmpty() || addColor.getText().isEmpty() || addWeightAtBirth.getText().isEmpty() ||
+                addAgeAtFirstService.getText().isEmpty() || addPasture.getText().isEmpty() || addBirthDate.getValue() == null){
+            Notifications notifications = Notifications.create()
+                    .text("Please enter all details before saving")
+                    .position(Pos.TOP_RIGHT)
+                    .hideCloseButton()
+                    .hideAfter(Duration.seconds(3));
+            notifications.darkStyle();
+            notifications.showInformation();
+        }else{
+            add_Animal_Records();
+            if(!(animalRecordsTable.getItems().isEmpty())){
+                addLastRow();
+            }
+            Notifications newNotification = Notifications.create()
+                    .text("Details successfully saved")
+                    .position(Pos.TOP_RIGHT)
+                    .hideCloseButton()
+                    .hideAfter(Duration.seconds(3));
+            newNotification.darkStyle();
+            newNotification.showInformation();
+            addAnimalID.clear();
+            addAnimalName.clear();
+            addEarTag.clear();
+            addSireID.clear();
+            addDamID.clear();
+            addBreed.clear();
+            addColor.clear();
+            addWeightAtBirth.clear();
+            addWeightAtFirstService.clear();
+            addAgeAtFirstService.clear();
+            addPasture.clear();
+            addBirthDate.setValue(null);
+            addAnimalComboBox.setItems(addCombo);
+            addAnimalComboBox.getSelectionModel().select(0);
         }
-        Notifications newNotification = Notifications.create()
-            .text("Details successfully saved")
-            .position(Pos.TOP_RIGHT)
-            .hideCloseButton()
-            .hideAfter(Duration.seconds(3));
-        newNotification.darkStyle();
-        newNotification.showInformation();
-        addAnimalID.clear();
-        addAnimalName.clear();
-        addEarTag.clear();
-        addSireID.clear();
-        addDamID.clear();
-        addBreed.clear();
-        addColor.clear();
-        addWeightAtBirth.clear();
-        addWeightAtFirstService.clear();
-        addAgeAtFirstService.clear();
-        addPasture.clear();
-        addBirthDate.setValue(null);
-        addAnimalComboBox.setItems(addCombo);
-        addAnimalComboBox.getSelectionModel().select(0);
     }
     @FXML
     void comboBoxShown() {
@@ -160,7 +174,7 @@ public class AnimalRecordsController implements Initializable {
         profilePasture.clear();
     }
     @FXML
-    void updateDetailsPressed() {
+    void saveButtonPressed() {
         Notifications updateNotification = Notifications.create()
                    .text("Details successfully updated")
                    .position(Pos.TOP_RIGHT)
@@ -183,6 +197,28 @@ public class AnimalRecordsController implements Initializable {
         profileWeightAtBirth.clear();
         profileWightAtFirstService.clear();
     }
+    @FXML
+    void editDetailsPressed() {
+        save.setDisable(false);
+        profileAgeAtFirstService.setEditable(true);
+        profileBreed.setEditable(true);
+        profileColor.setEditable(true);
+        profileDamID.setEditable(true);
+        profileEarTag.setEditable(true);
+        profilePasture.setEditable(true);
+        profileSireID.setEditable(true);
+        profileWeightAtBirth.setEditable(true);
+        profileWightAtFirstService.setEditable(true);
+        profileWeightAtBirth.setStyle("-fx-control-inner-background: #FAF9F9");
+        profileWightAtFirstService.setStyle("-fx-control-inner-background: #FAF9F9");
+        profileSireID.setStyle("-fx-control-inner-background: #FAF9F9");
+        profilePasture.setStyle("-fx-control-inner-background: #FAF9F9");
+        profileEarTag.setStyle("-fx-control-inner-background: #FAF9F9");
+        profileDamID.setStyle("-fx-control-inner-background: #FAF9F9");
+        profileColor.setStyle("-fx-control-inner-background: #FAF9F9");
+        profileBreed.setStyle("-fx-control-inner-background: #FAF9F9");
+        profileAgeAtFirstService.setStyle("-fx-control-inner-background: #FAF9F9");
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -191,6 +227,9 @@ public class AnimalRecordsController implements Initializable {
         animalComboBox.setItems(animalList);
         retrieveAnimals();
         numberOfAnimals();
+        editDetails.setDisable(true);
+        deleteAnimal.setDisable(true);
+        save.setDisable(true);
     }
     private void add_Animal_Records(){
         DatabaseConnection databaseConnection = new DatabaseConnection();
@@ -242,6 +281,9 @@ public class AnimalRecordsController implements Initializable {
             profileWeightAtBirth.setText(animal.getWeightAtBirth());
             profileAgeAtFirstService.setText(animal.getAgeAtFirstService());
             profileWightAtFirstService.setText(animal.getWeightAtFirstService());
+            grayOutFields();
+            deleteAnimal.setDisable(false);
+            editDetails.setDisable(false);
         });
     }
     private void addLastRow(){
@@ -425,7 +467,7 @@ public class AnimalRecordsController implements Initializable {
                                 damID, breed, color, weightAtBirth, ageAtFirstService, weightAtFirstService,pasture));
                         search();
                     }
-                    connection.close();
+//                    connection.close();
                 }catch(SQLException sqlException){
                     sqlException.printStackTrace();
                 }
@@ -527,5 +569,49 @@ public class AnimalRecordsController implements Initializable {
                 exception.printStackTrace();
             }
         });
+    }
+    private void grayOutFields(){
+        final Callback<DatePicker, DateCell> dayCellFactory = new Callback<>() {
+            @Override
+            public DateCell call(DatePicker datePicker) {
+                return new DateCell() {
+                    public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item.isBefore(profileBirthDate.getValue()) || item.isAfter(profileBirthDate.getValue())) {
+                            setDisable(true);
+                            setStyle("-fx-background-color: #ffc0cb");
+                        }
+                    }
+                };
+            }
+        };
+        profileBirthDate.setDayCellFactory(dayCellFactory);
+        save.setDisable(true);
+        profileAgeAtFirstService.setEditable(false);
+        profileAnimalType.setEditable(false);
+        profileBreed.setEditable(false);
+        profileColor.setEditable(false);
+        profileCurrentAge.setEditable(false);
+        profileDamID.setEditable(false);
+        profileEarTag.setEditable(false);
+        profileID.setEditable(false);
+        profileName.setEditable(false);
+        profilePasture.setEditable(false);
+        profileSireID.setEditable(false);
+        profileWeightAtBirth.setEditable(false);
+        profileWightAtFirstService.setEditable(false);
+        profileName.setStyle("-fx-control-inner-background: #E5E3E3");
+        profileAnimalType.setStyle("-fx-control-inner-background: #E5E3E3");
+        profileID.setStyle("-fx-control-inner-background: #E5E3E3");
+        profileCurrentAge.setStyle("-fx-control-inner-background: #E5E3E3");
+        profileWeightAtBirth.setStyle("-fx-control-inner-background: #E5E3E3");
+        profileWightAtFirstService.setStyle("-fx-control-inner-background: #E5E3E3");
+        profileSireID.setStyle("-fx-control-inner-background: #E5E3E3");
+        profilePasture.setStyle("-fx-control-inner-background: #E5E3E3");
+        profileEarTag.setStyle("-fx-control-inner-background: #E5E3E3");
+        profileDamID.setStyle("-fx-control-inner-background: #E5E3E3");
+        profileColor.setStyle("-fx-control-inner-background: #E5E3E3");
+        profileBreed.setStyle("-fx-control-inner-background: #E5E3E3");
+        profileAgeAtFirstService.setStyle("-fx-control-inner-background: #E5E3E3");
     }
 }

@@ -36,15 +36,7 @@ import org.controlsfx.control.Notifications;
 public class AnimalWeightController implements Initializable {
 
     @FXML
-    private TextField animalIDTextField;
-    @FXML
-    private TextField animalNameTextField;
-    @FXML
-    private TextField weightTextField;
-    @FXML
-    private TextField searchTextField;
-    @FXML
-    private TextField animalDOBTextFiled;
+    private TextField animalIDTextField, animalNameTextField, weightTextField, searchTextField, animalDOBTextFiled;
     @FXML
     private DatePicker weightDate;
     @FXML
@@ -66,7 +58,7 @@ public class AnimalWeightController implements Initializable {
     @FXML
     private TableView<AnimalWeightSearchModel> displayWeightRecordsTable;
     @FXML
-    private Button loadData;
+    private Button loadData, deleteWeightRecord;
 
     ObservableList<AnimalWeightSearchModel> animalWeightSearchModelObservableList = FXCollections.observableArrayList();
     ObservableList<AnimalRecordsSearchModel> recordsSearchModelObservableList = FXCollections.observableArrayList();
@@ -92,26 +84,39 @@ public class AnimalWeightController implements Initializable {
     }
     @FXML
     void saveWeight() {
-        addWeightRecords();
-        Notifications weightNotification = Notifications.create()
-                .text("Details successfully saved!")
-                .position(Pos.TOP_RIGHT)
-                .hideCloseButton()
-                .hideAfter(Duration.seconds(3));
-        weightNotification.darkStyle();
-        weightNotification.showInformation();
-        animalNameTextField.clear();
-        animalIDTextField.clear();
-        animalDOBTextFiled.clear();
-        weightDate.setValue(null);
-        weightTextField.clear();
-        lineChart.getData().clear();
+        if(weightDate.getValue() == null || weightTextField.getText().isEmpty()){
+            Notifications notifications = Notifications.create()
+                    .text("Please enter all details before saving")
+                    .position(Pos.TOP_RIGHT)
+                    .hideCloseButton()
+                    .hideAfter(Duration.seconds(3));
+            notifications.darkStyle();
+            notifications.showInformation();
+        }
+        else{
+            animalWeightSearchModelObservableList.clear();
+            addWeightRecords();
+            Notifications weightNotification = Notifications.create()
+                    .text("Details successfully saved!")
+                    .position(Pos.TOP_RIGHT)
+                    .hideCloseButton()
+                    .hideAfter(Duration.seconds(3));
+            weightNotification.darkStyle();
+            weightNotification.showInformation();
+            animalNameTextField.clear();
+            animalIDTextField.clear();
+            animalDOBTextFiled.clear();
+            weightDate.setValue(null);
+            weightTextField.clear();
+            lineChart.getData().clear();
+        }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         retrieveAnimals();
         setCellValueToTextFields();
+        deleteWeightRecord.setDisable(true);
     }
     private void addWeightRecords(){
         DatabaseConnection databaseConnection = new DatabaseConnection();
@@ -200,6 +205,7 @@ public class AnimalWeightController implements Initializable {
     }
     private void setCellValueToTextFields(){
         retrieveAnimalsTable.setOnMouseClicked(mouseEvent -> {
+            deleteWeightRecord.setDisable(false);
             DatabaseConnection databaseConnection = new DatabaseConnection();
             Connection connect = databaseConnection.getConnection();
             animalWeightSearchModelObservableList.clear();
@@ -249,6 +255,9 @@ public class AnimalWeightController implements Initializable {
                             series.setName("Weight Distribution");
                             lineChart.getData().add(series);
                         }
+                    }
+                    if(displayWeightRecordsTable.getItems().isEmpty()){
+                        lineChart.getData().clear();
                     }
                     connect.close();
                 } catch (SQLException e) {

@@ -184,7 +184,7 @@
                                                 <RowConstraints maxHeight="52.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
                                             </rowConstraints>
                                              <children>
-                                                <DatePicker fx:id="deleteHealthDate" editable="false" prefHeight="40.0" prefWidth="224.0" style="-fx-font-size: 15px;" GridPane.columnIndex="1" />
+                                                <DatePicker fx:id="deleteHealthDate" editable="false" prefHeight="40.0" prefWidth="224.0" showWeekNumbers="true" style="-fx-font-size: 15px;" GridPane.columnIndex="1" />
                                                 <TextArea fx:id="deleteSymptoms" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                                    <GridPane.margin>
                                                       <Insets bottom="5.0" top="5.0" />
