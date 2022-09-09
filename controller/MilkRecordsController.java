@@ -89,7 +89,7 @@ public class MilkRecordsController implements Initializable {
                     .hideCloseButton()
                     .hideAfter(Duration.seconds(3));
             notifications.darkStyle();
-            notifications.showInformation();
+            notifications.showError();
         }
         else{
             add_MilkRecord();
@@ -126,13 +126,18 @@ public class MilkRecordsController implements Initializable {
         String updateQuery = "UPDATE dairy_farm.milking_records set morningQty = ?, afternoonQty = ?, eveningQty = ?, milkingDate = ? WHERE cowName = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(updateQuery);
-            preparedStatement.setString(1, cowNameTextField.getText());
-            preparedStatement.setString(2, cowNameTextField.getText());
-            preparedStatement.setString(3, cowNameTextField.getText());
-            preparedStatement.setString(4, cowNameTextField.getText());
+            preparedStatement.setDouble(1, Double.parseDouble(morningQuantity.getText()));
+            preparedStatement.setDouble(2, Double.parseDouble(afternoonQuantity.getText()));
+            preparedStatement.setDouble(3, Double.parseDouble(eveningQuantity.getText()));
+            preparedStatement.setDate(4, java.sql.Date.valueOf(milkingDate.getValue()));
+            preparedStatement.setString(5, cowNameTextField.getText());
             preparedStatement.executeUpdate();
         }catch (SQLException e){
             e.printStackTrace();
+        }
+        milkSearchModelObservableList.clear();
+        if(milkRecords.getItems().isEmpty()){
+            loadDataButton.setOnAction(actionEvent -> retrieveFromDatabase());
         }
     }
     @FXML
@@ -166,55 +171,17 @@ public class MilkRecordsController implements Initializable {
     }
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(URL location, ResourceBundle resources){
         setValueToTextField();
         if(milkSearchModelObservableList.isEmpty()){
             edit.setDisable(true);
             milkUpdate.setDisable(true);
             milkDelete.setDisable(true);
         }
-        DatabaseConnection dbConnection = new DatabaseConnection();
-        Connection connectToDB = dbConnection.getConnection();
-        String milkRecordsQuery = "SELECT * FROM dairy_farm.milking_records ORDER BY cowID DESC LIMIT 1000 OFFSET 1";
         loadDataButton.setOnAction(actionEvent -> {
             milkSave.setDisable(false);
             addLastRow();
-            try {
-                Statement statement = connectToDB.createStatement();
-                ResultSet queryResult = statement.executeQuery(milkRecordsQuery);
-                while (queryResult.next()){
-                    int ID = queryResult.getInt("cowID");
-                    String name = queryResult.getString("cowName");
-                    Double amLitres = queryResult.getDouble("morningQty");
-                    Double noonLitres = queryResult.getDouble("afternoonQty");
-                    Double pmLitres = queryResult.getDouble("eveningQty");
-                    Date milkDate = queryResult.getDate("milkingDate");
-                    milkSearchModelObservableList.add(new MilkSearchModel(ID, name, amLitres, noonLitres, pmLitres, milkDate));
-                    PreparedStatement ps = connectToDB.prepareStatement("SELECT COUNT(*) FROM dairy_farm.milking_records WHERE cowID > ?");
-                    ps.setInt(1, 0);
-                    ResultSet rs = ps.executeQuery();
-                    int n = 0;
-                    if(rs.next()){
-                        n = rs.getInt(1);
-                    }
-                    if(n>0){
-                        if(!(milkRecords.getColumns().isEmpty())){
-                            loadDataButton.setOnAction(actionEvent1 -> {
-                                Notifications data = Notifications.create()
-                                        .text("Data is up to date")
-                                        .position(Pos.TOP_RIGHT)
-                                        .hideCloseButton()
-                                        .hideAfter(Duration.seconds(3));
-                                data.darkStyle();
-                                data.showInformation();
-                            });
-                        }
-                    }
-                    search();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            retrieveFromDatabase();
         });
     }
     private void add_MilkRecord(){
@@ -330,5 +297,46 @@ public class MilkRecordsController implements Initializable {
         edit.setVisible(true);
         milkUpdate.setDisable(true);
         milkSave.setDisable(true);
+    }
+    private void retrieveFromDatabase(){
+        DatabaseConnection dbConnection = new DatabaseConnection();
+        Connection connectToDB = dbConnection.getConnection();
+        String milkRecordsQuery = "SELECT * FROM dairy_farm.milking_records ORDER BY cowID DESC LIMIT 1000 OFFSET 1";
+        try {
+            Statement statement = connectToDB.createStatement();
+            ResultSet queryResult = statement.executeQuery(milkRecordsQuery);
+            while (queryResult.next()){
+                int ID = queryResult.getInt("cowID");
+                String name = queryResult.getString("cowName");
+                Double amLitres = queryResult.getDouble("morningQty");
+                Double noonLitres = queryResult.getDouble("afternoonQty");
+                Double pmLitres = queryResult.getDouble("eveningQty");
+                Date milkDate = queryResult.getDate("milkingDate");
+                milkSearchModelObservableList.add(new MilkSearchModel(ID, name, amLitres, noonLitres, pmLitres, milkDate));
+                PreparedStatement ps = connectToDB.prepareStatement("SELECT COUNT(*) FROM dairy_farm.milking_records WHERE cowID > ?");
+                ps.setInt(1, 0);
+                ResultSet rs = ps.executeQuery();
+                int n = 0;
+                if(rs.next()){
+                    n = rs.getInt(1);
+                }
+                if(n>0){
+                    if(!(milkRecords.getColumns().isEmpty())){
+                        loadDataButton.setOnAction(actionEvent1 -> {
+                            Notifications data = Notifications.create()
+                                    .text("Data is up to date")
+                                    .position(Pos.TOP_RIGHT)
+                                    .hideCloseButton()
+                                    .hideAfter(Duration.seconds(3));
+                            data.darkStyle();
+                            data.showInformation();
+                        });
+                    }
+                }
+                search();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

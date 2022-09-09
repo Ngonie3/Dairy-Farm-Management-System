@@ -116,7 +116,7 @@ public class AnimalRecordsController implements Initializable {
                     .hideCloseButton()
                     .hideAfter(Duration.seconds(3));
             notifications.darkStyle();
-            notifications.showInformation();
+            notifications.showError();
         }else{
             add_Animal_Records();
             if(!(animalRecordsTable.getItems().isEmpty())){
@@ -181,7 +181,7 @@ public class AnimalRecordsController implements Initializable {
                    .hideCloseButton()
                    .hideAfter(Duration.seconds(3));
         updateNotification.darkStyle();
-        updateNotification.showInformation();
+        updateNotification.showError();
         profileBirthDate.setValue(null);
         profileAgeAtFirstService.clear();
         profileAnimalType.clear();

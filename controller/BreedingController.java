@@ -79,7 +79,7 @@ public class BreedingController implements Initializable {
                     .hideCloseButton()
                     .hideAfter(Duration.seconds(3));
             notifications.darkStyle();
-            notifications.showInformation();
+            notifications.showError();
         }
         else{
             add_breedingDetails();

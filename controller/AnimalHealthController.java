@@ -102,7 +102,7 @@ public class AnimalHealthController implements Initializable {
                     .hideCloseButton()
                     .hideAfter(Duration.seconds(3));
             notifications.darkStyle();
-            notifications.showInformation();
+            notifications.showError();
         }else{
             addAnimalHealthRecords();
             if(!(animalHealthTable.getItems().isEmpty())){

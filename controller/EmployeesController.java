@@ -80,17 +80,6 @@ public class EmployeesController implements Initializable{
         }
     }
     @FXML
-    void listUpdateEmployee() {
-        //TODO
-        Notifications update = Notifications.create()
-                .text("Details successfully updated")
-                .position(Pos.TOP_RIGHT)
-                .hideCloseButton()
-                .hideAfter(Duration.seconds(3));
-        update.darkStyle();
-        update.showInformation();
-    }
-    @FXML
     void updateSalary() {
         if(percentageRadioBtn.getText().isEmpty() || amtRadioBtn.getText().isEmpty() || percentageTextField.getText().isEmpty() || amountTextField.getText().isEmpty()){
             Notifications notifications = Notifications.create()
@@ -99,7 +88,7 @@ public class EmployeesController implements Initializable{
                     .hideCloseButton()
                     .hideAfter(Duration.seconds(3));
             notifications.darkStyle();
-            notifications.showInformation();
+            notifications.showError();
         }else{
             //TODO
             Notifications updateSalary = Notifications.create()
@@ -123,7 +112,7 @@ public class EmployeesController implements Initializable{
                     .hideCloseButton()
                     .hideAfter(Duration.seconds(3));
             notifications.darkStyle();
-            notifications.showInformation();
+            notifications.showError();
 
         }else{
             add_Employee();

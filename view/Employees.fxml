@@ -237,7 +237,7 @@
                               </TableView>
                               <HBox fx:id="buttonHBox" alignment="CENTER" prefHeight="60.0" prefWidth="466.0">
                                  <children>
-                                    <Button fx:id="updateButton" mnemonicParsing="false" onAction="#listUpdateEmployee" prefHeight="44.0" prefWidth="145.0" stylesheets="@../stylesheets/VBox.css" text="Update">
+                                    <Button fx:id="updateButton" mnemonicParsing="false" prefHeight="44.0" prefWidth="145.0" stylesheets="@../stylesheets/VBox.css" text="Update">
                                        <font>
                                           <Font name="Calibri Bold" size="17.0" />
                                        </font>

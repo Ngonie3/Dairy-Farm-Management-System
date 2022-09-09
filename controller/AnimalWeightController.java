@@ -91,7 +91,7 @@ public class AnimalWeightController implements Initializable {
                     .hideCloseButton()
                     .hideAfter(Duration.seconds(3));
             notifications.darkStyle();
-            notifications.showInformation();
+            notifications.showError();
         }
         else{
             animalWeightSearchModelObservableList.clear();
