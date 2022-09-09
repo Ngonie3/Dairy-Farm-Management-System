@@ -128,15 +128,18 @@
                                           <TextField fx:id="profileID" focusTraversable="false" prefHeight="33.0" prefWidth="159.0" GridPane.columnIndex="1">
                                              <font>
                                                 <Font name="Calibri" size="17.0" />
-                                             </font></TextField>
+                                             </font>
+                                          </TextField>
                                           <TextField fx:id="profileName" focusTraversable="false" prefHeight="33.0" prefWidth="159.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                              <font>
                                                 <Font name="Calibri" size="17.0" />
-                                             </font></TextField>
+                                             </font>
+                                          </TextField>
                                           <TextField fx:id="profileEarTag" focusTraversable="false" prefHeight="33.0" prefWidth="159.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                              <font>
                                                 <Font name="Calibri" size="17.0" />
-                                             </font></TextField>
+                                             </font>
+                                          </TextField>
                                        </children>
                                     </GridPane>
                                     <HBox alignment="CENTER_LEFT" layoutX="-1.0" layoutY="186.0" prefHeight="37.0" prefWidth="783.0" style="-fx-background-color: #E2E1E1;">
@@ -251,9 +254,9 @@
                                                 <Font name="Calibri Bold" size="17.0" />
                                              </font>
                                           </Label>
-                                          <Label text="Curernt Age" GridPane.rowIndex="1">
+                                          <Label text="Curernt age at recording" GridPane.rowIndex="1">
                                              <font>
-                                                <Font name="Calibri Bold" size="17.0" />
+                                                <Font name="Calibri Bold" size="16.0" />
                                              </font>
                                           </Label>
                                           <Label text="Weight at Birth" GridPane.rowIndex="2">

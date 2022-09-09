@@ -73,7 +73,7 @@ public class AnimalRecordsController implements Initializable {
     private final String calfIdentity = " Calf Found";
     private final String numOfCalves = " Calves Found";
     @FXML
-    void deleteButtonPressed() {
+    void deleteButtonPressed(){
        Alert newAlert = new Alert(Alert.AlertType.CONFIRMATION);
         newAlert.setHeaderText("Do you wish to continue?");
         newAlert.setTitle("Confirm Deletion");
@@ -105,7 +105,7 @@ public class AnimalRecordsController implements Initializable {
         }
     }
     @FXML
-    void saveAnimalPressed() {
+    void saveAnimalPressed(){
         if(addAnimalComboBox.getValue() == null || addAnimalID.getText().isEmpty() || addAnimalName.getText().isEmpty()
                 ||addEarTag.getText().isEmpty() || addSireID.getText().isEmpty() || addDamID.getText().isEmpty() ||
                 addBreed.getText().isEmpty() || addColor.getText().isEmpty() || addWeightAtBirth.getText().isEmpty() ||
@@ -146,17 +146,17 @@ public class AnimalRecordsController implements Initializable {
         }
     }
     @FXML
-    void comboBoxShown() {
+    void comboBoxShown(){
         addAnimalComboBox.setItems(addCombo);
         addAnimalComboBox.getSelectionModel().select(0);
     }
     @FXML
-    void itemsShown() {
+    void itemsShown(){
         animalComboBox.setItems(addCombo);
         animalComboBox.getSelectionModel().select(0);
     }
     @FXML
-    void clearTable() {
+    void clearTable(){
         animalRecordsSearchModelObservableList.clear();
         profileID.clear();
         profileName.clear();
@@ -174,31 +174,50 @@ public class AnimalRecordsController implements Initializable {
         profilePasture.clear();
     }
     @FXML
-    void saveButtonPressed() {
+    void saveButtonPressed(){
         Notifications updateNotification = Notifications.create()
                    .text("Details successfully updated")
                    .position(Pos.TOP_RIGHT)
                    .hideCloseButton()
                    .hideAfter(Duration.seconds(3));
         updateNotification.darkStyle();
-        updateNotification.showError();
-        profileBirthDate.setValue(null);
-        profileAgeAtFirstService.clear();
-        profileAnimalType.clear();
-        profileBreed.clear();
-        profileColor.clear();
-        profileCurrentAge.clear();
-        profileDamID.clear();
+        updateNotification.showInformation();
+        DatabaseConnection databaseConnection = new DatabaseConnection();
+        Connection connection = databaseConnection.getConnection();
+        String updateQuery = "UPDATE dairy_farm.animal_records set ear_tag = ?, sire_ID = ?, dam_ID = ?, color = ?, breed = ?, pasture = ?, " +
+                "weight_at_birth = ?, age_at_first_service = ?, weight_at_first_service = ? WHERE animal_name = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(updateQuery);
+            preparedStatement.setString(1, profileEarTag.getText());
+            preparedStatement.setInt(2, Integer.parseInt(profileSireID.getText()));
+            preparedStatement.setInt(3, Integer.parseInt(profileDamID.getText()));
+            preparedStatement.setString(4, profileColor.getText());
+            preparedStatement.setString(5, profileBreed.getText());
+            preparedStatement.setString(6, profilePasture.getText());
+            preparedStatement.setString(7, profileWeightAtBirth.getText());
+            preparedStatement.setString(8, profileAgeAtFirstService.getText());
+            preparedStatement.setString(9, profileWightAtFirstService.getText());
+            preparedStatement.setString(10, profileName.getText());
+            preparedStatement.executeUpdate();
+        }catch (SQLException exception){
+            exception.printStackTrace();
+        }
+        animalRecordsSearchModelObservableList.clear();
+        if(animalRecordsTable.getItems().isEmpty()){
+            loadData.setOnAction(actionEvent -> retrieveAnimals());
+        }
         profileEarTag.clear();
-        profileID.clear();
-        profileName.clear();
-        profilePasture.clear();
         profileSireID.clear();
+        profileDamID.clear();
+        profileColor.clear();
+        profileBreed.clear();
+        profilePasture.clear();
         profileWeightAtBirth.clear();
         profileWightAtFirstService.clear();
+        profileAgeAtFirstService.clear();
     }
     @FXML
-    void editDetailsPressed() {
+    void editDetailsPressed(){
         save.setDisable(false);
         profileAgeAtFirstService.setEditable(true);
         profileBreed.setEditable(true);
@@ -221,7 +240,7 @@ public class AnimalRecordsController implements Initializable {
     }
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(URL location, ResourceBundle resources){
         setCellValueToTextField();
         addAnimalComboBox.setItems(comboList);
         animalComboBox.setItems(animalList);
