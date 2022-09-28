@@ -220,7 +220,7 @@
             <content>
               <AnchorPane fx:id="employeeListPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <VBox fx:id="tableVBox" layoutY="95.0" prefHeight="582.0" prefWidth="514.0">
+                        <VBox fx:id="tableVBox" layoutY="66.0" prefHeight="611.0" prefWidth="514.0">
                            <children>
                               <TableView fx:id="employeeTableView" focusTraversable="false" prefHeight="487.0" prefWidth="492.0">
                                 <columns>
@@ -237,7 +237,7 @@
                               </TableView>
                               <HBox fx:id="buttonHBox" alignment="CENTER" prefHeight="60.0" prefWidth="466.0">
                                  <children>
-                                    <Button fx:id="updateButton" mnemonicParsing="false" prefHeight="44.0" prefWidth="145.0" stylesheets="@../stylesheets/VBox.css" text="Update">
+                                    <Button fx:id="updateButton" mnemonicParsing="false" onAction="#updateEmployeePressed" prefHeight="44.0" prefWidth="113.0" stylesheets="@../stylesheets/VBox.css" text="Update">
                                        <font>
                                           <Font name="Calibri Bold" size="17.0" />
                                        </font>
@@ -245,7 +245,7 @@
                                           <Insets top="10.0" />
                                        </HBox.margin>
                                     </Button>
-                                    <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#listDeleteEmployee" prefHeight="44.0" prefWidth="140.0" styleClass="dangerButton" stylesheets="@../stylesheets/VBox.css" text="Delete">
+                                    <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#listDeleteEmployee" prefHeight="44.0" prefWidth="113.0" styleClass="dangerButton" stylesheets="@../stylesheets/VBox.css" text="Delete">
                                        <HBox.margin>
                                           <Insets left="40.0" top="10.0" />
                                        </HBox.margin>
@@ -260,9 +260,9 @@
                               </HBox>
                            </children>
                         </VBox>
-                        <HBox alignment="CENTER_LEFT" layoutX="1.0" layoutY="14.0" prefHeight="66.0" prefWidth="464.0">
+                        <HBox alignment="CENTER_LEFT" layoutX="1.0" layoutY="14.0" prefHeight="53.0" prefWidth="481.0">
                            <children>
-                              <TextField fx:id="nameTextField" prefHeight="43.0" prefWidth="344.0" promptText="Search...">
+                              <TextField fx:id="nameTextField" prefHeight="37.0" prefWidth="344.0" promptText="Search...">
                                  <font>
                                     <Font name="Calibri" size="18.0" />
                                  </font>
@@ -270,9 +270,9 @@
                                     <Insets left="10.0" />
                                  </HBox.margin>
                               </TextField>
-                              <Button fx:id="loadDataBtn" mnemonicParsing="false" prefHeight="43.0" prefWidth="93.0" stylesheets="@../stylesheets/VBox.css" text="Load Data">
+                              <Button fx:id="loadDataBtn" mnemonicParsing="false" prefHeight="35.0" prefWidth="93.0" stylesheets="@../stylesheets/VBox.css" text="Load Data">
                                  <HBox.margin>
-                                    <Insets left="25.0" />
+                                    <Insets left="20.0" />
                                  </HBox.margin>
                                  <font>
                                     <Font name="Calibri Bold" size="16.0" />
@@ -321,7 +321,7 @@
                                  <font>
                                     <Font name="Calibri" size="17.0" />
                                  </font></TextField>
-                              <TextField fx:id="listEmpSalary" styleClass="input" stylesheets="@../stylesheets/Fields.css" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                              <TextField fx:id="listEmpSalary" editable="false" styleClass="input" stylesheets="@../stylesheets/Fields.css" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                  <font>
                                     <Font name="Calibri" size="17.0" />
                                  </font></TextField>
@@ -356,7 +356,7 @@
                               </TextField>
                            </children>
                         </GridPane>
-                        <Separator layoutX="514.0" layoutY="7.0" orientation="VERTICAL" prefHeight="800.0" prefWidth="10.0" style="-fx-background-color: #E2E1E1;" AnchorPane.topAnchor="7.0" />
+                        <Separator layoutX="514.0" layoutY="-4.0" orientation="VERTICAL" prefHeight="780.0" prefWidth="10.0" style="-fx-background-color: #E2E1E1;" AnchorPane.topAnchor="-4.0" />
                         <Button layoutX="760.0" layoutY="407.0" mnemonicParsing="false" onAction="#updateSalary" prefHeight="54.0" prefWidth="118.0" stylesheets="@../stylesheets/VBox.css" text="Update Salary">
                            <font>
                               <Font name="Calibri Bold" size="16.0" />

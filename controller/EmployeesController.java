@@ -58,12 +58,12 @@ public class EmployeesController implements Initializable{
     ObservableList<String> employees = FXCollections.observableArrayList("User Type", "Administrator", "Employee");
     ObservableList<String> empList = FXCollections.observableArrayList(employees.subList(1,3));
     @FXML
-    void employeesShown() {
+    void employeesShown(){
         employeeComboBox.setItems(employees);
         employeeComboBox.getSelectionModel().select(0);
     }
     @FXML
-    void listDeleteEmployee() {
+    void listDeleteEmployee(){
         Alert deleteAlert = new Alert(Alert.AlertType.CONFIRMATION);
         deleteAlert.setHeaderText("Do you wish to continue?");
         deleteAlert.setTitle("Confirm Deletion");
@@ -80,7 +80,7 @@ public class EmployeesController implements Initializable{
         }
     }
     @FXML
-    void updateSalary() {
+    void updateSalary(){
         if(percentageRadioBtn.getText().isEmpty() || amtRadioBtn.getText().isEmpty() || percentageTextField.getText().isEmpty() || amountTextField.getText().isEmpty()){
             Notifications notifications = Notifications.create()
                     .text("Please fill in all details before updating")
@@ -90,7 +90,6 @@ public class EmployeesController implements Initializable{
             notifications.darkStyle();
             notifications.showError();
         }else{
-            //TODO
             Notifications updateSalary = Notifications.create()
                     .text("Details successfully updated")
                     .position(Pos.TOP_RIGHT)
@@ -101,7 +100,35 @@ public class EmployeesController implements Initializable{
         }
     }
     @FXML
-    void addEmployee() {
+    void updateEmployeePressed(){
+        DatabaseConnection databaseConnection = new DatabaseConnection();
+        Connection connection = databaseConnection.getConnection();
+        String updateQuery = "UPDATE dairy_farm.employees set employeeName = ? WHERE employeeID = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(updateQuery);
+            preparedStatement.setString(1, listEmpName.getText());
+            preparedStatement.setString(2, listEmpID.getText());
+            preparedStatement.executeUpdate();
+        }catch (SQLException exception){
+            exception.printStackTrace();
+        }
+        employeeSearchModelObservableList.clear();
+        listEmpID.clear();
+        listEmpName.clear();
+        listEmpSalary.clear();
+        if(employeeTableView.getItems().isEmpty()){
+            loadDataBtn.setOnAction(actionEvent -> retrieveEmployees());
+        }
+        Notifications updateSalary = Notifications.create()
+                .text("Details successfully updated")
+                .position(Pos.TOP_RIGHT)
+                .hideCloseButton()
+                .hideAfter(Duration.seconds(3));
+        updateSalary.darkStyle();
+        updateSalary.showInformation();
+    }
+    @FXML
+    void addEmployee(){
         if(empID.getText().isEmpty() || empName.getText().isEmpty() || dateOfBirth.getValue() == null || maleRadioBtn.getText().isEmpty() ||
             femaleRadioBtn.getText().isEmpty() || contactNumber.getText().isEmpty() || contactAddress.getText().isEmpty() ||
             employeeComboBox.getValue() == null || dateHired.getValue() == null || salary.getText().isEmpty() || jobTitle.getText().isEmpty()||
@@ -145,7 +172,7 @@ public class EmployeesController implements Initializable{
     }
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(URL location, ResourceBundle resources){
         setValueToTextField();
         updateButton.setDisable(true);
         deleteButton.setDisable(true);
@@ -166,45 +193,7 @@ public class EmployeesController implements Initializable{
                 }
             }
         });
-        DatabaseConnection databaseConnection = new DatabaseConnection();
-        Connection connection = databaseConnection.getConnection();
-        String employeeViewQuery = "SELECT employeeID, employeeName, salary FROM dairy_farm.employees";
-        loadDataBtn.setOnAction(actionEvent -> {
-            try{
-                Statement statement = connection.createStatement();
-                ResultSet queryOutput = statement.executeQuery(employeeViewQuery);
-                while(queryOutput.next()){
-                    int employeeID = queryOutput.getInt("employeeID");
-                    String employeeName = queryOutput.getString("employeeName");
-                    String employeeSalary = queryOutput.getString("salary");
-                    employeeSearchModelObservableList.add(new EmployeeSearchModel(employeeID, employeeName, employeeSalary));
-                    PreparedStatement preparedStatement = connection.prepareStatement("SELECT COUNT(*) FROM dairy_farm.employees WHERE employeeID > ?");
-                    preparedStatement.setInt(1, 0);
-                    ResultSet resultSet = preparedStatement.executeQuery();
-                    int value = 0;
-                    if(resultSet.next()){
-                        value= resultSet.getInt(1);
-                    }
-                    if(value>0){
-                        if(!(employeeTableView.getColumns().isEmpty())){
-                            loadDataBtn.setOnAction(actionEvent1 -> {
-                                Notifications info = Notifications.create()
-                                        .text("Data is up to date")
-                                        .position(Pos.TOP_RIGHT)
-                                        .hideCloseButton()
-                                        .hideAfter(Duration.seconds(3));
-                                info.darkStyle();
-                                info.showInformation();
-                            });
-                        }
-                    }
-                }
-                search();
-            }catch (SQLException e){
-                Logger.getLogger(EmployeesController.class.getName()).log(Level.SEVERE, null, e);
-                e.printStackTrace();
-            }
-        });
+        retrieveEmployees();
     }
     public void add_Employee(){
         DatabaseConnection dbConnection = new DatabaseConnection();
@@ -271,6 +260,7 @@ public class EmployeesController implements Initializable{
         employeeNameColumn.setCellValueFactory(new PropertyValueFactory<>("employeeName"));
         employeeSalaryColumn.setCellValueFactory(new PropertyValueFactory<>("employeeSalary"));
         employeeTableView.setItems(employeeSearchModelObservableList);
+        employeeTableView.getSortOrder().add(employeeIDColumn);
         FilteredList<EmployeeSearchModel> filteredData = new FilteredList<>(employeeSearchModelObservableList, b -> true);
         nameTextField.textProperty().addListener((observableValue, oldValue, newValue) -> filteredData.setPredicate(employeeSearchModel -> {
             if(newValue.isEmpty()){
@@ -286,5 +276,46 @@ public class EmployeesController implements Initializable{
         SortedList<EmployeeSearchModel> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(employeeTableView.comparatorProperty());
         employeeTableView.setItems(sortedData);
+    }
+    private void retrieveEmployees() {
+        DatabaseConnection databaseConnection = new DatabaseConnection();
+        Connection connection = databaseConnection.getConnection();
+        String employeeViewQuery = "SELECT employeeID, employeeName, salary FROM dairy_farm.employees";
+        loadDataBtn.setOnAction(actionEvent -> {
+            try{
+                Statement statement = connection.createStatement();
+                ResultSet queryOutput = statement.executeQuery(employeeViewQuery);
+                while(queryOutput.next()){
+                    int employeeID = queryOutput.getInt("employeeID");
+                    String employeeName = queryOutput.getString("employeeName");
+                    String employeeSalary = queryOutput.getString("salary");
+                    employeeSearchModelObservableList.add(new EmployeeSearchModel(employeeID, employeeName, employeeSalary));
+                    PreparedStatement preparedStatement = connection.prepareStatement("SELECT COUNT(*) FROM dairy_farm.employees WHERE employeeID > ?");
+                    preparedStatement.setInt(1, 0);
+                    ResultSet resultSet = preparedStatement.executeQuery();
+                    int value = 0;
+                    if(resultSet.next()){
+                        value= resultSet.getInt(1);
+                    }
+                    if(value>0){
+                        if(!(employeeTableView.getColumns().isEmpty())){
+                            loadDataBtn.setOnAction(actionEvent1 -> {
+                                Notifications info = Notifications.create()
+                                        .text("Data is up to date")
+                                        .position(Pos.TOP_RIGHT)
+                                        .hideCloseButton()
+                                        .hideAfter(Duration.seconds(3));
+                                info.darkStyle();
+                                info.showInformation();
+                            });
+                        }
+                    }
+                }
+                search();
+            }catch (SQLException e){
+                Logger.getLogger(EmployeesController.class.getName()).log(Level.SEVERE, null, e);
+                e.printStackTrace();
+            }
+        });
     }
 }

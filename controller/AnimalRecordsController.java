@@ -81,6 +81,17 @@ public class AnimalRecordsController implements Initializable {
         if (newAlert.getResult() == ButtonType.CANCEL) {
             newAlert.close();
         } else if (newAlert.getResult() == ButtonType.OK) {
+            DatabaseConnection databaseConnection = new DatabaseConnection();
+            Connection connection = databaseConnection.getConnection();
+            String deleteQuery = "DELETE FROM dairy_farm.animal_records WHERE animal_name = ?";
+            try {
+                PreparedStatement preparedStatement = connection.prepareStatement(deleteQuery);
+                preparedStatement.setString(1, profileName.getText());
+                preparedStatement.executeUpdate();
+            }catch (SQLException sqlException){
+                sqlException.printStackTrace();
+            }
+            animalRecordsSearchModelObservableList.remove(animalRecordsTable.getSelectionModel().getSelectedItem());
             profileBirthDate.setValue(null);
             profileAgeAtFirstService.clear();
             profileAnimalType.clear();

@@ -62,6 +62,17 @@ public class MilkRecordsController implements Initializable {
         if(alert.getResult() != ButtonType.OK){
             alert.close();
         }else if(alert.getResult() == ButtonType.OK){
+            DatabaseConnection databaseConnection = new DatabaseConnection();
+            Connection connection = databaseConnection.getConnection();
+            String deleteQuery = "DELETE FROM dairy_farm.milking_records WHERE cowName = ?";
+            try {
+                PreparedStatement preparedStatement = connection.prepareStatement(deleteQuery);
+                preparedStatement.setString(1, cowNameTextField.getText());
+                preparedStatement.executeUpdate();
+            }catch (SQLException sqlException){
+                sqlException.printStackTrace();
+            }
+            milkSearchModelObservableList.remove(milkRecords.getSelectionModel().getSelectedItem());
             milkingDate.setValue(null);
             cowNameTextField.clear();
             cowIDTextField.clear();

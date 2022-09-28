@@ -67,6 +67,20 @@ public class AnimalHealthController implements Initializable {
         if (alertVar.getResult() == ButtonType.CANCEL) {
             alertVar.close();
         } else if(alertVar.getResult() == ButtonType.OK){
+            DatabaseConnection databaseConnection = new DatabaseConnection();
+            Connection connection = databaseConnection.getConnection();
+            String deleteQuery = "DELETE FROM dairy_farm.animal_health WHERE animalName = ?";
+            try {
+                PreparedStatement preparedStatement = connection.prepareStatement(deleteQuery);
+                preparedStatement.setString(1, animal_Name.getText());
+                preparedStatement.executeUpdate();
+            }catch (SQLException sqlException){
+                sqlException.printStackTrace();
+            }
+            animalHealthSearchModelObservableList.remove(animalHealthTable.getSelectionModel().getSelectedItem());
+            animal_Name.clear();
+            animal_Type.clear();
+            animal_ID.clear();
             deleteCostOfTreatment.clear();
             deleteDiagnosis.clear();
             deleteSymptoms.clear();
