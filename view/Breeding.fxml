@@ -33,7 +33,7 @@
                                  <children>
                                     <HBox alignment="CENTER_LEFT" layoutX="8.0" prefHeight="55.0" prefWidth="400.0">
                                        <children>
-                                          <TextField fx:id="animalName" editable="false" prefHeight="29.0" prefWidth="224.0" promptText="Animal Name">
+                                          <TextField fx:id="animalName" prefHeight="29.0" prefWidth="224.0" promptText="Animal Name">
                                              <font>
                                                 <Font name="Calibri" size="18.0" />
                                              </font>
@@ -232,7 +232,7 @@
                                           </GridPane>
                                        </children>
                                     </VBox>
-                                    <Button fx:id="updateBreeding" layoutX="752.0" layoutY="614.0" mnemonicParsing="false" onAction="#updateBreedingPressed" prefHeight="34.0" prefWidth="118.0" stylesheets="@../stylesheets/VBox.css" text="Update">
+                                    <Button fx:id="updateBreeding" layoutX="781.0" layoutY="614.0" mnemonicParsing="false" onAction="#updateBreedingPressed" prefHeight="34.0" prefWidth="118.0" stylesheets="@../stylesheets/VBox.css" text="Update">
                                        <font>
                                           <Font name="Calibri Bold" size="17.0" />
                                        </font>
@@ -242,7 +242,12 @@
                                           <Font name="Calibri Bold" size="16.0" />
                                        </font>
                                     </Button>
-                                    <Button fx:id="editBreeding" layoutX="900.0" layoutY="612.0" mnemonicParsing="false" onAction="#editBreedingPressed" prefHeight="37.0" prefWidth="106.0" stylesheets="@../stylesheets/VBox.css" text="Edit">
+                                    <Button fx:id="editBreeding" layoutX="933.0" layoutY="613.0" mnemonicParsing="false" onAction="#editBreedingPressed" prefHeight="37.0" prefWidth="106.0" stylesheets="@../stylesheets/VBox.css" text="Edit">
+                                       <font>
+                                          <Font name="Calibri Bold" size="17.0" />
+                                       </font>
+                                    </Button>
+                                    <Button fx:id="deleteBreeding" layoutX="643.0" layoutY="614.0" mnemonicParsing="false" onAction="#deleteBreedingPressed" prefHeight="34.0" prefWidth="118.0" styleClass="dangerButton" stylesheets="@../stylesheets/VBox.css" text="Delete">
                                        <font>
                                           <Font name="Calibri Bold" size="17.0" />
                                        </font>

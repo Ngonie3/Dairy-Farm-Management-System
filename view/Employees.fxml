@@ -245,7 +245,7 @@
                                           <Insets top="10.0" />
                                        </HBox.margin>
                                     </Button>
-                                    <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#listDeleteEmployee" prefHeight="44.0" prefWidth="113.0" styleClass="dangerButton" stylesheets="@../stylesheets/VBox.css" text="Delete">
+                                    <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#listDeleteEmployeePressed" prefHeight="44.0" prefWidth="113.0" styleClass="dangerButton" stylesheets="@../stylesheets/VBox.css" text="Delete">
                                        <HBox.margin>
                                           <Insets left="40.0" top="10.0" />
                                        </HBox.margin>

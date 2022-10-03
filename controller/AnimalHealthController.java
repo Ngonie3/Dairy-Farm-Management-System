@@ -196,7 +196,7 @@ public class AnimalHealthController implements Initializable {
         animal_Type.setEditable(true);
     }
     @FXML
-    void saveEditedDetailsPressed() {
+    void saveEditedDetailsPressed(){
         if(deleteHealthDate.getValue() == null || deleteSymptoms.getText().isEmpty() || deleteDiagnosis.getText().isEmpty() || deleteTreatment.getText().isEmpty()
             || deleteCostOfTreatment.getText().isEmpty() || deleteNameOfVet.getText().isEmpty()){
             Notifications notifications = Notifications.create()
@@ -206,6 +206,40 @@ public class AnimalHealthController implements Initializable {
                     .hideAfter(Duration.seconds(3));
             notifications.darkStyle();
             notifications.showInformation();
+        }
+        else {
+            DatabaseConnection databaseConnection = new DatabaseConnection();
+            Connection connection = databaseConnection.getConnection();
+            String updateQuery = "UPDATE dairy_farm.animal_health set recordingDate = ?, symptoms = ?, diagnosis = ?, treatment = ?, costOfTreatment = ?, nameOfVet = ? WHERE animalName = ?";
+            try {
+                PreparedStatement preparedStatement = connection.prepareStatement(updateQuery);
+                preparedStatement.setDate(1, java.sql.Date.valueOf(deleteHealthDate.getValue()));
+                preparedStatement.setString(2, deleteSymptoms.getText());
+                preparedStatement.setString(3, deleteDiagnosis.getText());
+                preparedStatement.setString(4, deleteTreatment.getText());
+                preparedStatement.setString(5, deleteCostOfTreatment.getText());
+                preparedStatement.setString(6, deleteNameOfVet.getText());
+                preparedStatement.setString(7, animal_Name.getText());
+                preparedStatement.executeUpdate();
+            } catch (SQLException sqlException) {
+                sqlException.printStackTrace();
+            }
+            animalHealthSearchModelObservableList.clear();
+            if(animalHealthTable.getItems().isEmpty()){
+                loadDataBtn.setOnAction(actionEvent -> retrieveAnimals());
+            }
+            Notifications notifications = Notifications.create()
+                    .text("Details successfully updated!")
+                    .position(Pos.TOP_RIGHT)
+                    .hideCloseButton()
+                    .hideAfter(Duration.seconds(3));
+            notifications.darkStyle();
+            notifications.showInformation();
+            deleteSymptoms.clear();
+            deleteDiagnosis.clear();
+            deleteTreatment.clear();
+            deleteCostOfTreatment.clear();
+            deleteNameOfVet.clear();
         }
     }
 

@@ -148,7 +148,10 @@ public class MilkRecordsController implements Initializable {
         }
         milkSearchModelObservableList.clear();
         if(milkRecords.getItems().isEmpty()){
-            loadDataButton.setOnAction(actionEvent -> retrieveFromDatabase());
+            loadDataButton.setOnAction(actionEvent -> {
+                retrieveFromDatabase();
+                addLastRow();
+            });
         }
     }
     @FXML

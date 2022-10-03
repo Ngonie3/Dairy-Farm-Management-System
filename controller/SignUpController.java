@@ -45,23 +45,11 @@ import org.controlsfx.control.Notifications;
 public class SignUpController implements Initializable {
 
     @FXML
-    private Label logIn;
+    private Label logIn, passwordCheck, registrationSuccess;
     @FXML
-    private Label passwordCheck;
+    private PasswordField password, confirmPassword;
     @FXML
-    private Label registrationSuccess;
-    @FXML
-    private PasswordField password;
-    @FXML
-    private PasswordField confirmPassword;
-    @FXML
-    private TextField emailAddress;
-    @FXML
-    private TextField firstName;
-    @FXML
-    private TextField lastName;
-    @FXML
-    private TextField userName;
+    private TextField emailAddress, firstName, lastName, userName;
     @FXML
     private AnchorPane anchorPane;
     @FXML
@@ -142,6 +130,26 @@ public class SignUpController implements Initializable {
             fieldsAlert.showAndWait();
         }else{
             if(password.getText().equals(confirmPassword.getText())){
+                DatabaseConnection databaseConnection = new DatabaseConnection();
+                Connection connectDB = databaseConnection.getConnection();
+                String userType = userCombo.getSelectionModel().getSelectedItem();
+                String firstname = firstName.getText();
+                String lastname = lastName.getText();
+                String username = userName.getText();
+                String email_address = emailAddress.getText();
+                String userPassword = password.getText();
+                String insertFields = "INSERT INTO dairy_farm.user_signup(user_type, user_firstName, user_lastName, user_name, email_address, user_password) VALUES ('";
+                String insertValues = userType + "', '"+ firstname + "', '"+ lastname + "', '"+ username + "', '"+ email_address + "', '"+ userPassword + "')";
+                String insertToDb = insertFields + insertValues;
+                JavaMailUtil.sendMail(email_address);
+                try {
+                    Statement statement = connectDB.createStatement();
+                    statement.executeUpdate(insertToDb);
+                    connectDB.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    e.getCause();
+                }
                 Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1)));
                 timeline.setOnFinished(actionEvent -> {
                     registrationSuccess.setText("User registration successful!");
@@ -167,26 +175,6 @@ public class SignUpController implements Initializable {
                 passwordCheck.setStyle("-fx-font-size: 18px; -fx-text-fill: #EB3A0B");
                 password.setStyle("-fx-border-color: #EB3A0B; -fx-background-color: transparent;");
                 confirmPassword.setStyle("-fx-border-color: #EB3A0B; -fx-background-color: transparent;");
-            }
-            DatabaseConnection databaseConnection = new DatabaseConnection();
-            Connection connectDB = databaseConnection.getConnection();
-            String userType = userCombo.getSelectionModel().getSelectedItem();
-            String firstname = firstName.getText();
-            String lastname = lastName.getText();
-            String username = userName.getText();
-            String email_address = emailAddress.getText();
-            String userPassword = password.getText();
-            String insertFields = "INSERT INTO dairy_farm.user_signup(user_type, user_firstName, user_lastName, user_name, email_address, user_password) VALUES ('";
-            String insertValues = userType + "', '"+ firstname + "', '"+ lastname + "', '"+ username + "', '"+ email_address + "', '"+ userPassword + "')";
-            String insertToDb = insertFields + insertValues;
-            JavaMailUtil.sendMail(email_address);
-            try {
-                Statement statement = connectDB.createStatement();
-                statement.executeUpdate(insertToDb);
-                connectDB.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-                e.getCause();
             }
         }
     }

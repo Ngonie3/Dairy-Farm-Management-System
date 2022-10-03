@@ -63,13 +63,28 @@ public class EmployeesController implements Initializable{
         employeeComboBox.getSelectionModel().select(0);
     }
     @FXML
-    void listDeleteEmployee(){
+    void listDeleteEmployeePressed() {
         Alert deleteAlert = new Alert(Alert.AlertType.CONFIRMATION);
         deleteAlert.setHeaderText("Do you wish to continue?");
         deleteAlert.setTitle("Confirm Deletion");
-        deleteAlert.show();
-        if(deleteAlert.getResult() == ButtonType.OK){
-            //TODO
+        deleteAlert.showAndWait();
+        if (deleteAlert.getResult() == ButtonType.CANCEL) {
+            deleteAlert.close();
+        }else if(deleteAlert.getResult() == ButtonType.OK){
+            DatabaseConnection databaseConnection = new DatabaseConnection();
+            Connection connection = databaseConnection.getConnection();
+            String deleteQuery = "DELETE FROM dairy_farm.employees WHERE employeeID = ?";
+            try {
+                PreparedStatement preparedStatement = connection.prepareStatement(deleteQuery);
+                preparedStatement.setInt(1, Integer.parseInt(listEmpID.getText()));
+                preparedStatement.executeUpdate();
+            } catch (SQLException sqlException) {
+                sqlException.printStackTrace();
+            }
+            employeeSearchModelObservableList.remove(employeeTableView.getSelectionModel().getSelectedItem());
+            listEmpID.clear();
+            listEmpName.clear();
+            listEmpSalary.clear();
             Notifications deleteEmployee = Notifications.create()
                     .text("Record successfully deleted")
                     .position(Pos.TOP_RIGHT)

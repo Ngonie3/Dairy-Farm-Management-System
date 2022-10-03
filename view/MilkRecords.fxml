@@ -73,12 +73,12 @@
                         <Font name="Calibri Bold" size="17.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="cowNameTextField" editable="false" focusTraversable="false" prefHeight="41.0" prefWidth="246.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <TextField fx:id="cowNameTextField" focusTraversable="false" prefHeight="41.0" prefWidth="246.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font name="Calibri" size="17.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="cowIDTextField" editable="false" focusTraversable="false" prefHeight="41.0" prefWidth="246.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <TextField fx:id="cowIDTextField" focusTraversable="false" prefHeight="41.0" prefWidth="246.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <font>
                         <Font name="Calibri" size="17.0" />
                      </font>

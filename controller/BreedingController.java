@@ -24,10 +24,12 @@ import javafx.util.Duration;
 import model.BreedingSearchModel;
 import model.DatabaseConnection;
 import org.controlsfx.control.Notifications;
+
 /**
  *
  * @author ngoni
  */
+
 public class BreedingController implements Initializable {
     @FXML
     private TextField animalName, ageOfCow, bullID, bullName, cowName, calfID, calfName, detailsAge, detailsCalf, detailsCalfID, detailsID, detailsName, detailsCowName;
@@ -62,7 +64,7 @@ public class BreedingController implements Initializable {
     void printBtnPressed() {
         Notifications print = Notifications.create()
                 .text("Breeding information printed")
-                .position(Pos.BOTTOM_RIGHT)
+                .position(Pos.TOP_RIGHT)
                 .hideCloseButton()
                 .hideAfter(Duration.seconds(3));
         print.darkStyle();
@@ -109,9 +111,36 @@ public class BreedingController implements Initializable {
     }
     @FXML
     void updateBreedingPressed() {
+        DatabaseConnection databaseConnection = new DatabaseConnection();
+        Connection connection = databaseConnection.getConnection();
+        String updateQuery = "UPDATE dairy_farm.breeding set heatDate = ?, dateOfAI = ?, bullName = ?, bullID = ?, " +
+                "pregDiagnosisDate = ?, dueDateToCalve = ?, dateCalved = ?, ageAtCalving = ?, calfName = ?, " +
+                "calfID = ?, calvingNotes = ? WHERE cowName = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(updateQuery);
+            preparedStatement.setDate(1, java.sql.Date.valueOf(detailsHeat.getValue()));
+            preparedStatement.setDate(2, java.sql.Date.valueOf(detailsBreeding.getValue()));
+            preparedStatement.setString(3, detailsName.getText());
+            preparedStatement.setInt(4, Integer.parseInt(detailsID.getText()));
+            preparedStatement.setDate(5, java.sql.Date.valueOf(detailsPregnancy.getValue()));
+            preparedStatement.setDate(6, java.sql.Date.valueOf(detailsDueDate.getValue()));
+            preparedStatement.setDate(7, java.sql.Date.valueOf(detailsCalved.getValue()));
+            preparedStatement.setString(8, detailsAge.getText());
+            preparedStatement.setString(9, detailsCalf.getText());
+            preparedStatement.setString(10, detailsCalfID.getText());
+            preparedStatement.setString(11, detailsNotes.getText());
+            preparedStatement.setString(12, detailsCowName.getText());
+            preparedStatement.executeUpdate();
+        }catch (SQLException sqlException){
+            sqlException.printStackTrace();
+        }
+        breedingSearchModelObservableList.clear();
+        if(animalTableView.getItems().isEmpty()){
+            loadDataButton.setOnAction(actionEvent -> breedingListAnimals());
+        }
         Notifications breed = Notifications.create()
              .text("Details successfully updated")
-             .position(Pos.BOTTOM_RIGHT)
+             .position(Pos.TOP_RIGHT)
              .hideCloseButton()
              .hideAfter(Duration.seconds(3));
         breed.darkStyle();
@@ -153,6 +182,47 @@ public class BreedingController implements Initializable {
         detailsCalfID.setStyle("-fx-control-inner-background: #FAF9F9");
         detailsNotes.setStyle("-fx-control-inner-background: #FAF9F9");
     }
+    @FXML
+    void deleteBreedingPressed() {
+        Alert newAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        newAlert.setHeaderText("Do you wish to continue?");
+        newAlert.setTitle("Confirm Deletion");
+        newAlert.showAndWait();
+        if (newAlert.getResult() == ButtonType.CANCEL) {
+            newAlert.close();
+        } else if (newAlert.getResult() == ButtonType.OK) {
+            DatabaseConnection databaseConnection = new DatabaseConnection();
+            Connection connection = databaseConnection.getConnection();
+            String deleteQuery = "DELETE FROM dairy_farm.breeding WHERE cowName = ?";
+            try {
+                PreparedStatement preparedStatement = connection.prepareStatement(deleteQuery);
+                preparedStatement.setString(1, detailsCowName.getText());
+                preparedStatement.executeUpdate();
+            }catch (SQLException sqlException){
+                sqlException.printStackTrace();
+            }
+            breedingSearchModelObservableList.remove(animalTableView.getSelectionModel().getSelectedItem());
+            detailsHeat.setValue(null);
+            detailsBreeding.setValue(null);
+            detailsName.clear();
+            detailsCowName.clear();
+            detailsID.clear();
+            detailsPregnancy.setValue(null);
+            detailsDueDate.setValue(null);
+            detailsCalved.setValue(null);
+            detailsAge.clear();
+            detailsCalf.clear();
+            detailsCalfID.clear();
+            detailsNotes.clear();
+            Notifications notify = Notifications.create()
+                    .text("Record successfully deleted")
+                    .position(Pos.TOP_RIGHT)
+                    .hideCloseButton()
+                    .hideAfter(Duration.seconds(3));
+            notify.darkStyle();
+            notify.showInformation();
+        }
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -162,56 +232,7 @@ public class BreedingController implements Initializable {
         addRecordSelectCellValueToTextField();
         searchAddBreedingRecords();
         selectCellValueToTextField();
-        DatabaseConnection databaseConnection = new DatabaseConnection();
-        Connection connection = databaseConnection.getConnection();
-        String breedingViewQuery = "SELECT *FROM dairy_farm.breeding";
-        loadDataButton.setOnAction(actionEvent -> {
-            try {
-                Statement statement = connection.createStatement();
-                ResultSet queryResult = statement.executeQuery(breedingViewQuery);
-                while(queryResult.next()){
-                    int ID = queryResult.getInt("animalID");
-                    String name = queryResult.getString("cowName");
-                    Date breedingDate = queryResult.getDate("dateOfAI");
-                    Date calvingDate = queryResult.getDate("dateCalved");
-                    Date heatDate = queryResult.getDate("heatDate");
-                    String bullName = queryResult.getString("bullName");
-                    String bullID = queryResult.getString("bullID");
-                    Date pregnancyDate = queryResult.getDate("pregDiagnosisDate");
-                    Date dueDateToCalve = queryResult.getDate("dueDateToCalve");
-                    String ageOfCowAtCalving = queryResult.getString("ageAtCalving");
-                    String calfName = queryResult.getString("calfName");
-                    String calfID = queryResult.getString("calfID");
-                    String calvingNotes = queryResult.getString("calvingNotes");
-                    breedingSearchModelObservableList.add(new BreedingSearchModel(ID, name, breedingDate, calvingDate, heatDate,
-                            bullName, bullID, pregnancyDate, dueDateToCalve, ageOfCowAtCalving, calfName, calfID, calvingNotes));
-                    PreparedStatement preparedStatement = connection.prepareStatement("SELECT COUNT(*) FROM dairy_farm.breeding WHERE animalID > ?");
-                    preparedStatement.setInt(1,0);
-                    ResultSet resultSet = preparedStatement.executeQuery();
-                    int num = 0;
-                    if(resultSet.next()){
-                        num = resultSet.getInt(1);
-                    }
-                    if(num>0){
-                        if(!(animalTableView.getColumns().isEmpty())){
-                            loadDataButton.setOnAction(actionEvent1 -> {
-                                Notifications view = Notifications.create()
-                                        .text("Data is up to date")
-                                        .position(Pos.BOTTOM_RIGHT)
-                                        .hideCloseButton()
-                                        .hideAfter(Duration.seconds(3));
-                                view.darkStyle();
-                                view.showInformation();
-                            });
-                        }
-                    }
-                    search();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-                e.getCause();
-            }
-        });
+        breedingListAnimals();
     }
 
     private void add_breedingDetails(){
@@ -246,7 +267,7 @@ public class BreedingController implements Initializable {
     private void addLastRow(){
         DatabaseConnection databaseConnection = new DatabaseConnection();
         Connection connection = databaseConnection.getConnection();
-        String query = "SELECT animalID, cowName, heatDate, dateCalved FROM dairy_farm.breeding ORDER BY animalID DESC LIMIT 1 OFFSET 0";
+        String query = "SELECT * FROM dairy_farm.breeding ORDER BY animalID DESC LIMIT 1 OFFSET 0";
         try {
             Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet resultSet = statement.executeQuery(query);
@@ -464,6 +485,58 @@ public class BreedingController implements Initializable {
         detailsPregnancy.setDayCellFactory(dayCellFactory);
         detailsDueDate.setDayCellFactory(dayCellFactory);
         detailsCalved.setDayCellFactory(dayCellFactory);
+    }
+    private void breedingListAnimals(){
+        DatabaseConnection databaseConnection = new DatabaseConnection();
+        Connection connection = databaseConnection.getConnection();
+        String breedingViewQuery = "SELECT *FROM dairy_farm.breeding";
+        loadDataButton.setOnAction(actionEvent -> {
+            try {
+                Statement statement = connection.createStatement();
+                ResultSet queryResult = statement.executeQuery(breedingViewQuery);
+                while(queryResult.next()){
+                    int ID = queryResult.getInt("animalID");
+                    String name = queryResult.getString("cowName");
+                    Date breedingDate = queryResult.getDate("dateOfAI");
+                    Date calvingDate = queryResult.getDate("dateCalved");
+                    Date heatDate = queryResult.getDate("heatDate");
+                    String bullName = queryResult.getString("bullName");
+                    String bullID = queryResult.getString("bullID");
+                    Date pregnancyDate = queryResult.getDate("pregDiagnosisDate");
+                    Date dueDateToCalve = queryResult.getDate("dueDateToCalve");
+                    String ageOfCowAtCalving = queryResult.getString("ageAtCalving");
+                    String calfName = queryResult.getString("calfName");
+                    String calfID = queryResult.getString("calfID");
+                    String calvingNotes = queryResult.getString("calvingNotes");
+                    breedingSearchModelObservableList.add(new BreedingSearchModel(ID, name, breedingDate, calvingDate, heatDate,
+                            bullName, bullID, pregnancyDate, dueDateToCalve, ageOfCowAtCalving, calfName, calfID, calvingNotes));
+                    PreparedStatement preparedStatement = connection.prepareStatement("SELECT COUNT(*) FROM dairy_farm.breeding WHERE animalID > ?");
+                    preparedStatement.setInt(1,0);
+                    ResultSet resultSet = preparedStatement.executeQuery();
+                    int num = 0;
+                    if(resultSet.next()){
+                        num = resultSet.getInt(1);
+                    }
+                    if(num>0){
+                        if(!(animalTableView.getColumns().isEmpty())){
+                            loadDataButton.setOnAction(actionEvent1 -> {
+                                Notifications view = Notifications.create()
+                                        .text("Data is up to date")
+                                        .position(Pos.TOP_RIGHT)
+                                        .hideCloseButton()
+                                        .hideAfter(Duration.seconds(3));
+                                view.darkStyle();
+                                view.showInformation();
+                            });
+                        }
+                    }
+                    search();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                e.getCause();
+            }
+        });
     }
 }
 
