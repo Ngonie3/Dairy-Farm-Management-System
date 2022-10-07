@@ -3,3 +3,5 @@ A project done using JavaFX, Java Mail API and MySQL, whose aim is to handle day
 Records of animals available, animal type, health and breeding status, weight and milk production are all recorded 
 and accounted for. It also keeps track of the employees on the farm and their respective salaries. 
 The project has not yet reached it's completion stage, development is still in process. 
+
+Video Demo Link: https://youtu.be/w1E02M7Fvkg
