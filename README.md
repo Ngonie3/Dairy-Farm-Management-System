@@ -4,4 +4,4 @@ Records of animals available, animal type, health and breeding status, weight an
 and accounted for. It also keeps track of the employees on the farm and their respective salaries. 
 The project has not yet reached it's completion stage, development is still in process. 
 
-[Video Demo Link](https://www.youtube.com/channel/UCVMOsNrRS9_-XasQyPCSxEQ).
+[Video Demo Link](https://www.youtube.com/channel/UCVMOsNrRS9_-XasQyPCSxEQ)
