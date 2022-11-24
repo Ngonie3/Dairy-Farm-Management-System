@@ -7,6 +7,8 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -17,7 +19,12 @@
 
 <AnchorPane id="AnchorPane" prefHeight="683.0" prefWidth="1078.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MilkSaleController">
    <children>
-      <VBox prefHeight="624.0" prefWidth="371.0">
+      <ImageView fitHeight="683.0" fitWidth="1061.0" layoutX="9.0" opacity="0.53" pickOnBounds="true">
+         <image>
+            <Image url="@../images/Wallpaper.png" />
+         </image>
+      </ImageView>
+      <VBox layoutX="-7.0" layoutY="-12.0" prefHeight="624.0" prefWidth="371.0">
          <children>
             <GridPane prefHeight="399.0" prefWidth="383.0">
               <columnConstraints>
@@ -32,64 +39,113 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label text="Current Date">
+                  <Label text="Current Date" textFill="#073d7f">
                      <font>
                         <Font name="Calibri Bold" size="18.0" />
                      </font>
+                     <GridPane.margin>
+                        <Insets left="10.0" />
+                     </GridPane.margin>
                   </Label>
-                  <Label text="Set Unit Price" GridPane.rowIndex="1">
+                  <Label text="Set Unit Price" textFill="#073d7f" GridPane.rowIndex="1">
                      <font>
                         <Font name="Calibri Bold" size="18.0" />
                      </font>
+                     <GridPane.margin>
+                        <Insets left="10.0" />
+                     </GridPane.margin>
                   </Label>
-                  <Label text="Client's Name" GridPane.rowIndex="2">
+                  <Label text="Client's Name" textFill="#073d7f" GridPane.rowIndex="2">
                      <font>
                         <Font name="Calibri Bold" size="18.0" />
                      </font>
+                     <GridPane.margin>
+                        <Insets left="10.0" />
+                     </GridPane.margin>
                   </Label>
-                  <Label text="Client's Contacts" GridPane.rowIndex="3">
+                  <Label text="Client's Contacts" textFill="#073d7f" GridPane.rowIndex="3">
                      <font>
                         <Font name="Calibri Bold" size="18.0" />
                      </font>
+                     <GridPane.margin>
+                        <Insets left="10.0" />
+                     </GridPane.margin>
                   </Label>
-                  <Label text="Amount Bought" GridPane.rowIndex="4">
+                  <Label text="Amount Bought" textFill="#073d7f" GridPane.rowIndex="4">
                      <font>
                         <Font name="Calibri Bold" size="18.0" />
                      </font>
+                     <GridPane.margin>
+                        <Insets left="10.0" />
+                     </GridPane.margin>
                   </Label>
                   <DatePicker fx:id="milkSaleCurrentDate" editable="false" focusTraversable="false" prefHeight="34.0" prefWidth="174.0" style="-fx-font-size: 15px;" GridPane.columnIndex="1" />
-                  <TextField fx:id="setUnitPrice" focusTraversable="false" styleClass="input" stylesheets="@../stylesheets/Fields.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField fx:id="clientsName" focusTraversable="false" styleClass="input" stylesheets="@../stylesheets/Fields.css" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField fx:id="clientsContacts" focusTraversable="false" styleClass="input" stylesheets="@../stylesheets/Fields.css" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <TextField fx:id="amountBought" focusTraversable="false" styleClass="input" stylesheets="@../stylesheets/Fields.css" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextField fx:id="setUnitPrice" focusTraversable="false" styleClass="input" stylesheets="@../stylesheets/Fields.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="Calibri Bold" size="18.0" />
+                     </font></TextField>
+                  <TextField fx:id="clientsName" focusTraversable="false" styleClass="input" stylesheets="@../stylesheets/Fields.css" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="Calibri Bold" size="18.0" />
+                     </font></TextField>
+                  <TextField fx:id="clientsContacts" focusTraversable="false" styleClass="input" stylesheets="@../stylesheets/Fields.css" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="Calibri Bold" size="18.0" />
+                     </font></TextField>
+                  <TextField fx:id="amountBought" focusTraversable="false" styleClass="input" stylesheets="@../stylesheets/Fields.css" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <font>
+                        <Font name="Calibri Bold" size="18.0" />
+                     </font></TextField>
                </children>
                <VBox.margin>
                   <Insets left="10.0" top="50.0" />
                </VBox.margin>
             </GridPane>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <HBox alignment="CENTER" prefHeight="70.0" prefWidth="371.0">
                <children>
-                  <Button focusTraversable="false" mnemonicParsing="false" onAction="#milkSaleSaveButtonPressed" prefHeight="40.0" prefWidth="88.0" stylesheets="@../stylesheets/VBox.css" text="Save">
+                  <Button fx:id="editBtn" focusTraversable="false" mnemonicParsing="false" onAction="#milkSaleEditButtonPressed" prefHeight="40.0" prefWidth="88.0" stylesheets="@../stylesheets/VBox.css" text="Edit">
                      <font>
                         <Font name="Calibri Bold" size="20.0" />
                      </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="saveBtn" focusTraversable="false" mnemonicParsing="false" onAction="#milkSaleSaveButtonPressed" prefHeight="40.0" prefWidth="88.0" stylesheets="@../stylesheets/VBox.css" text="Save">
+                     <font>
+                        <Font name="Calibri Bold" size="20.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="15.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="updateBtn" focusTraversable="false" mnemonicParsing="false" onAction="#milkSaleUpdateButtonPressed" prefHeight="40.0" prefWidth="88.0" stylesheets="@../stylesheets/VBox.css" text="Update">
+                     <font>
+                        <Font name="Calibri Bold" size="20.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
                   </Button>
                </children>
             </HBox>
          </children>
       </VBox>
-      <TableView focusTraversable="false" layoutX="464.0" layoutY="40.0" prefHeight="519.0" prefWidth="598.0">
+      <TableView fx:id="milkSaleTable" focusTraversable="false" layoutX="464.0" layoutY="52.0" prefHeight="507.0" prefWidth="598.0">
+         <placeholder>
+            <Label text="No Sale information present in table" />
+         </placeholder>
         <columns>
-          <TableColumn prefWidth="75.0" style="-fx-font-size: 15px; -fx-font-family: Arial;" text="Client Name" />
-          <TableColumn prefWidth="75.0" style="-fx-font-size: 15px; -fx-font-family: Arial;" text="Contacts" />
-            <TableColumn prefWidth="75.0" style="-fx-font-size: 15px; -fx-font-family: Arial;" text="Quantity Bought" />
-            <TableColumn prefWidth="75.0" style="-fx-font-size: 15px; -fx-font-family: Arial;" text="Date of Purchase" />
+          <TableColumn fx:id="clientNameCol" prefWidth="75.0" style="-fx-font-size: 15px; -fx-font-family: Arial;" text="Client Name" />
+          <TableColumn fx:id="contactDetailsCol" prefWidth="75.0" style="-fx-font-size: 15px; -fx-font-family: Arial;" text="Contact Details" />
+            <TableColumn fx:id="amtBoughtCol" prefWidth="75.0" style="-fx-font-size: 15px; -fx-font-family: Arial;" text="Amount Bought (L)" />
+            <TableColumn fx:id="dopCol" prefWidth="75.0" style="-fx-font-size: 15px; -fx-font-family: Arial;" text="Date of Purchase" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button focusTraversable="false" layoutX="635.0" layoutY="575.0" mnemonicParsing="false" onAction="#milkSaleDeleteBtnPressed" prefHeight="40.0" prefWidth="116.0" styleClass="dangerButton" stylesheets="@../stylesheets/VBox.css" text="Delete Record">
+      <Button fx:id="deleteBtn" focusTraversable="false" layoutX="635.0" layoutY="575.0" mnemonicParsing="false" onAction="#milkSaleDeleteBtnPressed" prefHeight="40.0" prefWidth="116.0" styleClass="dangerButton" stylesheets="@../stylesheets/VBox.css" text="Delete Record">
          <font>
             <Font name="Calibri Bold" size="16.0" />
          </font>
@@ -99,5 +155,10 @@
             <Font name="Calibri Bold" size="16.0" />
          </font>
       </Button>
+      <TextField fx:id="searchMilkSale" focusTraversable="false" layoutX="464.0" layoutY="6.0" prefHeight="34.0" prefWidth="592.0" promptText="Search..." style="-fx-prompt-text-fill: #073d7f;" styleClass="input" stylesheets="@../stylesheets/Fields.css">
+         <font>
+            <Font name="Calibri" size="18.0" />
+         </font>
+      </TextField>
    </children>
 </AnchorPane>

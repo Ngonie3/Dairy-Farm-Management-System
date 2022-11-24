@@ -215,6 +215,7 @@ public class HomeController implements Initializable {
             breeding.setStyle("/stylesheets/Dashboard.css");
             animalWeight.setStyle("/stylesheets/Dashboard.css");
             farmFinance.setStyle("/stylesheets/Dashboard.css");
+            employees.setStyle("/stylesheets/Dashboard.css");
         } catch (IOException e) {
             e.printStackTrace();
         }

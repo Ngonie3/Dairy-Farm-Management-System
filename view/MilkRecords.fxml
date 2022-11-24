@@ -7,6 +7,8 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -17,6 +19,11 @@
 
 <AnchorPane id="AnchorPane" prefHeight="675.0" prefWidth="1121.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MilkRecordsController">
    <children>
+      <ImageView fitHeight="675.0" fitWidth="1097.0" layoutX="19.0" opacity="0.53" pickOnBounds="true">
+         <image>
+            <Image url="@../images/Wallpaper.png" />
+         </image>
+      </ImageView>
       <VBox alignment="BOTTOM_CENTER" prefHeight="500.0" prefWidth="400.0" AnchorPane.topAnchor="0.0">
          <children>
             <GridPane prefHeight="353.0" prefWidth="396.0">
@@ -33,7 +40,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label text="Cow Name" GridPane.rowIndex="1">
+                  <Label text="Cow Name" textFill="#073d7f" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets left="10.0" />
                      </GridPane.margin>
@@ -41,7 +48,7 @@
                         <Font name="Calibri Bold" size="17.0" />
                      </font>
                   </Label>
-                  <Label text="Cow ID" GridPane.rowIndex="2">
+                  <Label text="Cow ID" textFill="#073d7f" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets left="10.0" />
                      </GridPane.margin>
@@ -49,7 +56,7 @@
                         <Font name="Calibri Bold" size="17.0" />
                      </font>
                   </Label>
-                  <Label text="Morning Milk Quantity" GridPane.rowIndex="3">
+                  <Label text="Morning Milk Quantity" textFill="#073d7f" GridPane.rowIndex="3">
                      <GridPane.margin>
                         <Insets left="10.0" />
                      </GridPane.margin>
@@ -57,7 +64,7 @@
                         <Font name="Calibri Bold" size="17.0" />
                      </font>
                   </Label>
-                  <Label text="Afternoon Milk Quantity" GridPane.rowIndex="4">
+                  <Label text="Afternoon Milk Quantity" textFill="#073d7f" GridPane.rowIndex="4">
                      <GridPane.margin>
                         <Insets left="10.0" />
                      </GridPane.margin>
@@ -65,7 +72,7 @@
                         <Font name="Calibri Bold" size="17.0" />
                      </font>
                   </Label>
-                  <Label text="Evening Milk Quantity" GridPane.rowIndex="5">
+                  <Label text="Evening Milk Quantity" textFill="#073d7f" GridPane.rowIndex="5">
                      <GridPane.margin>
                         <Insets left="10.0" />
                      </GridPane.margin>
@@ -98,7 +105,7 @@
                         <Font name="Calibri" size="17.0" />
                      </font>
                   </TextField>
-                  <Label text="Milking Date">
+                  <Label text="Milking Date" textFill="#073d7f">
                      <font>
                         <Font name="Calibri Bold" size="17.0" />
                      </font>
@@ -116,7 +123,7 @@
       </VBox>
       <VBox alignment="BOTTOM_CENTER" layoutX="418.0" layoutY="8.0" prefHeight="595.0" prefWidth="689.0" AnchorPane.topAnchor="8.0">
          <children>
-            <TextField fx:id="searchCow" focusTraversable="false" prefHeight="34.0" prefWidth="637.0" promptText="Search..." styleClass="input" stylesheets="@../stylesheets/Fields.css">
+            <TextField fx:id="searchCow" focusTraversable="false" prefHeight="34.0" prefWidth="637.0" promptText="Search..." style="-fx-prompt-text-fill: #073d7f;" styleClass="input" stylesheets="@../stylesheets/Fields.css">
                <VBox.margin>
                   <Insets bottom="10.0" />
                </VBox.margin>

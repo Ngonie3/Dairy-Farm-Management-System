@@ -14,6 +14,8 @@
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -24,9 +26,14 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1217.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AnimalHealthController">
+<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1161.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AnimalHealthController">
    <children>
-      <VBox prefHeight="718.0" prefWidth="392.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ImageView fitHeight="800.0" fitWidth="960.0" layoutX="136.0" opacity="0.52" pickOnBounds="true">
+         <image>
+            <Image url="@../images/Wallpaper.png" />
+         </image>
+      </ImageView>
+      <VBox layoutY="3.0" prefHeight="794.0" prefWidth="392.0" AnchorPane.bottomAnchor="3.0" AnchorPane.topAnchor="3.0">
          <children>
             <HBox prefHeight="39.0" prefWidth="392.0">
                <children>
@@ -35,7 +42,7 @@
                         <Insets left="10.0" />
                      </HBox.margin>
                   </ComboBox>
-                  <Label fx:id="animalNumber" prefHeight="25.0" prefWidth="223.0" style="-fx-text-fill: #38B437;">
+                  <Label fx:id="animalNumber" prefHeight="25.0" prefWidth="223.0" style="-fx-text-fill: #073d7f;">
                      <HBox.margin>
                         <Insets left="10.0" top="4.0" />
                      </HBox.margin>
@@ -82,7 +89,7 @@
             </TableView>
          </children>
       </VBox>
-      <VBox layoutX="392.0" prefHeight="718.0" prefWidth="730.0" AnchorPane.leftAnchor="392.0" AnchorPane.rightAnchor="-24.0">
+      <VBox layoutX="392.0" prefHeight="718.0" prefWidth="695.0" AnchorPane.leftAnchor="392.0" AnchorPane.rightAnchor="84.0">
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="41.0" prefWidth="733.0" style="-fx-background-color: E2E1E1;">
                <children>
@@ -112,12 +119,12 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label text="Animal ID">
+                        <Label text="Animal ID" textFill="#073d7f">
                            <font>
                               <Font name="Calibri Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Label text="Animal Name" GridPane.rowIndex="1">
+                        <Label text="Animal Name" textFill="#073d7f" GridPane.rowIndex="1">
                            <font>
                               <Font name="Calibri Bold" size="18.0" />
                            </font>
@@ -132,7 +139,7 @@
                               <Font name="Calibri" size="17.0" />
                            </font>
                         </TextField>
-                        <Label text="Animal Type" GridPane.rowIndex="2">
+                        <Label text="Animal Type" textFill="#073d7f" GridPane.rowIndex="2">
                            <font>
                               <Font name="Calibri Bold" size="18.0" />
                            </font>
@@ -149,7 +156,7 @@
                         <Font name="Calibri Bold" size="17.5" />
                      </font>
                   </Button>
-                  <Label layoutX="14.0" layoutY="6.0" prefHeight="17.0" prefWidth="495.0" text="To add Reocrd,enter ID, name, type and then proceed to enter the rest of the details" textFill="#1ec6c6">
+                  <Label layoutX="14.0" layoutY="6.0" prefHeight="17.0" prefWidth="495.0" text="To add Reocrd,enter ID, name, type and then proceed to enter the rest of the details" textFill="#073d7f">
                      <font>
                         <Font name="Calibri Bold" size="14.0" />
                      </font>
@@ -162,7 +169,7 @@
             </Pane>
             <Accordion prefHeight="455.0" prefWidth="977.0">
               <panes>
-                <TitledPane animated="false" focusTraversable="false" prefHeight="421.0" prefWidth="721.0" text="Health Reports">
+                <TitledPane animated="false" focusTraversable="false" prefHeight="421.0" prefWidth="698.0" text="Health Reports">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="386.0" prefWidth="832.0">
                            <children>
@@ -248,17 +255,17 @@
                                                 </Label>
                                              </children>
                                           </GridPane>
-                                          <Button fx:id="saveEditedDetails" layoutX="485.0" layoutY="320.0" mnemonicParsing="false" onAction="#saveEditedDetailsPressed" prefHeight="39.0" prefWidth="111.0" stylesheets="@../stylesheets/VBox.css" text="Save">
+                                          <Button fx:id="saveEditedDetails" layoutX="480.0" layoutY="326.0" mnemonicParsing="false" onAction="#saveEditedDetailsPressed" prefHeight="30.0" prefWidth="83.0" stylesheets="@../stylesheets/VBox.css" text="Save">
                                              <font>
                                                 <Font name="Calibri Bold" size="17.0" />
                                              </font>
                                           </Button>
-                                          <Button fx:id="deleteHealth" layoutX="623.0" layoutY="320.0" mnemonicParsing="false" onAction="#deleteHealthPressed" prefHeight="39.0" prefWidth="118.0" styleClass="dangerButton" stylesheets="@../stylesheets/VBox.css" text="Delete">
+                                          <Button fx:id="deleteHealth" layoutX="574.0" layoutY="326.0" mnemonicParsing="false" onAction="#deleteHealthPressed" prefHeight="30.0" prefWidth="83.0" styleClass="dangerButton" stylesheets="@../stylesheets/VBox.css" text="Delete">
                                              <font>
                                                 <Font name="Calibri Bold" size="17.0" />
                                              </font>
                                           </Button>
-                                          <Button fx:id="editHealth" layoutX="639.0" layoutY="14.0" mnemonicParsing="false" onAction="#editHealthPressed" prefHeight="34.0" prefWidth="102.0" stylesheets="@../stylesheets/VBox.css" text="Edit">
+                                          <Button fx:id="editHealth" layoutX="521.0" layoutY="14.0" mnemonicParsing="false" onAction="#editHealthPressed" prefHeight="30.0" prefWidth="94.0" stylesheets="@../stylesheets/VBox.css" text="Edit">
                                              <font>
                                                 <Font name="Calibri Bold" size="16.0" />
                                              </font>
@@ -359,7 +366,7 @@
                                     </TextField>
                                  </children>
                               </GridPane>
-                              <Button fx:id="saveHealth" focusTraversable="false" layoutX="534.0" layoutY="325.0" mnemonicParsing="false" onAction="#saveHealthPressed" prefHeight="39.0" prefWidth="110.0" stylesheets="@../stylesheets/VBox.css" text="Save">
+                              <Button fx:id="saveHealth" focusTraversable="false" layoutX="504.0" layoutY="339.0" mnemonicParsing="false" onAction="#saveHealthPressed" prefHeight="30.0" prefWidth="94.0" stylesheets="@../stylesheets/VBox.css" text="Save">
                                  <font>
                                     <Font name="Calibri Bold" size="17.0" />
                                  </font>
@@ -382,4 +389,7 @@
          </children>
       </VBox>
    </children>
+   <padding>
+      <Insets left="10.0" />
+   </padding>
 </AnchorPane>

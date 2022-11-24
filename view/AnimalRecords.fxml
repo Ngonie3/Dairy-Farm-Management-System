@@ -11,6 +11,8 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -23,16 +25,21 @@
   <content>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="902.0" prefWidth="1163.0">
          <children>
+            <ImageView fitHeight="870.0" fitWidth="1021.0" layoutX="79.0" opacity="0.54" pickOnBounds="true">
+               <image>
+                  <Image url="@../images/Wallpaper.png" />
+               </image>
+            </ImageView>
             <VBox layoutX="-2.0" prefHeight="902.0" prefWidth="359.0">
                <children>
                   <HBox prefHeight="44.0" prefWidth="349.0">
                      <children>
-                        <ComboBox fx:id="animalComboBox" focusTraversable="false" onShowing="#clearTable" onShown="#itemsShown" prefHeight="30.0" prefWidth="176.0" promptText="Select Animal" style="-fx-font-size: 16px; -fx-font-family: Arial;">
+                        <ComboBox fx:id="animalComboBox" focusTraversable="false" onShowing="#clearTable" onShown="#itemsShown" prefHeight="30.0" prefWidth="160.0" promptText="Select Animal" style="-fx-font-size: 16px; -fx-font-family: Arial;">
                            <HBox.margin>
                               <Insets top="10.0" />
                            </HBox.margin>
                         </ComboBox>
-                        <Label fx:id="numOfAnimals" prefHeight="25.0" prefWidth="168.0" style="-fx-text-fill: #38B437;">
+                        <Label fx:id="numOfAnimals" prefHeight="25.0" prefWidth="168.0" style="-fx-text-fill: #073d7f;">
                            <HBox.margin>
                               <Insets left="10.0" top="12.0" />
                            </HBox.margin>
@@ -110,17 +117,17 @@
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                       </rowConstraints>
                                        <children>
-                                          <Label text="Animal ID">
+                                          <Label text="Animal ID" textFill="#073d7f">
                                              <font>
                                                 <Font name="Calibri Bold" size="17.0" />
                                              </font>
                                           </Label>
-                                          <Label text="Animal Name" GridPane.rowIndex="1">
+                                          <Label text="Animal Name" textFill="#073d7f" GridPane.rowIndex="1">
                                              <font>
                                                 <Font name="Calibri Bold" size="17.0" />
                                              </font>
                                           </Label>
-                                          <Label text="Ear Tag" GridPane.rowIndex="2">
+                                          <Label text="Ear Tag" textFill="#073d7f" GridPane.rowIndex="2">
                                              <font>
                                                 <Font name="Calibri Bold" size="17.0" />
                                              </font>
@@ -154,7 +161,7 @@
                                           </Label>
                                        </children>
                                     </HBox>
-                                    <GridPane layoutX="14.0" layoutY="224.0" prefHeight="235.0" prefWidth="345.0">
+                                    <GridPane layoutX="12.0" layoutY="223.0" prefHeight="235.0" prefWidth="345.0">
                                       <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -168,32 +175,32 @@
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                       </rowConstraints>
                                        <children>
-                                          <Label text="Sire ID">
+                                          <Label text="Sire ID" textFill="#073d7f">
                                              <font>
                                                 <Font name="Calibri Bold" size="17.0" />
                                              </font>
                                           </Label>
-                                          <Label text="Dam ID" GridPane.rowIndex="1">
+                                          <Label text="Dam ID" textFill="#073d7f" GridPane.rowIndex="1">
                                              <font>
                                                 <Font name="Calibri Bold" size="17.0" />
                                              </font>
                                           </Label>
-                                          <Label text="Animal Type" GridPane.rowIndex="2">
+                                          <Label text="Animal Type" textFill="#073d7f" GridPane.rowIndex="2">
                                              <font>
                                                 <Font name="Calibri Bold" size="17.0" />
                                              </font>
                                           </Label>
-                                          <Label text="Color" GridPane.rowIndex="3">
+                                          <Label text="Color" textFill="#073d7f" GridPane.rowIndex="3">
                                              <font>
                                                 <Font name="Calibri Bold" size="17.0" />
                                              </font>
                                           </Label>
-                                          <Label text="Breed" GridPane.rowIndex="4">
+                                          <Label text="Breed" textFill="#073d7f" GridPane.rowIndex="4">
                                              <font>
                                                 <Font name="Calibri Bold" size="17.0" />
                                              </font>
                                           </Label>
-                                          <Label text="Pasture" GridPane.rowIndex="5">
+                                          <Label text="Pasture" textFill="#073d7f" GridPane.rowIndex="5">
                                              <font>
                                                 <Font name="Calibri Bold" size="17.0" />
                                              </font>
@@ -249,27 +256,27 @@
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                       </rowConstraints>
                                        <children>
-                                          <Label text="Birth Date">
+                                          <Label text="Birth Date" textFill="#073d7f">
                                              <font>
                                                 <Font name="Calibri Bold" size="17.0" />
                                              </font>
                                           </Label>
-                                          <Label text="Curernt age at recording" GridPane.rowIndex="1">
+                                          <Label text="Curernt age at recording" textFill="#073d7f" GridPane.rowIndex="1">
                                              <font>
                                                 <Font name="Calibri Bold" size="16.0" />
                                              </font>
                                           </Label>
-                                          <Label text="Weight at Birth" GridPane.rowIndex="2">
+                                          <Label text="Weight at Birth" textFill="#073d7f" GridPane.rowIndex="2">
                                              <font>
                                                 <Font name="Calibri Bold" size="17.0" />
                                              </font>
                                           </Label>
-                                          <Label text="Age at First Service" GridPane.rowIndex="3">
+                                          <Label text="Age at First Service" textFill="#073d7f" GridPane.rowIndex="3">
                                              <font>
                                                 <Font name="Calibri Bold" size="17.0" />
                                              </font>
                                           </Label>
-                                          <Label text="Weight at First Service" GridPane.rowIndex="4">
+                                          <Label text="Weight at First Service" textFill="#073d7f" GridPane.rowIndex="4">
                                              <font>
                                                 <Font name="Calibri Bold" size="17.0" />
                                              </font>
@@ -350,7 +357,7 @@
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                       </rowConstraints>
                                        <children>
-                                          <Label text="Animal Type">
+                                          <Label text="Animal Type" textFill="#073d7f">
                                              <font>
                                                 <Font name="Calibri Bold" size="18.0" />
                                              </font>
@@ -358,62 +365,62 @@
                                                 <Insets />
                                              </GridPane.margin>
                                           </Label>
-                                          <Label text="Birth Date" GridPane.rowIndex="1">
+                                          <Label text="Birth Date" textFill="#073d7f" GridPane.rowIndex="1">
                                              <font>
                                                 <Font name="Calibri Bold" size="18.0" />
                                              </font>
                                           </Label>
-                                          <Label text="Animal ID" GridPane.rowIndex="2">
+                                          <Label text="Animal ID" textFill="#073d7f" GridPane.rowIndex="2">
                                              <font>
                                                 <Font name="Calibri Bold" size="18.0" />
                                              </font>
                                           </Label>
-                                          <Label text="Animal Name" GridPane.rowIndex="3">
+                                          <Label text="Animal Name" textFill="#073d7f" GridPane.rowIndex="3">
                                              <font>
                                                 <Font name="Calibri Bold" size="18.0" />
                                              </font>
                                           </Label>
-                                          <Label text="Ear Tag" GridPane.rowIndex="4">
+                                          <Label text="Ear Tag" textFill="#073d7f" GridPane.rowIndex="4">
                                              <font>
                                                 <Font name="Calibri Bold" size="18.0" />
                                              </font>
                                           </Label>
-                                          <Label text="Sire ID" GridPane.rowIndex="5">
+                                          <Label text="Sire ID" textFill="#073d7f" GridPane.rowIndex="5">
                                              <font>
                                                 <Font name="Calibri Bold" size="18.0" />
                                              </font>
                                           </Label>
-                                          <Label text="Breed" GridPane.rowIndex="7">
+                                          <Label text="Breed" textFill="#073d7f" GridPane.rowIndex="7">
                                              <font>
                                                 <Font name="Calibri Bold" size="18.0" />
                                              </font>
                                           </Label>
-                                          <Label text="Dam ID" GridPane.rowIndex="6">
+                                          <Label text="Dam ID" textFill="#073d7f" GridPane.rowIndex="6">
                                              <font>
                                                 <Font name="Calibri Bold" size="18.0" />
                                              </font>
                                           </Label>
-                                          <Label text="Color" GridPane.rowIndex="8">
+                                          <Label text="Color" textFill="#073d7f" GridPane.rowIndex="8">
                                              <font>
                                                 <Font name="Calibri Bold" size="18.0" />
                                              </font>
                                           </Label>
-                                          <Label text="Weight at Birth" GridPane.rowIndex="9">
+                                          <Label text="Weight at Birth" textFill="#073d7f" GridPane.rowIndex="9">
                                              <font>
                                                 <Font name="Calibri Bold" size="18.0" />
                                              </font>
                                           </Label>
-                                          <Label text="Age at First Service" GridPane.rowIndex="10">
+                                          <Label text="Age at First Service" textFill="#073d7f" GridPane.rowIndex="10">
                                              <font>
                                                 <Font name="Calibri Bold" size="18.0" />
                                              </font>
                                           </Label>
-                                          <Label text="Weight at First Service" GridPane.rowIndex="11">
+                                          <Label text="Weight at First Service" textFill="#073d7f" GridPane.rowIndex="11">
                                              <font>
                                                 <Font name="Calibri Bold" size="18.0" />
                                              </font>
                                           </Label>
-                                          <Label text="Pasture" GridPane.rowIndex="12">
+                                          <Label text="Pasture" textFill="#073d7f" GridPane.rowIndex="12">
                                              <font>
                                                 <Font name="Calibri Bold" size="18.0" />
                                              </font>

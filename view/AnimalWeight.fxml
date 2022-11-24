@@ -11,6 +11,8 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -23,7 +25,12 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="807.0" prefWidth="1114.0">
                <children>
-                  <LineChart fx:id="lineChart" layoutX="391.0" layoutY="341.0" prefHeight="407.0" prefWidth="701.0" style="-fx-font-size: 16px; -fx-font-family: Arial;" title="Animal Weight Graph">
+                  <ImageView fitHeight="837.0" fitWidth="989.0" layoutX="115.0" opacity="0.52" pickOnBounds="true">
+                     <image>
+                        <Image url="@../images/Wallpaper.png" />
+                     </image>
+                  </ImageView>
+                  <LineChart fx:id="lineChart" layoutX="391.0" layoutY="341.0" opacity="0.85" prefHeight="407.0" prefWidth="701.0" style="-fx-font-size: 16px; -fx-font-family: Calibri Bold; -fx-text-fill: #073D7F;" title="Animal Weight Graph">
                     <xAxis>
                       <CategoryAxis endMargin="0.0" label="Date" side="BOTTOM" startMargin="0.0" style="-fx-font-family: Arial;" tickLabelGap="0.0" tickLabelRotation="31.6">
                            <tickLabelFont>

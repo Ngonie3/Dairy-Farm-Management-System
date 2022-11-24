@@ -11,6 +11,8 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -23,6 +25,11 @@
   <content>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="800.0" prefWidth="1163.0">
          <children>
+            <ImageView fitHeight="784.0" fitWidth="992.0" layoutX="108.0" opacity="0.52" pickOnBounds="true">
+               <image>
+                  <Image url="@../images/Wallpaper.png" />
+               </image>
+            </ImageView>
             <VBox prefHeight="690.0" prefWidth="985.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <TabPane prefHeight="741.0" prefWidth="1153.0" tabClosingPolicy="UNAVAILABLE">
@@ -96,7 +103,7 @@
                                                 <RowConstraints maxHeight="74.0" minHeight="10.0" prefHeight="74.0" vgrow="SOMETIMES" />
                                             </rowConstraints>
                                              <children>
-                                                <Label text="Heat Date">
+                                                <Label text="Heat Date" textFill="#073d7f">
                                                    <font>
                                                       <Font name="Calibri Bold" size="17.5" />
                                                    </font>
@@ -104,7 +111,7 @@
                                                       <Insets left="10.0" />
                                                    </GridPane.margin>
                                                 </Label>
-                                                <Label text="Date of AI/Bull Service/Breeding Date" wrapText="true" GridPane.rowIndex="1">
+                                                <Label text="Date of AI/Bull Service/Breeding Date" textFill="#073d7f" wrapText="true" GridPane.rowIndex="1">
                                                    <font>
                                                       <Font name="Calibri Bold" size="17.5" />
                                                    </font>
@@ -112,7 +119,7 @@
                                                       <Insets left="10.0" />
                                                    </GridPane.margin>
                                                 </Label>
-                                                <Label text="Bull Name" GridPane.rowIndex="2">
+                                                <Label text="Bull Name" textFill="#073d7f" GridPane.rowIndex="2">
                                                    <font>
                                                       <Font name="Calibri Bold" size="17.5" />
                                                    </font>
@@ -120,7 +127,7 @@
                                                       <Insets left="10.0" />
                                                    </GridPane.margin>
                                                 </Label>
-                                                <Label text="Pregnancy diagnosis date" GridPane.rowIndex="5">
+                                                <Label text="Pregnancy diagnosis date" textFill="#073d7f" GridPane.rowIndex="5">
                                                    <font>
                                                       <Font name="Calibri Bold" size="17.5" />
                                                    </font>
@@ -128,7 +135,7 @@
                                                       <Insets left="10.0" />
                                                    </GridPane.margin>
                                                 </Label>
-                                                <Label text="Cow Name" GridPane.rowIndex="4">
+                                                <Label text="Cow Name" textFill="#073d7f" GridPane.rowIndex="4">
                                                    <font>
                                                       <Font name="Calibri Bold" size="17.5" />
                                                    </font>
@@ -136,7 +143,7 @@
                                                       <Insets left="10.0" />
                                                    </GridPane.margin>
                                                 </Label>
-                                                <Label text="Date due to Calve" GridPane.rowIndex="6">
+                                                <Label text="Date due to Calve" textFill="#073d7f" GridPane.rowIndex="6">
                                                    <font>
                                                       <Font name="Calibri Bold" size="17.5" />
                                                    </font>
@@ -144,7 +151,7 @@
                                                       <Insets left="10.0" />
                                                    </GridPane.margin>
                                                 </Label>
-                                                <Label text="Date Calved" GridPane.rowIndex="7">
+                                                <Label text="Date Calved" textFill="#073d7f" GridPane.rowIndex="7">
                                                    <font>
                                                       <Font name="Calibri Bold" size="17.5" />
                                                    </font>
@@ -152,7 +159,7 @@
                                                       <Insets left="10.0" />
                                                    </GridPane.margin>
                                                 </Label>
-                                                <Label text="Age of Cow at Calving" GridPane.rowIndex="8">
+                                                <Label text="Age of Cow at Calving" textFill="#073d7f" GridPane.rowIndex="8">
                                                    <font>
                                                       <Font name="Calibri Bold" size="17.5" />
                                                    </font>
@@ -160,7 +167,7 @@
                                                       <Insets left="10.0" />
                                                    </GridPane.margin>
                                                 </Label>
-                                                <Label text="Calf Name" GridPane.rowIndex="9">
+                                                <Label text="Calf Name" textFill="#073d7f" GridPane.rowIndex="9">
                                                    <font>
                                                       <Font name="Calibri Bold" size="17.5" />
                                                    </font>
@@ -168,7 +175,7 @@
                                                       <Insets left="10.0" />
                                                    </GridPane.margin>
                                                 </Label>
-                                                <Label text="Calf ID" GridPane.rowIndex="10">
+                                                <Label text="Calf ID" textFill="#073d7f" GridPane.rowIndex="10">
                                                    <font>
                                                       <Font name="Calibri Bold" size="17.5" />
                                                    </font>
@@ -176,7 +183,7 @@
                                                       <Insets left="10.0" />
                                                    </GridPane.margin>
                                                 </Label>
-                                                <Label text="Calving Notes" GridPane.rowIndex="11">
+                                                <Label text="Calving Notes" textFill="#073d7f" GridPane.rowIndex="11">
                                                    <font>
                                                       <Font name="Calibri Bold" size="17.5" />
                                                    </font>
@@ -213,7 +220,7 @@
                                                    <font>
                                                       <Font name="Calibri" size="17.0" />
                                                    </font></TextArea>
-                                                <Label text="Bull ID" GridPane.rowIndex="3">
+                                                <Label text="Bull ID" textFill="#073d7f" GridPane.rowIndex="3">
                                                    <font>
                                                       <Font name="Calibri Bold" size="17.5" />
                                                    </font>
@@ -313,57 +320,57 @@
                                           <RowConstraints maxHeight="71.0" minHeight="10.0" prefHeight="65.0" vgrow="SOMETIMES" />
                                       </rowConstraints>
                                        <children>
-                                          <Label text="Heat Date">
+                                          <Label text="Heat Date" textFill="#073d7f">
                                              <font>
                                                 <Font name="Calibri Bold" size="17.5" />
                                              </font>
                                           </Label>
-                                          <Label text="Date of AI/Bull Service/Breeding Date" wrapText="true" GridPane.rowIndex="1">
+                                          <Label text="Date of AI/Bull Service/Breeding Date" textFill="#073d7f" wrapText="true" GridPane.rowIndex="1">
                                              <font>
                                                 <Font name="Calibri Bold" size="17.5" />
                                              </font>
                                           </Label>
-                                          <Label text="Bull Name" GridPane.rowIndex="2">
+                                          <Label text="Bull Name" textFill="#073d7f" GridPane.rowIndex="2">
                                              <font>
                                                 <Font name="Calibri Bold" size="17.5" />
                                              </font>
                                           </Label>
-                                          <Label text="Cow Name" GridPane.rowIndex="4">
+                                          <Label text="Cow Name" textFill="#073d7f" GridPane.rowIndex="4">
                                              <font>
                                                 <Font name="Calibri Bold" size="17.5" />
                                              </font>
                                           </Label>
-                                          <Label text="Pregnancy diagnosis date" GridPane.rowIndex="5">
+                                          <Label text="Pregnancy diagnosis date" textFill="#073d7f" GridPane.rowIndex="5">
                                              <font>
                                                 <Font name="Calibri Bold" size="17.5" />
                                              </font>
                                           </Label>
-                                          <Label text="Date due to Calve" GridPane.rowIndex="6">
+                                          <Label text="Date due to Calve" textFill="#073d7f" GridPane.rowIndex="6">
                                              <font>
                                                 <Font name="Calibri Bold" size="17.5" />
                                              </font>
                                           </Label>
-                                          <Label text="Date Calved" GridPane.rowIndex="7">
+                                          <Label text="Date Calved" textFill="#073d7f" GridPane.rowIndex="7">
                                              <font>
                                                 <Font name="Calibri Bold" size="17.5" />
                                              </font>
                                           </Label>
-                                          <Label text="Age of Cow at Calving" GridPane.rowIndex="8">
+                                          <Label text="Age of Cow at Calving" textFill="#073d7f" GridPane.rowIndex="8">
                                              <font>
                                                 <Font name="Calibri Bold" size="17.5" />
                                              </font>
                                           </Label>
-                                          <Label text="Calf Name" GridPane.rowIndex="9">
+                                          <Label text="Calf Name" textFill="#073d7f" GridPane.rowIndex="9">
                                              <font>
                                                 <Font name="Calibri Bold" size="17.5" />
                                              </font>
                                           </Label>
-                                          <Label text="Calf ID" GridPane.rowIndex="10">
+                                          <Label text="Calf ID" textFill="#073d7f" GridPane.rowIndex="10">
                                              <font>
                                                 <Font name="Calibri Bold" size="17.5" />
                                              </font>
                                           </Label>
-                                          <Label text="Calving Notes" GridPane.rowIndex="11">
+                                          <Label text="Calving Notes" textFill="#073d7f" GridPane.rowIndex="11">
                                              <font>
                                                 <Font name="Calibri Bold" size="17.5" />
                                              </font>
@@ -397,7 +404,7 @@
                                              <font>
                                                 <Font size="17.0" />
                                              </font></TextArea>
-                                          <Label text="Bull ID" GridPane.rowIndex="3">
+                                          <Label text="Bull ID" textFill="#073d7f" GridPane.rowIndex="3">
                                              <font>
                                                 <Font name="Calibri Bold" size="17.5" />
                                              </font>
